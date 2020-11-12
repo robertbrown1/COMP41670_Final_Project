@@ -36,10 +36,9 @@ public class Board {
 	}
 	
 	public boolean canMove(TileName name){
-		
 		int[] coordinates =  findByName(name);
 		
-		
+		return true;
 	}
 
 }
