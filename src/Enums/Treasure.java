@@ -1,8 +1,9 @@
 package Enums;
 
-public enum TreasureEnum {
+public enum Treasure {
 	EarthStone,
 	WindStatue,
 	FireCrystal,
-	OceanChalice
+	OceanChalice,
+	None;
 }

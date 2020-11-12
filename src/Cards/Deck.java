@@ -1,7 +1,7 @@
 package Cards;
 
 import java.util.*;
-import Enums.TreasureEnum;
+import Enums.Treasure;
 
 public class Deck {
 	
@@ -13,10 +13,10 @@ public class Deck {
 	    
 	    // Create TreasureCards
 	    for (int i=0;i<5;i++) {
-		    cardsInDeck.add(new TreasureCard(TreasureEnum.EarthStone));
-		    cardsInDeck.add(new TreasureCard(TreasureEnum.WindStatue));
-		    cardsInDeck.add(new TreasureCard(TreasureEnum.FireCrystal));
-		    cardsInDeck.add(new TreasureCard(TreasureEnum.OceanChalice));
+		    cardsInDeck.add(new TreasureCard(Treasure.EarthStone));
+		    cardsInDeck.add(new TreasureCard(Treasure.WindStatue));
+		    cardsInDeck.add(new TreasureCard(Treasure.FireCrystal));
+		    cardsInDeck.add(new TreasureCard(Treasure.OceanChalice));
 	    }
 
         // Create WeaponCards
