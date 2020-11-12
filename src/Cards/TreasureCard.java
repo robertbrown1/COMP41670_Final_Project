@@ -1,6 +1,6 @@
 package Cards;
 
-import Enums.TreasureEnum;
+import Enums.Treasure;
 
 public class TreasureCard extends Card {
 	/**
@@ -10,7 +10,7 @@ public class TreasureCard extends Card {
 	 * @param name
 	 *            name of the weapon card
 	 */
-	public TreasureCard(TreasureEnum name) {
+	public TreasureCard(Treasure name) {
 		super(name);
 	}
 }
