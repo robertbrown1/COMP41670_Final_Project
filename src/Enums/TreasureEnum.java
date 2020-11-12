@@ -4,5 +4,8 @@ public enum TreasureEnum {
 	EarthStone,
 	WindStatue,
 	FireCrystal,
-	OceanChalice
+	OceanChalice,
+	HelicopterLift,
+	SandBag,
+	WaterRise
 }
