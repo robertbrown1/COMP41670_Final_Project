@@ -12,7 +12,7 @@ public abstract class Card {
 		// Constructor
 		//===========================================================
 		/**
-		 * Abstract constructorfor Card object.
+		 * Abstract constructor for Card object.
 		 * @param name Enum name for card.
 		 */
 		Card(@SuppressWarnings("rawtypes") Enum name){
