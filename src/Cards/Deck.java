@@ -4,11 +4,11 @@ import java.util.*;
 
 public abstract class Deck {
 	
-	protected List<Card> cardsInDeck;
+	protected Stack<Card> cardsInDeck;
 	
 	public Deck() {
 	    // Prepare empty array of Cards
-	    this.cardsInDeck = new ArrayList<Card>();
+	    this.cardsInDeck = new Stack<Card>();
 	}
 	
 }

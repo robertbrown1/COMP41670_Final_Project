@@ -8,7 +8,11 @@ public class WaterMeter {
 		this.waterLevel = 1;
 	}
 	
-	public void increaseLevel() {
+	public int getWaterLevel() {
+		return waterLevel;
+	}
+	
+	public void increaseWaterLevel() {
 		waterLevel++;
 	}
 	
