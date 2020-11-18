@@ -11,4 +11,10 @@ public abstract class Deck {
 	    this.cardsInDeck = new Stack<Card>();
 	}
 	
+	public void shuffle() {
+		
+		Collections.shuffle(this.cardsInDeck);
+		
+	}
+	
 }

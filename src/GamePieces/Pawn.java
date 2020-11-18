@@ -18,15 +18,20 @@ public class Pawn {
 
 	private Role role;
 	private List<Card> hand = new ArrayList<Card>();
-	private TileName position;
+	private Coordinate position;
 	
 	
 	public Pawn(Role role) {
 		this.role = role;
-		position = startingTiles.get(role);
+		position = Board.findByName(startingTiles.get(role));
 	}
 
 	public Role getRole() {
 		return role;
 	}
+	
+	public Coordinate getPosition() {
+		return this.position;
+	}
+	
 }
