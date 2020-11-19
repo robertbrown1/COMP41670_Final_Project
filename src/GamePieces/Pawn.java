@@ -17,9 +17,8 @@ public class Pawn {
 	}};
 
 	private Role role;
-	private List<Card> hand = new ArrayList<Card>();
+	private ArrayList<Cards.Card> hand = new ArrayList<Cards.Card>();
 	private TileName position;
-	
 	
 	public Pawn(Role role) {
 		this.role = role;
@@ -29,4 +28,9 @@ public class Pawn {
 	public Role getRole() {
 		return role;
 	}
+	
+	public ArrayList<Cards.Card> getHand(){
+		return hand;
+	}
+	
 }

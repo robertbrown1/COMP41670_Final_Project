@@ -1,6 +1,8 @@
 import Enums.Role;
 import GamePieces.Pawn;
 import GamePieces.Tile;
+import GamePieces.WaterMeter;
+import Cards.*;
 import java.util.*;
 
 public class Game {
@@ -8,6 +10,9 @@ public class Game {
 	private static Game instance = null;
 	private final static HashMap<Role, Tile> startingTiles = new HashMap<>();
 	private List<Pawn> pawns = new ArrayList<>();
+	private Cards.Deck flood;
+	private Cards.Deck treasure;
+	private WaterMeter meter;
 
 	private Game() {}
 
@@ -32,10 +37,51 @@ public class Game {
 		}
 		System.out.println("Number of players chosen: " + numOfPlayers);
 
+		// Create flood deck
+		flood = new FloodDeck();
+		startSinking();
+		
 		// Assign player roles
 		assignRoles(numOfPlayers);
+		
+		int difficulty = 0;
+		while (difficulty < 1 || difficulty > 4) {
+			System.out.print("What difficulty would you like? Choose a number between 1 and 4: ");
+			difficulty = sc.nextInt();
+		}
+		
+		// Assign water level based on difficulty
+		meter = new WaterMeter(difficulty);
+		
+		//Create treasure deck
+		treasure = new TreasureDeck();
+		dealTreasureCards();
+		
 	}
-
+	
+	private void startSinking() {
+		Card cardDrawn;
+		for (int i = 0 ; i < 6 ; i++) {
+			cardDrawn = flood.drawCard();
+			flood.addToDiscardPile(cardDrawn);
+		}
+	}
+	
+	private void dealTreasureCards() {
+		Card cardDrawn;
+		for (Pawn p:pawns) {
+			for (int i = 0 ; i < 2 ; i++) {
+				cardDrawn = treasure.drawCard();
+				while (cardDrawn instanceof WaterRiseCard) {
+					treasure.replaceCard(cardDrawn);
+					treasure.shuffleDeck();
+					cardDrawn = treasure.drawCard();
+				}
+				p.getHand().add(cardDrawn);
+			}
+		}
+	}
+	
 	private void assignRoles(int numOfPlayers) {
 		Set<Role> chosenRoles = new HashSet<>();
 		Role[] roles = Role.values();
@@ -57,4 +103,5 @@ public class Game {
 			System.out.println("Player " + (i+1) + ": " + pawns.get(i).getRole());
 		}
 	}
+	
 }

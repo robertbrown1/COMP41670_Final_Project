@@ -4,8 +4,8 @@ public class WaterMeter {
 	
 	private int waterLevel;
 	
-	public WaterMeter() {
-		this.waterLevel = 1;
+	public WaterMeter(int difficulty) {
+		this.waterLevel = difficulty;
 	}
 	
 	public int getWaterLevel() {
