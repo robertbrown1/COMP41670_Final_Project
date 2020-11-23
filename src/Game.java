@@ -1,17 +1,16 @@
-import Enums.Role;
-import GamePieces.Pawn;
-import GamePieces.Tile;
-import GamePieces.WaterMeter;
+import Enums.*;
+import GamePieces.*;
 import Cards.*;
 import java.util.*;
 
 public class Game {
 	private static final int MAX_PLAYERS = 4;
 	private static Game instance = null;
+	private Board gameBoard;
 	private final static HashMap<Role, Tile> startingTiles = new HashMap<>();
 	private List<Pawn> pawns = new ArrayList<>();
-	private Cards.Deck flood;
-	private Cards.Deck treasure;
+	private FloodDeck flood;
+	private TreasureDeck treasure;
 	private WaterMeter meter;
 
 	private Game() {}
@@ -27,6 +26,7 @@ public class Game {
 	}
 
 	private void setup() {
+		gameBoard = new Board();
 		Scanner sc = new Scanner(System.in);
 
 		// Select number of players
@@ -61,9 +61,11 @@ public class Game {
 	}
 	
 	private void startSinking() {
-		Card cardDrawn;
+		TileCard cardDrawn;
 		for (int i = 0 ; i < 6 ; i++) {
 			cardDrawn = flood.drawCard();
+			Coordinate Tile = gameBoard.findByName(cardDrawn.getName());
+			gameBoard.getTile(Tile).floodTile();
 			flood.addToDiscardPile(cardDrawn);
 		}
 	}

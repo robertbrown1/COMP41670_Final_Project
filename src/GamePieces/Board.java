@@ -10,7 +10,6 @@ public class Board {
 	private List<TileName> tileNames = Arrays.asList(TileName.values());
 	
 	public Board() {
-		
 		Collections.shuffle(tileNames);
 		Iterator<TileName> itr = tileNames.iterator();
 		for (int x = 0; x < 6; x++) {

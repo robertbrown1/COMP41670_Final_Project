@@ -28,4 +28,8 @@ public class TreasureDeck extends Deck {
 	    super.shuffleDeck();
 	}
 	
+	public Card drawCard() {
+		return super.drawCard();
+	}
+	
 }

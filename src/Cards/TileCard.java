@@ -13,4 +13,8 @@ public class TileCard extends Card {
 	public TileCard(TileName name) {
 		super(name);
 	}
+	
+	public TileName getName() {
+		return (TileName) super.getName();
+	}
 }

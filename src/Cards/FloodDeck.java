@@ -35,4 +35,8 @@ public class FloodDeck extends Deck {
 		super.shuffleDeck();
 	}
 	
+	public TileCard drawCard() {
+		return (TileCard) super.drawCard();
+	}
+	
 }
