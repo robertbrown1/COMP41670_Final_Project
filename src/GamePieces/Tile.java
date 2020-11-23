@@ -43,4 +43,8 @@ public class Tile {
 		return this.name;
 	}
 
+	public void floodTile() {
+		flooded = true;
+	}
+	
 }

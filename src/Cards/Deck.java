@@ -34,4 +34,10 @@ public abstract class Deck {
 		cardsInDeck.push(c);
 	}
 	
+	public void shuffle() {
+		
+		Collections.shuffle(this.cardsInDeck);
+		
+	}
+	
 }

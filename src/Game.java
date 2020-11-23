@@ -31,10 +31,11 @@ public class Game {
 
 		// Select number of players
 		int numOfPlayers = 0;
-		while (numOfPlayers < 2 || numOfPlayers > 4) {
+		while (numOfPlayers < 2 || numOfPlayers > MAX_PLAYERS) {
 			System.out.print("How many players will play? Choose a number between 2 and 4: ");
 			numOfPlayers = sc.nextInt();
 		}
+		sc.close();
 		System.out.println("Number of players chosen: " + numOfPlayers);
 
 		// Create flood deck
@@ -104,4 +105,7 @@ public class Game {
 		}
 	}
 	
+	private boolean gameOver() {
+		return false;	
+	}
 }
