@@ -4,7 +4,15 @@ import Enums.TileName;
 
 public class FloodDeck extends Deck {
 	
-	public FloodDeck() {
+	private static FloodDeck instance = null;
+	
+	public static FloodDeck getInstance() {
+		if (instance == null)
+			instance = new FloodDeck();
+		return instance;
+	}
+	
+	private FloodDeck() {
 		// Prepare empty array of Cards
 		super();
 		// Create TileCards
@@ -33,10 +41,6 @@ public class FloodDeck extends Deck {
 		super.cardsInDeck.push(new TileCard(TileName.TempleOfTheSun));
 		super.cardsInDeck.push(new TileCard(TileName.TempleOfTheMoon));
 		super.shuffleDeck();
-	}
-	
-	public TileCard drawCard() {
-		return (TileCard) super.drawCard();
 	}
 	
 }

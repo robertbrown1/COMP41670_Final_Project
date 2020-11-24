@@ -57,9 +57,9 @@ public class Board {
 		return false;		
 	}
 	
-	public Tile getTile(Coordinate point) {
+	public static Tile getTile(Coordinate point) {
 		
-		return this.board[point.getX()][point.getY()];
+		return board[point.getX()][point.getY()];
 		
 	}
 

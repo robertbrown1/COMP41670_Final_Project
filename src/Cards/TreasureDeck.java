@@ -4,7 +4,15 @@ import Enums.Treasure;
 
 public class TreasureDeck extends Deck {
 	
-	public TreasureDeck() {
+	private static TreasureDeck instance = null;
+	
+	public static TreasureDeck getInstance() {
+		if (instance == null)
+			instance = new TreasureDeck();
+		return instance;
+	}
+	
+	private TreasureDeck() {
 	    super();
 	    // Create TreasureCards
 	    for (int i = 0 ; i < 5 ; i++) {
@@ -27,9 +35,5 @@ public class TreasureDeck extends Deck {
 	    }
 	    super.shuffleDeck();
 	}
-	
-	public Card drawCard() {
-		return super.drawCard();
-	}
-	
+
 }

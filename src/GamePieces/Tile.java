@@ -43,8 +43,12 @@ public class Tile {
 		return this.name;
 	}
 
-	public void floodTile() {
-		flooded = true;
+	public boolean getSinkStatus() {
+		return sunk;
+	}
+	
+	public void setFloodStatus(boolean status) {
+		flooded = status;
 	}
 	
 }

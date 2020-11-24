@@ -24,7 +24,7 @@ public abstract class Card {
 		//===========================================================
 		// getter for card's name
 		@SuppressWarnings("rawtypes")
-	    protected Enum getName() {
+	    public Enum getName() {
 			return this.name;
 		}
 	

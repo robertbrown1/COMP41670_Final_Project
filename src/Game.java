@@ -39,7 +39,7 @@ public class Game {
 		System.out.println("Number of players chosen: " + numOfPlayers);
 
 		// Create flood deck
-		flood = new FloodDeck();
+		flood = FloodDeck.getInstance();
 		startSinking();
 		
 		// Assign player roles
@@ -52,20 +52,20 @@ public class Game {
 		}
 		
 		// Assign water level based on difficulty
-		meter = new WaterMeter(difficulty);
+		meter = WaterMeter.getInstance(difficulty);
 		
 		//Create treasure deck
-		treasure = new TreasureDeck();
+		treasure = TreasureDeck.getInstance();
 		dealTreasureCards();
 		
 	}
 	
 	private void startSinking() {
-		TileCard cardDrawn;
+		Card cardDrawn;
 		for (int i = 0 ; i < 6 ; i++) {
 			cardDrawn = flood.drawCard();
-			Coordinate Tile = gameBoard.findByName(cardDrawn.getName());
-			gameBoard.getTile(Tile).floodTile();
+			Coordinate Tile = Board.findByName((TileName)cardDrawn.getName());
+			Board.getTile(Tile).setFloodStatus(true);
 			flood.addToDiscardPile(cardDrawn);
 		}
 	}

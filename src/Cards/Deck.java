@@ -12,7 +12,7 @@ public abstract class Deck {
 	    this.discardPile = new Stack<Card>(); // Initialize discard pile
 	}
 	
-	protected Card drawCard() {
+	public Card drawCard() {
 		if (cardsInDeck.isEmpty()) {
 			shuffleDeck();
 		}
@@ -35,9 +35,7 @@ public abstract class Deck {
 	}
 	
 	public void shuffle() {
-		
-		Collections.shuffle(this.cardsInDeck);
-		
+		Collections.shuffle(this.cardsInDeck);	
 	}
 	
 }

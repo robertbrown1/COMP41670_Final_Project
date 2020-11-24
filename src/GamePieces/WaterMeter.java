@@ -1,10 +1,18 @@
 package GamePieces;
 
+
 public class WaterMeter {
 	
 	private int waterLevel;
+	private static WaterMeter instance = null;
 	
-	public WaterMeter(int difficulty) {
+	public static WaterMeter getInstance(int difficulty) {
+		if (instance == null)
+			instance = new WaterMeter(difficulty);
+		return instance;
+	}
+	
+	private WaterMeter(int difficulty) {
 		this.waterLevel = difficulty;
 	}
 	
