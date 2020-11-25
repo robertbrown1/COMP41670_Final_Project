@@ -6,11 +6,10 @@ import Enums.TileName;
 
 public class Board {
 	
-	private Tile[][] board = new Tile[6][6];
+	private static Tile[][] board = new Tile[6][6];
 	private List<TileName> tileNames = Arrays.asList(TileName.values());
 	
 	public Board() {
-		
 		Collections.shuffle(tileNames);
 		Iterator<TileName> itr = tileNames.iterator();
 		for (int x = 0; x < 6; x++) {
@@ -22,23 +21,46 @@ public class Board {
 		}
 	}
 	
-	private int[] findByName(TileName name) {
+	public static Coordinate findByName(TileName name) {
 		for (int x = 0; x < 6; x++) {
 			for (int y = 0; y < 6; y++) {
 				if (board[x][y] != null) {
 					if (board[x][y].getTileName() == name){
-						return new int[] {x, y};
+						return new Coordinate(x, y);
 					}
 				}
 			}
 		}
-		return new int[] {-1};
+		return new Coordinate(-1, -1);
 	}
 	
-	public boolean canMove(TileName name){
-		int[] coordinates =  findByName(name);
+	public boolean canMove(Coordinate point) {
+		if (isTile(point.up())
+				|| isTile(point.down())
+				|| isTile(point.left())
+				|| isTile(point.right())) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	public boolean isTile(Coordinate point) {
 		
-		return true;
+		if (point.getX() >= 0 && point.getX() < 6 &&
+				point.getY() >= 0 && point.getY() < 6) {
+			if (getTile(point) != null) {
+				return true;
+			}
+		}
+		return false;		
+	}
+	
+	public static Tile getTile(Coordinate point) {
+		
+		return board[point.getX()][point.getY()];
+		
 	}
 
 }

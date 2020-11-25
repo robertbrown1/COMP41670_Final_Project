@@ -1,13 +1,18 @@
 package Cards;
 
 import Enums.TileName;
-import java.util.*;
 
 public class FloodDeck extends Deck {
 	
-	private Stack<Card> floodDiscard;
+	private static FloodDeck instance = null;
 	
-	public FloodDeck() {
+	public static FloodDeck getInstance() {
+		if (instance == null)
+			instance = new FloodDeck();
+		return instance;
+	}
+	
+	private FloodDeck() {
 		// Prepare empty array of Cards
 		super();
 		// Create TileCards
@@ -35,27 +40,7 @@ public class FloodDeck extends Deck {
 		super.cardsInDeck.push(new TileCard(TileName.IronGate));
 		super.cardsInDeck.push(new TileCard(TileName.TempleOfTheSun));
 		super.cardsInDeck.push(new TileCard(TileName.TempleOfTheMoon));
-		Collections.shuffle(super.cardsInDeck);
-		this.floodDiscard = new Stack<Card>(); // Initialize flood discard pile
-	}
-	
-	public Stack<Card> drawFloodCards(int numOfCards) {
-		Stack<Card> cardsDrawn = new Stack<Card>();
-		for (int i = 0; i < numOfCards; i++) {
-			if (super.cardsInDeck.isEmpty()) {
-				shuffleFloodDeck();
-			}
-			cardsDrawn.push(super.cardsInDeck.peek());
-			floodDiscard.push(super.cardsInDeck.pop());
-		}
-		return cardsDrawn;
-	}
-	
-	public void shuffleFloodDeck() {
-		while (!floodDiscard.isEmpty()) {
-			super.cardsInDeck.push(floodDiscard.pop());
-		}
-		Collections.shuffle(super.cardsInDeck);
+		super.shuffleDeck();
 	}
 	
 }

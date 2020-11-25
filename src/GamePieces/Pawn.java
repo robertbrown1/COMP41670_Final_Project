@@ -2,8 +2,8 @@ package GamePieces;
 
 import java.util.*;
 
-import Enums.Role;
-import Enums.TileName;
+import Enums.*;
+import Cards.*;
 
 public class Pawn {
 
@@ -18,15 +18,34 @@ public class Pawn {
 
 	private Role role;
 	private List<Card> hand = new ArrayList<Card>();
-	private TileName position;
-	
+	private Coordinate position;
 	
 	public Pawn(Role role) {
 		this.role = role;
-		position = startingTiles.get(role);
+		position = Board.findByName(startingTiles.get(role));
+	}
+	
+	public boolean shoreUp(Coordinate point) {
+		Tile floodedTile = Board.getTile(point);
+		if (floodedTile.getSinkStatus() == false) {
+			floodedTile.setFloodStatus(false);
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 
 	public Role getRole() {
 		return role;
 	}
+	
+	public List<Card> getHand(){
+		return hand;
+	}
+
+	public Coordinate getPosition() {
+		return this.position;
+	}
+	
 }
