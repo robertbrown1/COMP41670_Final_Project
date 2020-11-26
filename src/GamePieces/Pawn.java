@@ -37,11 +37,11 @@ public class Pawn {
 	}
 
 	public Role getRole() {
-		return role;
+		return this.role;
 	}
 	
 	public List<Card> getHand(){
-		return hand;
+		return this.hand;
 	}
 
 	public Coordinate getPosition() {
