@@ -44,11 +44,11 @@ public class Tile {
 	}
 
 	public boolean getSinkStatus() {
-		return sunk;
+		return this.sunk;
 	}
 	
 	public void setFloodStatus(boolean status) {
-		flooded = status;
+		this.flooded = status;
 	}
 	
 }

@@ -5,6 +5,7 @@ import java.util.*;
 
 public class Game {
 	private static final int MAX_PLAYERS = 4;
+	private static final int MIN_PLAYERS = 2;
 	private static Game instance = null;
 	private Board gameBoard;
 	private final static HashMap<Role, Tile> startingTiles = new HashMap<>();
@@ -31,7 +32,7 @@ public class Game {
 
 		// Select number of players
 		int numOfPlayers = 0;
-		while (numOfPlayers < 2 || numOfPlayers > MAX_PLAYERS) {
+		while (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) {
 			System.out.print("How many players will play? Choose a number between 2 and 4: ");
 			numOfPlayers = sc.nextInt();
 		}
@@ -108,6 +109,21 @@ public class Game {
 	}
 	
 	private boolean gameOver() {
-		return false;	
+		
+		return gameWon() || gameLost();	
+		
 	}
+	
+	private boolean gameWon() {
+		
+		
+		
+	}
+	
+	private boolean gameLost() {
+		
+		
+		
+	}
+	
 }
