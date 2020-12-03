@@ -1,6 +1,6 @@
-package Cards;
+package cards;
 
-import Enums.TileName;
+import enums.TileName;
 
 public class FloodDeck extends Deck {
 	

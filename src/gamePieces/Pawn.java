@@ -1,13 +1,13 @@
-package GamePieces;
+package gamePieces;
 
 import java.util.*;
 
-import Enums.*;
-import Cards.*;
+import cards.*;
+import enums.*;
 
 public class Pawn {
 
-	private static final Map<Role, TileName> startingTiles = new HashMap<>() {{
+	private static final Map<Role, TileName> startingTiles = new HashMap<Role, TileName>() {{
 			put(Role.Diver, TileName.IronGate);
 			put(Role.Engineer, TileName.BronzeGate);
 			put(Role.Explorer, TileName.CopperGate);
