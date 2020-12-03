@@ -25,6 +25,7 @@ public enum TileName {
 	LostLagoon,
 	IronGate,
 	TempleOfTheSun,
-	TempleOfTheMoon;
+	TempleOfTheMoon,
+	None;
 
 }

@@ -1,8 +1,11 @@
 package main;
+
+import setup.Setup;
+
 public class Main {
 
     public static void main(String[] args) {
-        Game game = Game.getInstance();
-        game.start();
+    	Setup setup = Setup.getInstance();
+    	setup.doAllSetup();
     }
 }
