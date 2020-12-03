@@ -1,9 +1,12 @@
-package gamePieces;
+package players;
 
 import java.util.*;
 
 import cards.*;
 import enums.*;
+import gamePieces.Board;
+import gamePieces.Coordinate;
+import gamePieces.Tile;
 
 public class Pawn {
 

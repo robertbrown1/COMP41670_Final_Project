@@ -1,6 +1,8 @@
+package main;
 import cards.*;
 import enums.*;
 import gamePieces.*;
+import players.Pawn;
 
 import java.util.*;
 
@@ -116,15 +118,11 @@ public class Game {
 	}
 	
 	private boolean gameWon() {
-		
-		
-		
+		return true;
 	}
 	
 	private boolean gameLost() {
-		
-		
-		
+		return true;
 	}
 	
 }
