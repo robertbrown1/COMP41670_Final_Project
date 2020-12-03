@@ -1,6 +1,6 @@
-package GamePieces;
+package gamePieces;
 
-import Enums.*;
+import enums.*;
 
 public class Tile {
 	

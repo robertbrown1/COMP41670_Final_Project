@@ -1,6 +1,6 @@
-package Cards;
+package cards;
 
-import Enums.Treasure;
+import enums.Treasure;
 
 public class TreasureDeck extends Deck {
 	

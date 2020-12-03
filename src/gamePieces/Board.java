@@ -1,13 +1,20 @@
-package GamePieces;
+package gamePieces;
 
 import java.util.*;
 
-import Enums.TileName;
+import enums.TileName;
 
 public class Board {
 	
 	private static Tile[][] board = new Tile[6][6];
 	private List<TileName> tileNames = Arrays.asList(TileName.values());
+	private static Board instance = null;
+	
+	public static Board getInstance() {
+		if (instance == null)
+			instance = new Board();
+		return instance;
+	}
 	
 	public Board() {
 		Collections.shuffle(tileNames);

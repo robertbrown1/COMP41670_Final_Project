@@ -1,6 +1,7 @@
-import Enums.*;
-import GamePieces.*;
-import Cards.*;
+import cards.*;
+import enums.*;
+import gamePieces.*;
+
 import java.util.*;
 
 public class Game {
@@ -27,7 +28,7 @@ public class Game {
 	}
 
 	private void setup() {
-		gameBoard = new Board();
+		gameBoard = Board.getInstance();
 		Scanner sc = new Scanner(System.in);
 
 		// Select number of players

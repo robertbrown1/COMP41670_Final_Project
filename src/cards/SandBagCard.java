@@ -1,8 +1,8 @@
-package Cards;
+package cards;
 
-import Enums.Treasure;
+import enums.Treasure;
 
-public class WaterRiseCard extends Card {
+public class SandBagCard extends Card {
 	/**
 	 * calls the super constructor to create a card specific to the weapons in
 	 * the game.
@@ -10,7 +10,7 @@ public class WaterRiseCard extends Card {
 	 * @param name
 	 *            name of the weapon card
 	 */
-	public WaterRiseCard(Treasure name) {
+	public SandBagCard(Treasure name) {
 		super(name);
 	}
 }

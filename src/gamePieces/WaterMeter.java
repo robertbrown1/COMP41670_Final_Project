@@ -1,4 +1,4 @@
-package GamePieces;
+package gamePieces;
 
 
 public class WaterMeter {
