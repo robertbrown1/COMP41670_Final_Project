@@ -6,10 +6,10 @@ public class Tile {
 	
 	private boolean flooded;
 	private boolean sunk;
-	private TileName name;
-	private Treasure treasure;
+	private TileNameEnum name;
+	private TreasureEnum treasure;
 	
-	public Tile(TileName name) {
+	public Tile(TileNameEnum name) {
 		
 		this.flooded = false;
 		this.sunk = false;
@@ -18,28 +18,28 @@ public class Tile {
 		switch(this.name)
 	    {
 		    case TempleOfTheMoon:
-		    	this.treasure = Treasure.EarthStone;
+		    	this.treasure = TreasureEnum.EarthStone;
 		    case TempleOfTheSun:
-		    	this.treasure = Treasure.EarthStone;
+		    	this.treasure = TreasureEnum.EarthStone;
 		    case WhisperingGarden:
-		    	this.treasure = Treasure.WindStatue;
+		    	this.treasure = TreasureEnum.WindStatue;
 		    case HowlingGarden:
-		    	this.treasure = Treasure.WindStatue;
+		    	this.treasure = TreasureEnum.WindStatue;
 		    case CaveOfEmbers:
-		    	this.treasure = Treasure.FireCrystal;
+		    	this.treasure = TreasureEnum.FireCrystal;
 		    case CaveOfShadows:
-		    	this.treasure = Treasure.FireCrystal;
+		    	this.treasure = TreasureEnum.FireCrystal;
 		    case CoralPalace:
-		    	this.treasure = Treasure.OceanChalice;
+		    	this.treasure = TreasureEnum.OceanChalice;
 		    case TidalPalace:
-		    	this.treasure = Treasure.OceanChalice;
+		    	this.treasure = TreasureEnum.OceanChalice;
 		    default:
-		    	this.treasure = Treasure.None;
+		    	this.treasure = TreasureEnum.None;
 	    }	
 		
 	}
 	
-	public TileName getTileName() {
+	public TileNameEnum getTileName() {
 		return this.name;
 	}
 

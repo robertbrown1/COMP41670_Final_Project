@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
 
-import enums.Role;
+import enums.RoleEnum;
 import players.*;
 
 public class PlayerSetup {
@@ -41,8 +41,8 @@ public class PlayerSetup {
 	}
 	
 	public void assignRoles() {
-		Set<Role> chosenRoles = new HashSet<>();
-		Role[] roles = Role.values();
+		Set<RoleEnum> chosenRoles = new HashSet<>();
+		RoleEnum[] roles = RoleEnum.values();
 		Random rand = new Random();
 		int choice;
 

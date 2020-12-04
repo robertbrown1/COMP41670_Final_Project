@@ -1,6 +1,6 @@
 package cards;
 
-import enums.Treasure;
+import enums.TreasureEnum;
 
 public class SandBagCard extends Card {
 	/**
@@ -10,7 +10,7 @@ public class SandBagCard extends Card {
 	 * @param name
 	 *            name of the weapon card
 	 */
-	public SandBagCard(Treasure name) {
+	public SandBagCard(TreasureEnum name) {
 		super(name);
 	}
 }

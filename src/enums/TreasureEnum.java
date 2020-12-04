@@ -1,6 +1,6 @@
 package enums;
 
-public enum Treasure {
+public enum TreasureEnum {
 	EarthStone,
 	WindStatue,
 	FireCrystal,

@@ -1,6 +1,7 @@
 package players;
 
-import enums.TileName;
+import cards.Card;
+import enums.TileNameEnum;
 
 public class MessengerPawn extends Pawn {
 	
@@ -13,7 +14,13 @@ public class MessengerPawn extends Pawn {
 	}
 	
 	public MessengerPawn() {
-		super(TileName.SilverGate);
+		super(TileNameEnum.SilverGate);
+	}
+	
+	@Override
+	public boolean giveTreasureCard(Card treasureCard, Pawn p) {
+		p.getHand().add(treasureCard);
+		return true;
 	}
 	
 }

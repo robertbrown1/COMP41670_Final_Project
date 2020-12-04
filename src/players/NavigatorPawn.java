@@ -1,6 +1,6 @@
 package players;
 
-import enums.TileName;
+import enums.TileNameEnum;
 
 public class NavigatorPawn extends Pawn {
 	
@@ -13,7 +13,7 @@ public class NavigatorPawn extends Pawn {
 	}
 	
 	public NavigatorPawn() {
-		super(TileName.GoldGate);
+		super(TileNameEnum.GoldGate);
 	}
 	
 }

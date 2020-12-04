@@ -1,6 +1,6 @@
 package enums;
 
-public enum TileName {
+public enum TileNameEnum {
 	
 	TwilightHollow,
 	TidalPalace, 

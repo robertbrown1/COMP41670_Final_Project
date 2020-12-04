@@ -1,6 +1,6 @@
 package cards;
 
-import enums.TileName;
+import enums.TileNameEnum;
 
 public class TileCard extends Card {
 	/**
@@ -10,7 +10,7 @@ public class TileCard extends Card {
 	 * @param name
 	 *            name of the weapon card
 	 */
-	public TileCard(TileName name) {
+	public TileCard(TileNameEnum name) {
 		super(name);
 	}
 }

@@ -1,6 +1,6 @@
 package cards;
 
-import enums.TileName;
+import enums.TileNameEnum;
 
 public class FloodDeck extends Deck {
 	
@@ -16,30 +16,30 @@ public class FloodDeck extends Deck {
 		// Prepare empty array of Cards
 		super();
 		// Create TileCards
-		super.cardsInDeck.push(new TileCard(TileName.TwilightHollow));
-		super.cardsInDeck.push(new TileCard(TileName.TidalPalace));
-		super.cardsInDeck.push(new TileCard(TileName.BreakersBridge));
-		super.cardsInDeck.push(new TileCard(TileName.BronzeGate));
-		super.cardsInDeck.push(new TileCard(TileName.CaveOfEmbers));
-		super.cardsInDeck.push(new TileCard(TileName.CaveOfShadows));
-		super.cardsInDeck.push(new TileCard(TileName.CliffsOfAbandon));
-		super.cardsInDeck.push(new TileCard(TileName.CopperGate));
-		super.cardsInDeck.push(new TileCard(TileName.CoralPalace));
-		super.cardsInDeck.push(new TileCard(TileName.CrimsonForest));
-		super.cardsInDeck.push(new TileCard(TileName.PhantomRock));
-		super.cardsInDeck.push(new TileCard(TileName.Watchtower));
-		super.cardsInDeck.push(new TileCard(TileName.DunesOfDeception));
-		super.cardsInDeck.push(new TileCard(TileName.FoolsLanding));
-		super.cardsInDeck.push(new TileCard(TileName.GoldGate));
-		super.cardsInDeck.push(new TileCard(TileName.HowlingGarden));
-		super.cardsInDeck.push(new TileCard(TileName.WhisperingGarden));
-		super.cardsInDeck.push(new TileCard(TileName.SilverGate));
-		super.cardsInDeck.push(new TileCard(TileName.Observatory));
-		super.cardsInDeck.push(new TileCard(TileName.MistyMarsh));
-		super.cardsInDeck.push(new TileCard(TileName.LostLagoon));
-		super.cardsInDeck.push(new TileCard(TileName.IronGate));
-		super.cardsInDeck.push(new TileCard(TileName.TempleOfTheSun));
-		super.cardsInDeck.push(new TileCard(TileName.TempleOfTheMoon));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.TwilightHollow));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.TidalPalace));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.BreakersBridge));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.BronzeGate));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.CaveOfEmbers));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.CaveOfShadows));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.CliffsOfAbandon));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.CopperGate));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.CoralPalace));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.CrimsonForest));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.PhantomRock));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.Watchtower));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.DunesOfDeception));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.FoolsLanding));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.GoldGate));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.HowlingGarden));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.WhisperingGarden));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.SilverGate));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.Observatory));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.MistyMarsh));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.LostLagoon));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.IronGate));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.TempleOfTheSun));
+		super.cardsInDeck.push(new TileCard(TileNameEnum.TempleOfTheMoon));
 		super.shuffleDeck();
 	}
 	

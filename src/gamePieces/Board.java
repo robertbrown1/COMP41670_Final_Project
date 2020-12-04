@@ -1,6 +1,6 @@
 package gamePieces;
 
-import enums.TileName;
+import enums.TileNameEnum;
 
 public class Board {
 	
@@ -16,7 +16,7 @@ public class Board {
 	public Board() {
 		for (int x = 0; x < 6; x++) {         // For each row in Board
             for (int y = 0; y < 6; y++) {     // For each column in row
-            	board[x][y] = new Tile(TileName.None);
+            	board[x][y] = new Tile(TileNameEnum.None);
             }
 		}
 //		Collections.shuffle(tileNames);
@@ -30,7 +30,7 @@ public class Board {
 //		}
 	}
 	
-	public static Coordinate findByName(TileName name) {
+	public static Coordinate findByName(TileNameEnum name) {
 		for (int x = 0; x < 6; x++) {
 			for (int y = 0; y < 6; y++) {
 				if (board[x][y] != null) {

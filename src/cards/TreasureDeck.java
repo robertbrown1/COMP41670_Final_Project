@@ -1,6 +1,6 @@
 package cards;
 
-import enums.Treasure;
+import enums.TreasureEnum;
 
 public class TreasureDeck extends Deck {
 	
@@ -16,22 +16,22 @@ public class TreasureDeck extends Deck {
 	    super();
 	    // Create TreasureCards
 	    for (int i = 0 ; i < 5 ; i++) {
-		    super.cardsInDeck.push(new TreasureCard(Treasure.EarthStone));
-		    super.cardsInDeck.push(new TreasureCard(Treasure.WindStatue));
-		    super.cardsInDeck.push(new TreasureCard(Treasure.FireCrystal));
-		    super.cardsInDeck.push(new TreasureCard(Treasure.OceanChalice));
+		    super.cardsInDeck.push(new TreasureCard(TreasureEnum.EarthStone));
+		    super.cardsInDeck.push(new TreasureCard(TreasureEnum.WindStatue));
+		    super.cardsInDeck.push(new TreasureCard(TreasureEnum.FireCrystal));
+		    super.cardsInDeck.push(new TreasureCard(TreasureEnum.OceanChalice));
 	    }
 	    // Create HelicopterLiftCards
 	    for (int i = 0 ; i < 3 ; i++) {
-		    super.cardsInDeck.push(new HelicopterLiftCard(Treasure.HelicopterLift));
+		    super.cardsInDeck.push(new HelicopterLiftCard(TreasureEnum.HelicopterLift));
 	    }
 	    // Create SandBagCards
 	    for (int i = 0 ; i < 2 ; i++) {
-		    super.cardsInDeck.push(new SandBagCard(Treasure.SandBag));
+		    super.cardsInDeck.push(new SandBagCard(TreasureEnum.SandBag));
 	    }
 	    // Create WaterRiseCards
 	    for (int i = 0 ; i < 3 ; i++) {
-		    super.cardsInDeck.push(new WaterRiseCard(Treasure.WaterRise));
+		    super.cardsInDeck.push(new WaterRiseCard(TreasureEnum.WaterRise));
 	    }
 	    super.shuffleDeck();
 	}
