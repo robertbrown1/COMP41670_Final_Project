@@ -1,8 +1,8 @@
-package Cards;
+package cards;
 
-import Enums.Treasure;
+import enums.TreasureEnum;
 
-public class TreasureCard extends Card {
+public class HelicopterLiftCard extends Card {
 	/**
 	 * calls the super constructor to create a card specific to the weapons in
 	 * the game.
@@ -10,7 +10,7 @@ public class TreasureCard extends Card {
 	 * @param name
 	 *            name of the weapon card
 	 */
-	public TreasureCard(Treasure name) {
+	public HelicopterLiftCard(TreasureEnum name) {
 		super(name);
 	}
 }

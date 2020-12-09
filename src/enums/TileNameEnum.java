@@ -1,6 +1,6 @@
-package Enums;
+package enums;
 
-public enum TileName {
+public enum TileNameEnum {
 	
 	TwilightHollow,
 	TidalPalace, 
@@ -25,6 +25,7 @@ public enum TileName {
 	LostLagoon,
 	IronGate,
 	TempleOfTheSun,
-	TempleOfTheMoon;
+	TempleOfTheMoon,
+	None;
 
 }

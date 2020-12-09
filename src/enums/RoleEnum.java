@@ -1,6 +1,6 @@
-package Enums;
+package enums;
 
-public enum Role {
+public enum RoleEnum {
 	
 	Engineer, 
 	Diver, 
