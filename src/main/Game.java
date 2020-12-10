@@ -1,6 +1,7 @@
 package main;
 
 public class Game {
+	
 	private static Game instance = null;
 
 	private Game() {}
@@ -18,11 +19,15 @@ public class Game {
 	}
 	
 	private boolean gameWon() {
+		
 		return true;
+		
 	}
 	
 	private boolean gameLost() {
+		
 		return true;
+		
 	}
 	
 }

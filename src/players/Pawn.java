@@ -36,10 +36,10 @@ public abstract class Pawn {
 		}
 	}
 	
-	public boolean captureTreasure(TreasureEnum treasureName) {
+	public boolean captureTreasure(Treasure treasure) {
 		Stack<Card> checkCards = new Stack<Card>();
 		for (int i = 0 ; i < 3 ; i++) {
-			Card c = getCard(treasureName);
+			Card c = getCard(treasure.getName());
 			if (c == null) {
 				while(!checkCards.isEmpty()) {
 					hand.add(checkCards.pop());
@@ -50,26 +50,14 @@ public abstract class Pawn {
 				checkCards.push(c);
 			}
 		}
+		
 		while(!checkCards.isEmpty()) {
 			TreasureDeck.getInstance().addToDiscardPile(checkCards.pop());
 		}
-		switch(treasureName)
-	    {
-		    case EarthStone:
-		    	EarthTreasure.getInstance().collectTreasure();
-		    	return true;
-		    case WindStatue:
-		    	WindTreasure.getInstance().collectTreasure();
-		    	return true;
-		    case FireCrystal:
-		    	FireTreasure.getInstance().collectTreasure();
-		    	return true;
-		    case OceanChalice:
-		    	OceanTreasure.getInstance().collectTreasure();
-		    	return true;
-		    default:
-		    	return false;
-	    }
+		
+    	treasure.collectTreasure();
+    	return true;
+
 	}
 	
 	public Card getCard(TreasureEnum card) {

@@ -1,5 +1,7 @@
 package setup;
 
+import java.util.Scanner;
+
 public class Setup {
 	
 	//===========================================================
@@ -47,16 +49,11 @@ public class Setup {
 
     public void doAllSetup() {
     	
-        boardHandler.assignTiles();
-        
+        boardHandler.assignTiles(); 
         playerHandler.findPlayers();
-        
         playerHandler.assignRoles();
-        
         floodHandler.startSinking();
-        
         treasureHandler.dealTreasureCards();
-        
         waterHandler.findDifficulty();
         
     }

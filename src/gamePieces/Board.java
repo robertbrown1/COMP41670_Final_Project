@@ -16,7 +16,7 @@ public class Board {
 	public Board() {
 		for (int x = 0; x < 6; x++) {         // For each row in Board
             for (int y = 0; y < 6; y++) {     // For each column in row
-            	board[x][y] = new Tile(TileNameEnum.None);
+            	board[x][y] = null;
             }
 		}
 //		Collections.shuffle(tileNames);
@@ -40,6 +40,7 @@ public class Board {
 				}
 			}
 		}
+		System.out.println(name);
 		return new Coordinate(-1, -1);
 	}
 	
