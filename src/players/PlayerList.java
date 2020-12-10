@@ -28,10 +28,14 @@ public class PlayerList {
      * @return The PlayerList object
      */
     public static PlayerList getInstance(){
+    	
         if(thePlayerList == null){
+        	
         	thePlayerList = new PlayerList();
         }
+        
         return thePlayerList;
+        
     }
     
     
@@ -42,7 +46,9 @@ public class PlayerList {
      * constructor of a new PlayerList
      */
     private PlayerList() { 
+    	
     	this.playerList = new ArrayList<Pawn>();
+    	
     }
     
     //===========================================================
@@ -53,7 +59,9 @@ public class PlayerList {
      * @return integer representing number of Player s in game
      */
     public int getNumPlayers() {
+    	
     	return playerList.size();
+    	
     }
     
     /**
@@ -62,7 +70,9 @@ public class PlayerList {
      * @return Player at that index
      */
     public Pawn getPlayer(int i) {
+    	
     	return playerList.get(i-1);
+    	
     }
     
     /**
@@ -71,7 +81,9 @@ public class PlayerList {
      * @return Their index, an integer number
      */
     public int getPlayerIndex(Pawn player){
+    	
     	return playerList.indexOf(player)+1;
+    	
     }
     
     /**
@@ -80,7 +92,9 @@ public class PlayerList {
      * @param updatedPlayer The updated Player object
      */
     public void setPlayer(int i, Pawn updatedPlayer) {
+    	
     	playerList.set(i-1, updatedPlayer);
+    	
     }
     
     /**
@@ -88,7 +102,9 @@ public class PlayerList {
      * @param newPlayer The Player object to be added
      */
     public void addPlayer(Pawn newPlayer) {
+    	
     	playerList.add(newPlayer);
+    	
     }
     
     /**
@@ -96,7 +112,9 @@ public class PlayerList {
      * @return a List of Player objects
      */
     public List<Pawn> getAllPlayers(){
+    	
     	return playerList;
+    	
     }
     
 	//===========================================================
@@ -104,7 +122,9 @@ public class PlayerList {
 	//===========================================================
 	
 	public void destroyMe() {
+		
 	    playerList = null;
+	    
 	}
 	
 }
