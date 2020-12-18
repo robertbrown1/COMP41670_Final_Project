@@ -40,19 +40,19 @@ public class Setup {
      * Constructor class for Setup
      */
     private Setup() {
+    	this.boardHandler = new BoardSetup();
         this.playerHandler = new PlayerSetup();
         this.floodHandler = new FloodSetup();
         this.treasureHandler = new TreasureSetup();
-        this.boardHandler = new BoardSetup();
         this.waterHandler = new WaterSetup();
     }
 
     public void doAllSetup() {
     	
         boardHandler.assignTiles(); 
+        floodHandler.startSinking();
         playerHandler.findPlayers();
         playerHandler.assignRoles();
-        floodHandler.startSinking();
         treasureHandler.dealTreasureCards();
         waterHandler.findDifficulty();
         

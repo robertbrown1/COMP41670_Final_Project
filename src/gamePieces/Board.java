@@ -1,6 +1,10 @@
 package gamePieces;
 
 import enums.TileNameEnum;
+import java.util.*;
+
+import org.apache.commons.lang3.StringUtils;
+import players.*;
 
 public class Board {
 	
@@ -77,4 +81,52 @@ public class Board {
 		return board;
 	}
 
+	public void printBoard() {
+		PlayerList list = PlayerList.getInstance();
+		List<Integer> indices = new ArrayList<Integer>();
+		for (int i = 0; i < list.getNumPlayers(); i++) {
+			indices.add(i+1);
+		}
+		for (int x = 0; x < 6; x++) {         // For each row in Board
+			for (int lines = 0; lines < 8; lines++) {
+				for (int y = 0; y < 6; y++) {
+					int playerNum = 1;
+					if (board[x][y] != null) {
+						switch(lines) {
+							case 0:
+								System.out.print(StringUtils.center(board[x][y].getTileName().toString(), 30));
+								break;
+							case 1:
+								System.out.print(StringUtils.rightPad("Sunk: " + board[x][y].getSinkStatus(), 30, "."));
+								break;
+							case 2:
+								System.out.print(StringUtils.rightPad("Flooded: " + board[x][y].getFloodStatus(), 30, "."));
+								break;
+							case 3:
+								System.out.print(StringUtils.rightPad("Treasure: " + board[x][y].getTreasure(), 30, "."));
+								break;
+							default:
+								while (playerNum <= list.getNumPlayers()) {
+									if (list.getPlayer(playerNum).getPosition().getX() == x && list.getPlayer(playerNum).getPosition().getY() == y && indices.contains(playerNum)) {
+										System.out.print(StringUtils.rightPad("Player " + playerNum + ": " + list.getPlayer(playerNum).getClass().getSimpleName(), 30, "."));
+										indices.remove(Integer.valueOf(playerNum));
+										break;
+									}
+									playerNum++;
+								}
+								if (playerNum > list.getNumPlayers())
+									System.out.print("..............................");
+								break;
+						}
+					}
+					else {
+						//System.out.print("          ");
+						System.out.print(StringUtils.center(" ", 30));
+					}
+				}
+				System.out.print("\n");
+			}
+		}
+	}
+	
 }

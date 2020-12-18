@@ -85,7 +85,7 @@ public class PlayerSetup {
 		
 		for(int i = 1; i <= playerList.getNumPlayers(); i++) {
 			
-			System.out.println("Player " + (i) + ": " + playerList.getPlayer(i).getClass().getName());
+			System.out.println("Player " + (i) + ": " + playerList.getPlayer(i).getClass().getSimpleName());
 			
 		}
 
