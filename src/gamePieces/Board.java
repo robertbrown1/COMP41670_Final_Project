@@ -82,15 +82,16 @@ public class Board {
 	}
 
 	public void printBoard() {
+		int i;
 		PlayerList list = PlayerList.getInstance();
 		List<Integer> indices = new ArrayList<Integer>();
-		for (int i = 0; i < list.getNumPlayers(); i++) {
+		for (i = 0; i < list.getNumPlayers(); i++) {
 			indices.add(i+1);
 		}
 		for (int x = 0; x < 6; x++) {         // For each row in Board
 			for (int lines = 0; lines < 8; lines++) {
 				for (int y = 0; y < 6; y++) {
-					int playerNum = 1;
+					//int playerNum = 1;
 					if (board[x][y] != null) {
 						switch(lines) {
 							case 0:
@@ -106,17 +107,28 @@ public class Board {
 								System.out.print(StringUtils.rightPad("Treasure: " + board[x][y].getTreasure(), 30, "."));
 								break;
 							default:
-								while (playerNum <= list.getNumPlayers()) {
-									if (list.getPlayer(playerNum).getPosition().getX() == x && list.getPlayer(playerNum).getPosition().getY() == y && indices.contains(playerNum)) {
-										System.out.print(StringUtils.rightPad("Player " + playerNum + ": " + list.getPlayer(playerNum).getClass().getSimpleName(), 30, "."));
-										indices.remove(Integer.valueOf(playerNum));
+								for (i = 0; i<indices.size();i++) {
+									if (list.getPlayer(indices.get(i)).getPosition().getX() == x && list.getPlayer(indices.get(i)).getPosition().getY() == y && indices.contains(indices.get(i))) {
+										System.out.print(StringUtils.rightPad("Player " + indices.get(i) + ": " + list.getPlayer(indices.get(i)).getClass().getSimpleName(), 30, "."));
+										indices.remove(Integer.valueOf(indices.get(i)));
+										i = -1;
 										break;
 									}
-									playerNum++;
 								}
-								if (playerNum > list.getNumPlayers())
+								if (i == indices.size())
 									System.out.print("..............................");
 								break;
+								//while (playerNum <= list.getNumPlayers()) {
+								//	if (list.getPlayer(playerNum).getPosition().getX() == x && list.getPlayer(playerNum).getPosition().getY() == y && indices.contains(playerNum)) {
+								//		System.out.print(StringUtils.rightPad("Player " + playerNum + ": " + list.getPlayer(playerNum).getClass().getSimpleName(), 30, "."));
+								//		indices.remove(Integer.valueOf(playerNum));
+								//		break;
+								//	}
+								//	playerNum++;
+								//}
+								//if (playerNum > list.getNumPlayers())
+								//	System.out.print("..............................");
+								//break;
 						}
 					}
 					else {
