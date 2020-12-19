@@ -2,8 +2,6 @@ package gamePieces;
 
 import enums.TileNameEnum;
 import java.util.*;
-
-import org.apache.commons.lang3.StringUtils;
 import players.*;
 
 public class Board {
@@ -48,16 +46,26 @@ public class Board {
 		return new Coordinate(-1, -1);
 	}
 	
-	public boolean canMove(Coordinate point) {
-		if (isTile(point.up())
-				|| isTile(point.down())
-				|| isTile(point.left())
-				|| isTile(point.right())) {
-			return true;
+	public boolean canMove(Coordinate point, int direction) {
+		switch(direction) {
+			case 1:
+				if (isTile(point.up()))
+					return true;
+				break;
+			case 2:
+				if (isTile(point.down()))
+					return true;
+				break;
+			case 3:
+				if (isTile(point.left()))
+					return true;
+				break;
+			case 4:
+				if (isTile(point.right()))
+					return true;
+				break;
 		}
-		else {
-			return false;
-		}
+		return false;
 	}
 	
 	public boolean isTile(Coordinate point) {
@@ -91,25 +99,24 @@ public class Board {
 		for (int x = 0; x < 6; x++) {         // For each row in Board
 			for (int lines = 0; lines < 8; lines++) {
 				for (int y = 0; y < 6; y++) {
-					//int playerNum = 1;
 					if (board[x][y] != null) {
 						switch(lines) {
 							case 0:
-								System.out.print(StringUtils.center(board[x][y].getTileName().toString(), 30));
+								System.out.print(centerString(board[x][y].getTileName().toString()));
 								break;
 							case 1:
-								System.out.print(StringUtils.rightPad("Sunk: " + board[x][y].getSinkStatus(), 30, "."));
+								System.out.print("Sunk: " + leftAlignString(String.valueOf(board[x][y].getSinkStatus()), 24));
 								break;
 							case 2:
-								System.out.print(StringUtils.rightPad("Flooded: " + board[x][y].getFloodStatus(), 30, "."));
+								System.out.print("Flooded: " + leftAlignString(String.valueOf(board[x][y].getFloodStatus()), 21));
 								break;
 							case 3:
-								System.out.print(StringUtils.rightPad("Treasure: " + board[x][y].getTreasure(), 30, "."));
+								System.out.print("Treasure: " + leftAlignString(board[x][y].getTreasure().toString(), 20));
 								break;
 							default:
 								for (i = 0; i<indices.size();i++) {
 									if (list.getPlayer(indices.get(i)).getPosition().getX() == x && list.getPlayer(indices.get(i)).getPosition().getY() == y && indices.contains(indices.get(i))) {
-										System.out.print(StringUtils.rightPad("Player " + indices.get(i) + ": " + list.getPlayer(indices.get(i)).getClass().getSimpleName(), 30, "."));
+										System.out.print("Player " + indices.get(i) + ": " + leftAlignString(list.getPlayer(indices.get(i)).getClass().getSimpleName(), 20));
 										indices.remove(Integer.valueOf(indices.get(i)));
 										i = -1;
 										break;
@@ -118,27 +125,30 @@ public class Board {
 								if (i == indices.size())
 									System.out.print("..............................");
 								break;
-								//while (playerNum <= list.getNumPlayers()) {
-								//	if (list.getPlayer(playerNum).getPosition().getX() == x && list.getPlayer(playerNum).getPosition().getY() == y && indices.contains(playerNum)) {
-								//		System.out.print(StringUtils.rightPad("Player " + playerNum + ": " + list.getPlayer(playerNum).getClass().getSimpleName(), 30, "."));
-								//		indices.remove(Integer.valueOf(playerNum));
-								//		break;
-								//	}
-								//	playerNum++;
-								//}
-								//if (playerNum > list.getNumPlayers())
-								//	System.out.print("..............................");
-								//break;
 						}
 					}
 					else {
-						//System.out.print("          ");
-						System.out.print(StringUtils.center(" ", 30));
+						System.out.print(centerString(" "));
 					}
 				}
 				System.out.print("\n");
 			}
 		}
+	}
+	
+	public String centerString(String s) {
+		int width = 30;
+		int padSize = width - s.length();
+		int padStart = s.length() + padSize/2;
+		s = String.format("%" + padStart + "s", s);
+		s = String.format("%-" + width + "s", s);
+		return s;
+	}
+	
+	public String leftAlignString(String s, int n) {
+		int width = n;
+		s = String.format("%-" + width + "s", s).replace(" ", ".");
+		return s;
 	}
 	
 }

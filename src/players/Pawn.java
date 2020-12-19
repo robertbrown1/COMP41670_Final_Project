@@ -60,6 +60,32 @@ public abstract class Pawn {
 
 	}
 	
+	public boolean movePawn(int direction) {
+		Board gameBoard = Board.getInstance();
+		if (gameBoard.canMove(position, direction)) {
+			switch (direction) {
+				case 1:
+					position.setY(position.getY()+1);
+					break;
+				case 2:
+					position.setY(position.getY()-1);
+					break;
+				case 3:
+					position.setX(position.getX()-1);
+					break;
+				case 4:
+					position.setX(position.getX()+1);
+					break;
+			}
+			System.out.println("Pawn move successful");
+			return true;
+		}
+		else {
+			System.out.println("Pawn can not move in this direction");
+			return false;
+		}
+	}
+	
 	public Card getCard(TreasureEnum card) {
 		for (int i = 0 ; i < hand.size() ; i++) {
 			if (hand.get(i).getName() == card) {

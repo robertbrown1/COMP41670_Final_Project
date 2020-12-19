@@ -29,9 +29,21 @@ public class Coordinate {
 		
 	}
 	
+	public void setX(int xValue) {
+		
+		x = xValue;
+		
+	}
+	
 	public int getY() {
 		
 		return this.y;
+		
+	}
+	
+	public void setY(int yValue) {
+		
+		y = yValue;
 		
 	}
 	
