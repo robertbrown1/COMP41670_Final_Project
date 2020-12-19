@@ -27,8 +27,11 @@ public abstract class Pawn {
 	}
 	
 	public boolean giveTreasureCard(Card treasureCard, Pawn p) {
+		Card temp;
 		if (position.equals(p.getPosition())) {
-			p.getHand().add(treasureCard);
+			temp = hand.get(hand.indexOf(treasureCard));
+			hand.remove(treasureCard);
+			p.getHand().add(temp);
 			return true;
 		}
 		else {
