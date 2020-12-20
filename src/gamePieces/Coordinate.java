@@ -47,27 +47,51 @@ public class Coordinate {
 		
 	}
 	
-	public Coordinate up() {
+	public Coordinate north() {
 		
 		return new Coordinate(this.x, this.y + 1);
 		
 	}
 	
-	public Coordinate down() {
+	public Coordinate south() {
 		
 		return new Coordinate(this.x, this.y - 1);
 		
 	}
 	
-	public Coordinate left() {
+	public Coordinate east() {
+		
+		return new Coordinate(this.x + 1, this.y);
+		
+	}
+	
+	public Coordinate west() {
 		
 		return new Coordinate(this.x - 1, this.y);
 		
 	}
 	
-	public Coordinate right() {
+	public Coordinate northWest() {
 		
-		return new Coordinate(this.x + 1, this.y);
+		return new Coordinate(this.x - 1, this.y + 1);
+		
+	}
+	
+	public Coordinate northEast() {
+		
+		return new Coordinate(this.x + 1, this.y + 1);
+		
+	}
+	
+	public Coordinate southWest() {
+		
+		return new Coordinate(this.x - 1, this.y - 1);
+		
+	}
+	
+	public Coordinate southEast() {
+		
+		return new Coordinate(this.x + 1, this.y - 1);
 		
 	}
 
