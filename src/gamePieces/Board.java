@@ -48,11 +48,11 @@ public class Board {
 					return true;
 				break;
 			case 3:
-				if (isTile(point.east()))
+				if (isTile(point.west()))
 					return true;
 				break;
 			case 4:
-				if (isTile(point.west()))
+				if (isTile(point.east()))
 					return true;
 				break;
 		}

@@ -75,7 +75,7 @@ public class PlayerTurn {
 				    default:
 				    	System.out.println("CASE ERROR IN PlayerTurn.doTurn()");
 				}
-				actions--;
+				//actions--;
 			}
 			
 			System.out.println("Your turn has ended.\n");
