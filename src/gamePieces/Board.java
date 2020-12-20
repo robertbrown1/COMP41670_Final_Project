@@ -21,15 +21,6 @@ public class Board {
             	board[x][y] = null;
             }
 		}
-//		Collections.shuffle(tileNames);
-//		Iterator<TileName> itr = tileNames.iterator();
-//		for (int x = 0; x < 6; x++) {
-//			for (int y = 0; y < 6; y++) {
-//				if (Math.abs(2.5-x)+Math.abs(2.5-y)<4) {
-//					board[x][y] = new Tile(itr.next());
-//				}
-//			}
-//		}
 	}
 	
 	public static Coordinate findByName(TileNameEnum name) {
@@ -49,19 +40,19 @@ public class Board {
 	public boolean canMove(Coordinate point, int direction) {
 		switch(direction) {
 			case 1:
-				if (isTile(point.up()))
+				if (isTile(point.north()))
 					return true;
 				break;
 			case 2:
-				if (isTile(point.down()))
+				if (isTile(point.south()))
 					return true;
 				break;
 			case 3:
-				if (isTile(point.left()))
+				if (isTile(point.west()))
 					return true;
 				break;
 			case 4:
-				if (isTile(point.right()))
+				if (isTile(point.east()))
 					return true;
 				break;
 		}
@@ -70,18 +61,23 @@ public class Board {
 	
 	public boolean isTile(Coordinate point) {
 		
-		if (point.getX() >= 0 && point.getX() < 6 &&
-				point.getY() >= 0 && point.getY() < 6) {
-			if (getTile(point) != null) {
-				return true;
-			}
+		if (getTile(point) != null) {
+			return true;
 		}
-		return false;		
+		else {
+			return false;		
+		}
 	}
 	
 	public static Tile getTile(Coordinate point) {
 		
-		return board[point.getX()][point.getY()];
+		if (point.getX() >= 0 && point.getX() < 6 &&
+				point.getY() >= 0 && point.getY() < 6) {
+			return board[point.getX()][point.getY()];
+		}
+		else {
+			return null;
+		}
 		
 	}
 	
@@ -96,9 +92,9 @@ public class Board {
 		for (i = 0; i < list.getNumPlayers(); i++) {
 			indices.add(i+1);
 		}
-		for (int x = 0; x < 6; x++) {         // For each row in Board
+		for (int y = 5; y >= 0; y--) {         // For each row in Board
 			for (int lines = 0; lines < 8; lines++) {
-				for (int y = 0; y < 6; y++) {
+				for (int x = 0; x < 6; x++) {
 					if (board[x][y] != null) {
 						switch(lines) {
 							case 0:

@@ -39,10 +39,11 @@ public abstract class Pawn {
 		}
 	}
 	
-	public boolean captureTreasure(Treasure treasure) {
+	public boolean captureTreasure(TreasureEnum treasure) {
+		PlayerList playerList = PlayerList.getInstance();
 		Stack<Card> checkCards = new Stack<Card>();
 		for (int i = 0 ; i < 3 ; i++) {
-			Card c = getCard(treasure.getName());
+			Card c = getCard(treasure);
 			if (c == null) {
 				while(!checkCards.isEmpty()) {
 					hand.add(checkCards.pop());
@@ -58,7 +59,7 @@ public abstract class Pawn {
 			TreasureDeck.getInstance().addToDiscardPile(checkCards.pop());
 		}
 		
-    	treasure.collectTreasure();
+    	playerList.collectTreasure(treasure);
     	return true;
 
 	}

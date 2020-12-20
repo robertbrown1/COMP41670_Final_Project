@@ -18,7 +18,9 @@ public class FloodSetup {
 		for (int i = 0 ; i < 6 ; i++) {
 			cardDrawn = setupFlood.drawCard();
 			Coordinate Tile = Board.findByName((TileNameEnum)cardDrawn.getName());
-			Board.getTile(Tile).setFloodStatus(true);
+			if (Board.getTile(Tile) != null) {
+				Board.getTile(Tile).setFloodStatus(true);
+			}
 			setupFlood.addToDiscardPile(cardDrawn);
 		}
 	}
