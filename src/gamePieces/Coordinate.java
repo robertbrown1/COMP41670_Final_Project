@@ -1,5 +1,7 @@
 package gamePieces;
 
+import players.Pawn;
+
 public class Coordinate {
 	
 	private int x;
@@ -95,4 +97,16 @@ public class Coordinate {
 		
 	}
 
+	@Override
+	public boolean equals(Object o) {
+		Coordinate position;
+		if (o instanceof Coordinate) {
+			position = (Coordinate) o;
+			if(position.getX() == x && position.getY() == y) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }

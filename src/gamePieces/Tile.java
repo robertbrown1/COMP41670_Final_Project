@@ -68,4 +68,12 @@ public class Tile {
 		this.flooded = status;
 	}
 	
+	public void setSinkStatus(boolean status) {
+		this.sunk = status;
+	}
+	
+	public void setTreasure(TreasureEnum treasure) {
+		this.treasure = treasure;
+	}
+	
 }

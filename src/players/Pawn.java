@@ -17,18 +17,21 @@ public abstract class Pawn {
 	
 	public boolean shoreUp(Coordinate point) {
 		Tile floodedTile = Board.getTile(point);
-		if (floodedTile.getSinkStatus() == false && floodedTile.getFloodStatus()) {
-			floodedTile.setFloodStatus(false);
-			return true;
+		if (floodedTile == null || floodedTile.getSinkStatus() == true || floodedTile.getFloodStatus() == false) {
+			return false;
 		}
 		else {
-			return false;
+			floodedTile.setFloodStatus(false);
+			return true;
 		}
 	}
 	
 	public boolean giveTreasureCard(Card treasureCard, Pawn p) {
+		Card temp;
 		if (position.equals(p.getPosition())) {
-			p.getHand().add(treasureCard);
+			temp = hand.get(hand.indexOf(treasureCard));
+			hand.remove(treasureCard);
+			p.getHand().add(temp);
 			return true;
 		}
 		else {
@@ -39,6 +42,9 @@ public abstract class Pawn {
 	public boolean captureTreasure(TreasureEnum treasure) {
 		PlayerList playerList = PlayerList.getInstance();
 		Stack<Card> checkCards = new Stack<Card>();
+		if (Board.getTile(position).getTreasure() != treasure) {
+			return false;
+		}
 		for (int i = 0 ; i < 3 ; i++) {
 			Card c = getCard(treasure);
 			if (c == null) {
@@ -57,6 +63,7 @@ public abstract class Pawn {
 		}
 		
     	playerList.collectTreasure(treasure);
+    	Board.getTile(position).setTreasure(TreasureEnum.None);
     	return true;
 
 	}
@@ -102,6 +109,10 @@ public abstract class Pawn {
 
 	public Coordinate getPosition() {
 		return this.position;
+	}
+	
+	public void setPosition(Coordinate point) {
+		this.position = point;
 	}
 	
 }
