@@ -62,7 +62,7 @@ public class PlayerTurn {
 			while (actions > 0) {
 				board.printBoard();
 				giveOptions();
-				int takeAction = getUserInput(0, 6);
+				int takeAction = getUserInput(0, 7);
 				switch (takeAction) {
 				    case 0:
 				    	actions = 0;
@@ -85,6 +85,9 @@ public class PlayerTurn {
 				    case 6:
 				    	trySandbag();
 				    	break;
+				    case 7:
+				    	printHand();
+				    	break;
 				    default:
 				    	System.out.println("CASE ERROR IN PlayerTurn.doTurn()");
 				}
@@ -102,6 +105,7 @@ public class PlayerTurn {
 	    	System.out.println("[4] Capture Treasure");
 	    	System.out.println("[5] Use Helicopter Lift");
 	    	System.out.println("[6] Use Sandbag");
+	    	System.out.println("[7] Show Hand");
 		}
 	    
 	    public void tryMovement() {
@@ -119,11 +123,6 @@ public class PlayerTurn {
 			Coordinate south = new Coordinate(pawn.getPosition().getX(), pawn.getPosition().getY()-1);
 			Coordinate west = new Coordinate(pawn.getPosition().getX()-1, pawn.getPosition().getY());
 			Coordinate east = new Coordinate(pawn.getPosition().getX()+1, pawn.getPosition().getY());
-			//List<Coordinate> tiles = new ArrayList<Coordinate>(
-			//		Arrays.asList(current, north, south, west, east));
-			//for (int i = 0; i < 4; i++) {
-			//	if tiles.get(i);
-			//}
 	    	Coordinate[] tiles = {current, north, south, west, east};
 	    	if (pawn instanceof EngineerPawn) {
 	    		System.out.println("How many tiles would you like to shore up? 1 or 2?");
@@ -133,8 +132,8 @@ public class PlayerTurn {
 	    		tileNum = 1;
 	    	for (int i = 0; i < tileNum; i++) {
 		    	while (Board.getTile(current).getFloodStatus() || (board.isTile(north) && Board.getTile(north).getFloodStatus()) ||
-		    			Board.getTile(south).getFloodStatus() || Board.getTile(west).getFloodStatus() ||
-		    			Board.getTile(east).getFloodStatus()) {
+		    			(board.isTile(south) && Board.getTile(south).getFloodStatus()) || (board.isTile(west) && Board.getTile(west).getFloodStatus()) ||
+		    			(board.isTile(east) && Board.getTile(east).getFloodStatus())) {
 		    		System.out.println("Which tile do you want to shore up? current tile [0], up [1], down [2], left [3] or right [4]?");
 		    		int direction = getUserInput(0, 4);
 		    		if (!board.isTile(tiles[direction])) {
@@ -143,35 +142,34 @@ public class PlayerTurn {
 		    		else if (pawn.shoreUp(tiles[direction])) {
 		    			System.out.println("Tile has been shored up");
 		    			shoreUps++;
+		    			break;
 		    		}
 		    		else {
-		    			System.out.println("Tile can not be shored up because it has sunk");
+		    			System.out.println("Tile can not be shored up");
 		    		}
 		    	}
-		    	if (shoreUps == 0) {
-		    		System.out.println("There are no adjacent tiles to shore up");
-		    	}
-		    	else
-		    		actions--;
 	    	}
+	    	if (shoreUps == 0) {
+	    		System.out.println("There are no adjacent tiles to shore up");
+	    	}
+	    	else
+	    		actions--;
 	    }
 	    
 	    public void tryGiveCard() {
 	    	int playerNum = list.getPlayerIndex(pawn);
 	    	int cardNum;
-	    	System.out.println("Which player would you like to give a card to?");
-	    	for (int i = 1; i < list.getNumPlayers(); i++) {
-	    		if (i != playerNum) {
-	    			System.out.println(i + ": " + list.getPlayer(i).getClass().getSimpleName());
-	    		}
-	    	}
 	    	while (playerNum == list.getPlayerIndex(pawn)) {
+	    		System.out.println("Which player would you like to give a card to?");
+		    	for (int i = 1; i <= list.getNumPlayers(); i++) {
+		    		if (i != playerNum) {
+		    			System.out.println(i + ": " + list.getPlayer(i).getClass().getSimpleName());
+		    		}
+		    	}
 	    		playerNum = getUserInput(1, list.getNumPlayers());
 	    	}
 	        System.out.println("Which card would you like to give?");
-	    	for (int i = 0; i < pawn.getHand().size(); i++) {
-	    		System.out.println(String.valueOf(i+1) + ": " + pawn.getHand().get(i).getName());
-	    	}
+	    	printHand();
 	    	cardNum = getUserInput(1, pawn.getHand().size());
 	    	if (pawn.giveTreasureCard(pawn.getHand().get(cardNum-1), list.getPlayer(playerNum))) {
 	    		System.out.println("Card has been given");
@@ -189,31 +187,17 @@ public class PlayerTurn {
 	    	}
 	    	System.out.println("Which treasure would you like to capture?");
 	    	TreasureEnum[] treasures = TreasureEnum.values();
-	    	for (int i = 0; i < 3; i++) {
+	    	for (int i = 0; i < 4; i++) {
 	    		System.out.println(String.valueOf(i+1) + ": " + treasures[i].toString());
 	    	}
-	    	int chosenTreasure = getUserInput(0, 3);
-	    	switch (chosenTreasure) {
-	    		case 1:
-	    			if(pawn.captureTreasure(earth))
-	    				capturedTreasure = true;
-	    				actions--;
-	    			break;
-	    		case 2:
-	    			if(pawn.captureTreasure(wind))
-	    				capturedTreasure = true;
-	    				actions--;
-	    			break;
-	    		case 3:
-	    			if(pawn.captureTreasure(fire))
-	    				capturedTreasure = true;
-	    				actions--;
-	    			break;
-	    		case 4:
-	    			if(pawn.captureTreasure(ocean))
-	    				capturedTreasure = true;
-	    				actions--;
-	    			break;
+	    	int chosenTreasure = getUserInput(1, 4);
+	    	if(pawn.captureTreasure(treasures[chosenTreasure-1])) {
+				capturedTreasure = true;
+				System.out.println("Treasure has been captured");
+				actions--;
+			}
+	    	else {
+	    		System.out.println("Cannot capture treasure from this tile");
 	    	}
 	    }
 	    
@@ -326,13 +310,17 @@ public class PlayerTurn {
 	    public void checkHand() {
 	    	while (pawn.getHand().size() > 5) {
 	    		System.out.println(pawn.getHand().size() + " cards in hand, must have at most 5. Please select card to remove");
-	    		for (int i = 0; i < pawn.getHand().size(); i++) {
-		    		System.out.println(String.valueOf(i+1) + ": " + pawn.getHand().get(i).getName());
-		    	}
+	    		printHand();
 	    		int cardNum = getUserInput(1, pawn.getHand().size());
 	    		Card chosenCard = pawn.getHand().get(cardNum-1);
 	    		pawn.getHand().remove(cardNum-1);
 	    		treasure.addToDiscardPile(chosenCard);
+	    	}
+	    }
+	    
+	    public void printHand() {
+	    	for (int i = 0; i < pawn.getHand().size(); i++) {
+	    		System.out.println(String.valueOf(i+1) + ": " + pawn.getHand().get(i).getName());
 	    	}
 	    }
 	    
@@ -347,6 +335,9 @@ public class PlayerTurn {
 					
 				if ((userInput >= minVal) && (userInput <= maxVal)) {
 					validInput = true;
+				}
+				if (!validInput) {
+					System.out.println("Please enter a valid input");
 				}
 			}
 			return userInput;

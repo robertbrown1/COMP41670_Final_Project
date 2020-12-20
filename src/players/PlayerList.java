@@ -52,6 +52,7 @@ public class PlayerList {
     private PlayerList() { 
     	
     	this.playerList = new ArrayList<Pawn>();
+    	this.treasuresCollected = new ArrayList<TreasureEnum>();
     	
     }
     

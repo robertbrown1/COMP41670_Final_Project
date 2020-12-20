@@ -72,4 +72,8 @@ public class Tile {
 		this.sunk = status;
 	}
 	
+	public void setTreasure(TreasureEnum treasure) {
+		this.treasure = treasure;
+	}
+	
 }
