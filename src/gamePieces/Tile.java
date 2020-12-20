@@ -68,4 +68,8 @@ public class Tile {
 		this.flooded = status;
 	}
 	
+	public void setSinkStatus(boolean status) {
+		this.sunk = status;
+	}
+	
 }

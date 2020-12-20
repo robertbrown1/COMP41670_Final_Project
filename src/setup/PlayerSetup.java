@@ -47,7 +47,7 @@ public class PlayerSetup {
 		int choice;
 
 		while (playerList.getNumPlayers() < this.numOfPlayers) {
-			// Randomise role selection
+			// Randomize role selection
 			
 			do {
 				

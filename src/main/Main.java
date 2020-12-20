@@ -3,7 +3,7 @@ package main;
 import java.util.Scanner;
 
 import setup.Setup;
-import gamePieces.Board;
+import players.*;
 
 public class Main {
 	
@@ -13,8 +13,9 @@ public class Main {
     	
     	Setup setup = Setup.getInstance();
     	setup.doAllSetup();
-    	Board.getInstance().printBoard();
-    	
+    	PlayerList list = PlayerList.getInstance();
+    	PlayerTurn turn = new PlayerTurn(list.getPlayer(1));
+    	turn.doTurn();
     }
     
 }

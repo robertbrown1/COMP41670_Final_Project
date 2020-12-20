@@ -1,8 +1,7 @@
 package setup;
 
-import java.util.Scanner;
-
 import gamePieces.WaterMeter;
+import main.Main;
 
 public class WaterSetup {
 	
@@ -15,12 +14,10 @@ public class WaterSetup {
 	
 	public void findDifficulty() {
 		int difficulty = 0;
-		Scanner sc = new Scanner(System.in);
 		while (difficulty < 1 || difficulty > 4) {
 			System.out.print("What difficulty would you like? Choose a number between 1 and 4: ");
-			difficulty = sc.nextInt();
+			difficulty = Main.sc.nextInt();
 		}
-		sc.close();
 		setupWater.setWaterLevel(difficulty);
 	}
 	

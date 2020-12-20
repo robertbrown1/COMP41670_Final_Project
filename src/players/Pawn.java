@@ -17,12 +17,12 @@ public abstract class Pawn {
 	
 	public boolean shoreUp(Coordinate point) {
 		Tile floodedTile = Board.getTile(point);
-		if (floodedTile.getSinkStatus() == false) {
-			floodedTile.setFloodStatus(false);
-			return true;
+		if (floodedTile == null || floodedTile.getSinkStatus() == true) {
+			return false;
 		}
 		else {
-			return false;
+			floodedTile.setFloodStatus(false);
+			return true;
 		}
 	}
 	
@@ -106,4 +106,7 @@ public abstract class Pawn {
 		return this.position;
 	}
 	
+	public void setPosition(Coordinate point) {
+		this.position = point;
+	}
 }
