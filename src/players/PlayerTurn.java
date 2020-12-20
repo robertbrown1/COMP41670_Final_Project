@@ -2,6 +2,7 @@ package players;
 
 import java.util.concurrent.TimeUnit;
 import main.Main;
+import observer.Observer;
 import gamePieces.*;
 
 public class PlayerTurn {
@@ -48,12 +49,16 @@ public class PlayerTurn {
 			boolean turnOver = false;
 			
 	        System.out.println("It is " + pawn.getClass().getSimpleName() + "'s turn!");
+	        System.out.println("X: " + pawn.getPosition().getX());
+	        System.out.println("Y: " + pawn.getPosition().getY());
 			while (actions > 0) {
+				Board.getInstance().printBoard();
 				giveOptions(actions);
 				int takeAction = getUserInput();
 				switch (takeAction) {
 				    case 0:
-				    	actions = 1;
+				    	//actions = 1;
+				    	Observer.getInstance().endGame(true);
 				    	break;
 				    case 1:
 				    	tryMovement();
@@ -70,7 +75,7 @@ public class PlayerTurn {
 				    default:
 				    	System.out.println("CASE ERROR IN PlayerTurn.doTurn()");
 				}
-				actions--;
+				//actions--;
 			}
 			
 			System.out.println("Your turn has ended.\n");

@@ -3,6 +3,9 @@ package players;
 import java.util.ArrayList;
 import java.util.List;
 
+import enums.TreasureEnum;
+import gamePieces.Treasure;
+
 	/**
 	 * Singleton Class for managing the list of Players in a game of Cluedo
 	 * 
@@ -18,6 +21,7 @@ public class PlayerList {
     //===========================================================
     private static PlayerList thePlayerList;
     private List<Pawn> playerList;
+    private List<TreasureEnum> treasuresCollected;
     
     
     //===========================================================
@@ -114,6 +118,23 @@ public class PlayerList {
     public List<Pawn> getAllPlayers(){
     	
     	return playerList;
+    	
+    }
+    
+    /**
+     * Get all the Player s in PlayerList
+     * @return a List of Player objects
+     */
+    public List<TreasureEnum> getTreasuresCollected(){
+    	
+    	return treasuresCollected;
+    	
+    }
+    
+    public boolean collectTreasure(TreasureEnum treasure) {
+    	
+    	treasuresCollected.add(treasure);
+    	return true;
     	
     }
     

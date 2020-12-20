@@ -12,8 +12,9 @@ public class Main {
     public static void main(String[] args) {
     	
     	Setup setup = Setup.getInstance();
+    	Game game = Game.getInstance();
     	setup.doAllSetup();
-    	Board.getInstance().printBoard();
+    	game.gameLoop();
     	
     }
     

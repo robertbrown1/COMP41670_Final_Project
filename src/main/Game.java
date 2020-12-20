@@ -1,5 +1,9 @@
 package main;
 
+import observer.Observer;
+import players.PlayerList;
+import players.PlayerTurn;
+
 public class Game {
 	
 	private static Game instance = null;
@@ -12,20 +16,17 @@ public class Game {
 		return instance;
 	}
 	
-	private boolean gameOver() {
+	public boolean gameLoop(){
 		
-		return gameWon() || gameLost();
+		int num = 0;
+		do {
+			PlayerTurn turn = new PlayerTurn(PlayerList.getInstance().getPlayer(1));
+			turn.doTurn();
+		} while (!Observer.getInstance().gameOver());
 		
-	}
-	
-	private boolean gameWon() {
-		
-		return true;
-		
-	}
-	
-	private boolean gameLost() {
-		
+		System.out.println("Game Over: " + Observer.getInstance().gameOver());
+		System.out.println("Game Won: " + Observer.getInstance().gameWon());
+		System.out.println("Game Lost: " + Observer.getInstance().gameLost());
 		return true;
 		
 	}
