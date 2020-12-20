@@ -1,6 +1,6 @@
 package main;
 
-import observer.Observer;
+import observer.GameObserver;
 import players.PlayerList;
 import players.PlayerTurn;
 
@@ -22,11 +22,11 @@ public class Game {
 		do {
 			PlayerTurn turn = new PlayerTurn(PlayerList.getInstance().getPlayer(1));
 			turn.doTurn();
-		} while (!Observer.getInstance().gameOver());
+		} while (!GameObserver.getInstance().gameOver());
 		
-		System.out.println("Game Over: " + Observer.getInstance().gameOver());
-		System.out.println("Game Won: " + Observer.getInstance().gameWon());
-		System.out.println("Game Lost: " + Observer.getInstance().gameLost());
+		System.out.println("Game Over: " + GameObserver.getInstance().gameOver());
+		System.out.println("Game Won: " + GameObserver.getInstance().gameWon());
+		System.out.println("Game Lost: " + GameObserver.getInstance().gameLost());
 		return true;
 		
 	}

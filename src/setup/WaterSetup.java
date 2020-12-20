@@ -1,7 +1,5 @@
 package setup;
 
-import java.util.Scanner;
-
 import gamePieces.WaterMeter;
 import main.Main;
 

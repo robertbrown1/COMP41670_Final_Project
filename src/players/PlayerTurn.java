@@ -1,8 +1,7 @@
 package players;
 
-import java.util.concurrent.TimeUnit;
 import main.Main;
-import observer.Observer;
+import observer.GameObserver;
 import gamePieces.*;
 
 public class PlayerTurn {
@@ -46,19 +45,17 @@ public class PlayerTurn {
 		 */
 	    public void doTurn() {
 			
-			boolean turnOver = false;
-			
 	        System.out.println("It is " + pawn.getClass().getSimpleName() + "'s turn!");
-	        System.out.println("X: " + pawn.getPosition().getX());
-	        System.out.println("Y: " + pawn.getPosition().getY());
-			while (actions > 0) {
-				Board.getInstance().printBoard();
+	        System.out.println("x: "+ this.pawn.getPosition().getX());
+	        System.out.println("y: " + this.pawn.getPosition().getY());
+			while (actions > 0 && !GameObserver.getInstance().gameOver()) {
+				Board.getInstance().printBoard(this.pawn);
 				giveOptions(actions);
 				int takeAction = getUserInput();
 				switch (takeAction) {
 				    case 0:
 				    	//actions = 1;
-				    	Observer.getInstance().endGame(true);
+				    	GameObserver.getInstance().endGame(true);
 				    	break;
 				    case 1:
 				    	tryMovement();
@@ -130,7 +127,7 @@ public class PlayerTurn {
 		}
 	    
 	    public int getUserInput() {
-	    	int userInput = 0;
+	    	int userInput = -1;
 		    boolean validInput = false;
 			while (!validInput) {
 				String userString = Main.sc.nextLine();
@@ -138,8 +135,11 @@ public class PlayerTurn {
 				try {userInput = Integer.parseInt(userString);} 
 		        catch (NumberFormatException e) {continue;}
 					
-				if ((userInput >= 1) && (userInput <= 4)) {
+				if ((userInput >= 0) && (userInput <= 4)) {
 					validInput = true;
+				}
+				else {
+					System.out.println("Invalid Input, please a number from 0 to 4");
 				}
 			}
 			return userInput;

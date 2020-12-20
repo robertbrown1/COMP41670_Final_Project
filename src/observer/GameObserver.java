@@ -1,19 +1,23 @@
 package observer;
 
-public class Observer {
+import gamePieces.Board;
+
+public class GameObserver {
 	
 	private boolean gameOver;
 	private boolean gameWon;
 	private boolean gameLost;
-	private static Observer instance = null;
+	private static GameObserver instance = null;
+	private Board board;
 	
-	public static Observer getInstance() {
+	
+	public static GameObserver getInstance() {
 		if (instance == null)
-			instance = new Observer();
+			instance = new GameObserver();
 		return instance;
 	}
 	
-	public Observer() {
+	public GameObserver() {
 
 		this.gameOver = false;
 		this.gameWon = false;

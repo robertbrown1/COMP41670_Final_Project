@@ -17,7 +17,7 @@ public abstract class Pawn {
 	
 	public boolean shoreUp(Coordinate point) {
 		Tile floodedTile = Board.getTile(point);
-		if (floodedTile.getSinkStatus() == false) {
+		if (floodedTile.getSinkStatus() == false && floodedTile.getFloodStatus()) {
 			floodedTile.setFloodStatus(false);
 			return true;
 		}
