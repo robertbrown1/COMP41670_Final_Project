@@ -2,20 +2,43 @@ package cards;
 
 import enums.TileNameEnum;
 
+/**
+ * Class for Flood Deck Extends the Abstract Class Deck
+ * 
+ * @author  Barry McNicholl & Robert Brown
+ * @since   21 12 2020
+ * @version 1.0
+ */
+
 public class FloodDeck extends Deck {
 	
+	//===========================================================
+	// Variable Setup
+	//===========================================================
 	private static FloodDeck instance = null;
 	
+	//===========================================================
+	// Get Instance of Singleton
+	//===========================================================
+	/**
+	 * gets the singleton instance of the FloodDeck object.
+	 * @return the single FloodDeck object.
+	 */
 	public static FloodDeck getInstance() {
 		if (instance == null)
 			instance = new FloodDeck();
 		return instance;
 	}
 	
+	//===========================================================
+	// Constructor
+	//===========================================================
+	/**
+	 * Generates all the cards in the flood deck.
+	 */
 	private FloodDeck() {
-		// Prepare empty array of Cards
-		super();
-		// Create TileCards
+		super(); // Prepare empty array of Cards
+		// Create TileCards and place in flood deck
 		super.cardsInDeck.push(new TileCard(TileNameEnum.TwilightHollow));
 		super.cardsInDeck.push(new TileCard(TileNameEnum.TidalPalace));
 		super.cardsInDeck.push(new TileCard(TileNameEnum.BreakersBridge));
@@ -40,7 +63,7 @@ public class FloodDeck extends Deck {
 		super.cardsInDeck.push(new TileCard(TileNameEnum.IronGate));
 		super.cardsInDeck.push(new TileCard(TileNameEnum.TempleOfTheSun));
 		super.cardsInDeck.push(new TileCard(TileNameEnum.TempleOfTheMoon));
-		super.shuffleDeck();
+		super.shuffleDeck(); // Shuffle deck
 	}
 	
 }

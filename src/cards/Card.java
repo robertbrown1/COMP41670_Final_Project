@@ -1,12 +1,21 @@
 package cards;
 
+/**
+ * Abstract Class for Cards in a card deck
+ * Should be extended by HelicopterLiftCard, SandBagCard, TileCard, TreasureCard and WaterRiseCard
+ * 
+ * @author  Barry McNicholl & Robert Brown
+ * @since   21 12 2020
+ * @version 1.0
+ */
+
 public abstract class Card {
 	
-	//===========================================================
+		//===========================================================
 		// Variable Setup
 		//===========================================================
 		@SuppressWarnings("rawtypes")
-	    private Enum name;   // Name of object referred to by card,  e.g. "Mrs. Peacock"
+	    private Enum name;   // Name of object referred to by card
 		
 		//===========================================================
 		// Constructor
@@ -16,7 +25,7 @@ public abstract class Card {
 		 * @param name Enum name for card.
 		 */
 		Card(@SuppressWarnings("rawtypes") Enum name){
-			this.name   = name;
+			this.name = name;
 		}
 
 		//===========================================================
