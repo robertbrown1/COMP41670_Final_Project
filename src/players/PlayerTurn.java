@@ -59,8 +59,8 @@ public class PlayerTurn {
 	    public void doTurn() {
 	        System.out.println("It is " + pawn.getClass().getSimpleName() + "'s turn");
 	        checkHand();
+	        board.printBoard();
 			while (actions > 0) {
-				board.printBoard();
 				giveOptions();
 				int takeAction = getUserInput(0, 7);
 				switch (takeAction) {
@@ -91,8 +91,10 @@ public class PlayerTurn {
 				    default:
 				    	System.out.println("CASE ERROR IN PlayerTurn.doTurn()");
 				}
+				board.printBoard();
 			}
-			
+			drawTreasureCards();
+			drawFloodCards();
 			System.out.println("Your turn has ended.\n");
 		}
 	    
@@ -203,8 +205,10 @@ public class PlayerTurn {
 	    
 	    public void tryHelicopterLift() {
 	    	int playerNum;
-	    	if (pawn.getCard(TreasureEnum.HelicopterLift) == null) {
+	    	Card checkCard = pawn.getCard(TreasureEnum.HelicopterLift);
+	    	if (checkCard == null) {
 	    		System.out.println("No Helicopter Lift card in hand");
+	    		pawn.getHand().add(checkCard);
 	    		return;
 	    	}
 	    	System.out.println("Give the x coordinate of the tile you would like to move to");
@@ -213,6 +217,7 @@ public class PlayerTurn {
 			int y = getUserInput(0, 5);
 			if (!board.isTile(new Coordinate(x,y)) || Board.getTile(new Coordinate(x,y)).getSinkStatus()) {
 				System.out.println("Can not move to tile");
+				pawn.getHand().add(checkCard);
 				return;
 			}
 			System.out.println("How many players would you like to move? (including yourself)");
@@ -232,11 +237,14 @@ public class PlayerTurn {
 				players.get(i-1).setPosition(new Coordinate(x, y));
 			}
 			System.out.println("Pawns have been moved");
+			treasure.addToDiscardPile(checkCard);
 	    }
 	    
 	    public void trySandbag() {
-	    	if (pawn.getCard(TreasureEnum.SandBag) == null) {
+	    	Card checkCard = pawn.getCard(TreasureEnum.SandBag);
+	    	if (checkCard == null) {
 	    		System.out.println("No Sandbag card in hand");
+	    		pawn.getHand().add(checkCard);
 	    		return;
 	    	}
 	    	System.out.println("Give the x coordinate of the tile you would like to shore up");
@@ -246,12 +254,15 @@ public class PlayerTurn {
 			Coordinate tile = new Coordinate(x, y);
     		if (!board.isTile(tile)) {
     			System.out.println("Tile does not exist");
+    			pawn.getHand().add(checkCard);
     		}
     		else if (pawn.shoreUp(tile)) {
     			System.out.println("Tile has been shored up");
+    			treasure.addToDiscardPile(checkCard);
     		}
     		else {
     			System.out.println("Tile can not be shored up because it has sunk");
+    			pawn.getHand().add(checkCard);
     		}
 	    }
 	    
@@ -274,15 +285,20 @@ public class PlayerTurn {
 	    		}
 	    		else {
 	    			System.out.println("Who would you like to give the card to?");
-	    			for (int j = 1; i < list.getNumPlayers(); j++) {
+	    			for (int j = 1; j <= list.getNumPlayers(); j++) {
 	    	    		if (j != playerNum) {
-	    	    			System.out.println(i + ": " + list.getPlayer(j).getClass().getSimpleName());
+	    	    			System.out.println(j + ": " + list.getPlayer(j).getClass().getSimpleName());
 	    	    		}
 	    	    	}
 	    	    	while (playerNum == list.getPlayerIndex(pawn)) {
 	    	    		playerNum = getUserInput(1, list.getNumPlayers());
 	    	    	}
-	    	    	if (pawn.giveTreasureCard(drawnCard, list.getPlayer(playerNum))) {
+	    	    	if (pawn instanceof MessengerPawn) {
+	    	    		list.getPlayer(playerNum).getHand().add(drawnCard);
+	    	    		System.out.println("Card has been given");
+	    	    	}
+	    	    	else if (pawn.getPosition().equals(list.getPlayer(playerNum).getPosition())) {
+	    	    		list.getPlayer(playerNum).getHand().add(drawnCard);
 	    	    		System.out.println("Card has been given");
 	    	    	}
 	    	    	else {
@@ -295,15 +311,18 @@ public class PlayerTurn {
 	    }
 	    
 	    public void drawFloodCards() {
-	    	for (int i = 0; i < meter.getWaterLevel()-1; i++) {
+	    	for (int i = 0; i < meter.getWaterLevel(); i++) {
 	    		Card drawnCard = flood.drawCard();
 	    		Coordinate point = Board.findByName((TileNameEnum)drawnCard.getName());
 	    		if(!Board.getTile(point).getFloodStatus()) {
 	    			Board.getTile(point).setFloodStatus(true);
+	    			System.out.println(drawnCard.getName() + " has been flooded");
 	    		}
 	    		else {
 	    			Board.getTile(point).setSinkStatus(true);
+	    			System.out.println(drawnCard.getName() + " has sunk");
 	    		}
+	    		flood.addToDiscardPile(drawnCard);
 	    	}
 	    }
 	    

@@ -19,7 +19,10 @@ public class MessengerPawn extends Pawn {
 	
 	@Override
 	public boolean giveTreasureCard(Card treasureCard, Pawn p) {
-		p.getHand().add(treasureCard);
+		Card temp;
+		temp = super.hand.get(super.hand.indexOf(treasureCard));
+		super.hand.remove(treasureCard);
+		p.getHand().add(temp);
 		return true;
 	}
 	
