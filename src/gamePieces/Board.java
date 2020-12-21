@@ -69,7 +69,7 @@ public class Board {
 		}
 	}
 	
-	public static Tile getTile(Coordinate point) {
+	public Tile getTile(Coordinate point) {
 		
 		if (point.getX() >= 0 && point.getX() < 6 &&
 				point.getY() >= 0 && point.getY() < 6) {

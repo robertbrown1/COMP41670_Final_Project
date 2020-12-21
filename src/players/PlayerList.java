@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import enums.TreasureEnum;
-import gamePieces.Treasure;
+//import gamePieces.Treasure;
 
 	/**
 	 * Singleton Class for managing the list of Players in a game of Cluedo
@@ -134,8 +134,12 @@ public class PlayerList {
     
     public boolean collectTreasure(TreasureEnum treasure) {
     	
-    	treasuresCollected.add(treasure);
-    	return true;
+    	if (!this.treasuresCollected.contains(treasure) && treasure != TreasureEnum.None) {
+    		treasuresCollected.add(treasure);
+        	return true;
+    	}
+    	else 
+    		return false;
     	
     }
     

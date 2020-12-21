@@ -18,16 +18,14 @@ public class Game {
 	
 	public boolean gameLoop(){
 		
-		int num = 0;
 		do {
 			PlayerTurn turn = new PlayerTurn(PlayerList.getInstance().getPlayer(1));
 			turn.doTurn();
-		} while (!GameObserver.getInstance().gameOver());
+		} while (!GameObserver.getInstance().isGameOver());
 		
-		System.out.println("Game Over: " + GameObserver.getInstance().gameOver());
-		System.out.println("Game Won: " + GameObserver.getInstance().gameWon());
-		System.out.println("Game Lost: " + GameObserver.getInstance().gameLost());
-		return true;
+		System.out.println("Game Over: " + GameObserver.getInstance().isGameOver());
+		System.out.println("Game Won: " + GameObserver.getInstance().isGameWon());
+		return GameObserver.getInstance().isGameWon();
 		
 	}
 	
