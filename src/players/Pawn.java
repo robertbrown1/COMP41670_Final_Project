@@ -17,7 +17,7 @@ public abstract class Pawn {
 	}
 	
 	public boolean shoreUp(Coordinate point) {
-		Tile floodedTile = Board.getInstance().getTile(point);
+		Tile floodedTile = Board.getTile(point);
 		if (floodedTile == null || floodedTile.getSinkStatus() == true || floodedTile.getFloodStatus() == false) {
 			return false;
 		}
@@ -45,10 +45,10 @@ public abstract class Pawn {
 		PlayerList playerList = PlayerList.getInstance();
 		Stack<Card> checkCards = new Stack<Card>();
 		
-		if (Board.getInstance().getTile(position).getTreasure() != treasure || treasure == TreasureEnum.None) {
+		if (Board.getTile(position).getTreasure() != treasure || treasure == TreasureEnum.None) {
 			return false;
 		}
-		for (int i = 0 ; i < 3 ; i++) {
+		for (int i = 0 ; i <= 3 ; i++) {
 			Card c = getCard(treasure);
 			if (c == null) {
 				while(!checkCards.isEmpty()) {
@@ -66,7 +66,7 @@ public abstract class Pawn {
 		}
 		
     	playerList.collectTreasure(treasure);
-    	Board.getInstance().getTile(position).setTreasure(TreasureEnum.None);
+    	Board.getTile(position).setTreasure(TreasureEnum.None);
     	GameObserver.getInstance().updateTreasuresCollected(playerList.getTreasuresCollected());
     	return true;
 
@@ -94,7 +94,6 @@ public abstract class Pawn {
 			return true;
 		}
 		else {
-			System.out.println("Pawn can not move in this direction");
 			return false;
 		}
 	}
@@ -119,5 +118,7 @@ public abstract class Pawn {
 	public void setPosition(Coordinate point) {
 		this.position = point;
 	}
+	
+	
 	
 }

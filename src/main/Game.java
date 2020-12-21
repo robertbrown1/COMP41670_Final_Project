@@ -24,10 +24,10 @@ public class Game {
 			PlayerTurn turn = new PlayerTurn(PlayerList.getInstance().getPlayer(num));
 			turn.doTurn();
 
-			num++;
+			//num++;
 			if (num > PlayerList.getInstance().getNumPlayers())
 				num = 1;
-		} while (!Observer.getInstance().isGameOver());
+		} while (!GameObserver.getInstance().isGameOver());
 
 		
 		System.out.println("Game Over: " + GameObserver.getInstance().isGameOver());

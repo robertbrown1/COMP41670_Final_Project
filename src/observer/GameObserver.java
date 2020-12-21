@@ -1,6 +1,8 @@
 package observer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 import enums.TileNameEnum;
@@ -19,6 +21,7 @@ public class GameObserver {
 	private List<Pawn> playerList;
 	private List<Coordinate> playerLocations;
     private List<TreasureEnum> treasuresCollected;
+    private int waterLevel;
 	
 	
 	public static GameObserver getInstance() {
@@ -52,13 +55,13 @@ public class GameObserver {
 	
 	public boolean isGameWon() {
 		
-		if (Board.getInstance().getTile(this.playerLocations.get(0)).getTileName() == TileNameEnum.FoolsLanding) {
+		if (Board.getTile(this.playerLocations.get(0)).getTileName() == TileNameEnum.FoolsLanding) {
 			
-			this.gameWon = true;
+			//this.gameWon = true;
 			
 		}
 		
-		System.out.println("Checked: " + this.gameWon);
+		// System.out.println("Checked: " + this.gameWon);
 		
 		return this.gameWon;
 		
@@ -67,11 +70,16 @@ public class GameObserver {
 	public boolean isGameLost() {
 		
 		// condition for FoolsLanding Sunk
-		if (!Board.getInstance().getTile(Board.findByName(TileNameEnum.FoolsLanding)).getSinkStatus()){
+		if (Board.getTile(Board.findByName(TileNameEnum.FoolsLanding)).getSinkStatus())
 			return true;
-		}
 		
-		if ()
+		// condition for lost treasures
+		if (this.checkTreasureLost())
+			return true;
+		
+		// condition for water level reaching 5
+		if (this.waterLevel > 4)
+			return true;
 		
 		
 		
@@ -87,34 +95,61 @@ public class GameObserver {
 			temp.add(newPlayerList.get(i).getPosition());
 		}
 		this.playerLocations = temp;
-		System.out.println("Updated");
+		//System.out.println("Updated");
 	}
 	
-	public List<TreasureEnum> checkTreasuresAvailible() {
+	public void updateWaterLevel(int newWaterLevel) {
 		
-		List<TreasureEnum> temp = new ArrayList<TreasureEnum>();
+		this.waterLevel = newWaterLevel;
+		
+	}
+	
+	public boolean checkTreasureLost() {
+		
+		List<TreasureEnum> treasuresAvailible = new ArrayList<TreasureEnum>();
+//		List<TreasureEnum> fullTreasureList = Arrays.asList(TreasureEnum.values());
+//		Iterator<TreasureEnum> itr = fullTreasureList.iterator();
 		
 		for (int x = 0; x < 6; x++) {
 			for (int y = 0; y < 6; y++) {
 				
-				Tile tile = this.board.getTile(new Coordinate(x, y)); 
-				
-				if (!tile.getFloodStatus() && tile.getTreasure() != TreasureEnum.None && !temp.contains(tile.getTreasure())) {
-					
-					temp.add(tile.getTreasure());
-					
+				Tile tile = Board.getTile(new Coordinate(x, y)); 
+				if (tile != null) {
+					if (!tile.getSinkStatus() && tile.getTreasure() != TreasureEnum.None && !treasuresAvailible.contains(tile.getTreasure())) {
+						
+						treasuresAvailible.add(tile.getTreasure());
+						
+					}
 				}
 			}
 		}
 		
-		temp.addAll(this.treasuresCollected);
-		return temp;
+		if (this.treasuresCollected != null) {
+			treasuresAvailible.addAll(this.treasuresCollected);
+		}
+		
+//		System.out.println(treasuresAvailible);
+//		
+//		System.out.println("TreasureLost: " + !(treasuresAvailible.contains(TreasureEnum.EarthStone) ||
+//				treasuresAvailible.contains(TreasureEnum.FireCrystal) ||
+//				treasuresAvailible.contains(TreasureEnum.OceanChalice) ||
+//				treasuresAvailible.contains(TreasureEnum.WindStatue)));
+//
+//		System.out.println(treasuresAvailible.contains(TreasureEnum.EarthStone));
+//		System.out.println(treasuresAvailible.contains(TreasureEnum.FireCrystal));
+//		System.out.println(treasuresAvailible.contains(TreasureEnum.OceanChalice));
+//		System.out.println(treasuresAvailible.contains(TreasureEnum.WindStatue));
+		
+		return !(treasuresAvailible.contains(TreasureEnum.EarthStone) &&
+				treasuresAvailible.contains(TreasureEnum.FireCrystal) &&
+				treasuresAvailible.contains(TreasureEnum.OceanChalice) &&
+				treasuresAvailible.contains(TreasureEnum.WindStatue));
 		
 	}
 	
 	public void updateTreasuresCollected(List<TreasureEnum> newTreasureList) {
 		
-		this.treasuresCollected = newTreasureList;
+		this.treasuresCollected = newTreasureList;		
 		
 	}
 	

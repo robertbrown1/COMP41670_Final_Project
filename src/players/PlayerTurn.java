@@ -55,21 +55,27 @@ public class PlayerTurn {
 		 * possible options.
 		 */
 	    public void doTurn() {
+	    	
+	    	this.actions = 3;
+	    	
 	        System.out.println("It is " + pawn.getClass().getSimpleName() + "'s turn");
 	        checkHand();
 
-        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
-        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
-        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
-        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
-        while (actions > 0 && !GameObserver.getInstance().isGameOver()) {
-				board.printBoard(this.pawn);
+//	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+//	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+//	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+//	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+	        
+	        //System.out.println(GameObserver.getInstance().isGameOver());
+	        
+	        while (this.actions > 0 && !GameObserver.getInstance().isGameOver()) {
+					board.printBoard(this.pawn);
 
 				giveOptions();
 				int takeAction = getUserInput(0, 9);
 				switch (takeAction) {
 				    case 0:
-				    	GameObserver.getInstance().endGame(true);
+				    	//GameObserver.getInstance().endGame(true);
 				    	actions = 0;
 				    	System.out.println("Player has decided to take no more actions");
 				    	break;
@@ -95,10 +101,11 @@ public class PlayerTurn {
 				    	printHand();
 				    	break;
 				    case 8:
-				    	board.printBoard();
+				    	board.printBoard(pawn);
 				    	break;
 				    case 9:
-				    	printCapturedTreasures();
+				    	//printCapturedTreasures();
+				    	specialAction();
 				    	break;
 				    default:
 				    	System.out.println("Error");
@@ -122,6 +129,7 @@ public class PlayerTurn {
 	    	System.out.println("[7] Show Hand");
 	    	System.out.println("[8] Print Board");
 	    	System.out.println("[9] Show Captured Treasures");
+	    	
 		}
 	    
 	    public void tryMovement() {
@@ -151,9 +159,9 @@ public class PlayerTurn {
 	    	else
 	    		tileNum = 1;
 	    	for (int i = 0; i < tileNum; i++) {
-		    	while (board.getTile(current).getFloodStatus() || (board.isTile(north) && board.getTile(north).getFloodStatus()) ||
-		    			(board.isTile(south) && board.getTile(south).getFloodStatus()) || (board.isTile(west) && board.getTile(west).getFloodStatus()) ||
-		    			(board.isTile(east) && board.getTile(east).getFloodStatus())) {
+		    	while (Board.getTile(current).getFloodStatus() || (board.isTile(north) && Board.getTile(north).getFloodStatus()) ||
+		    			(board.isTile(south) && Board.getTile(south).getFloodStatus()) || (board.isTile(west) && Board.getTile(west).getFloodStatus()) ||
+		    			(board.isTile(east) && Board.getTile(east).getFloodStatus())) {
 		    		System.out.println("Which tile do you want to shore up? current tile [0], up [1], down [2], left [3] or right [4]?");
 		    		int direction = getUserInput(0, 4);
 		    		if (!board.isTile(tiles[direction])) {
@@ -206,7 +214,7 @@ public class PlayerTurn {
 	    
 	    public void tryCaptureTreasure() {
 	    	
-	    	TreasureEnum targetTreasure = board.getTile(pawn.getPosition()).getTreasure();
+	    	TreasureEnum targetTreasure = Board.getTile(pawn.getPosition()).getTreasure();
 	    	
 	    	if(pawn.captureTreasure(targetTreasure)) {
 				System.out.println("Treasure has been captured");
@@ -228,7 +236,7 @@ public class PlayerTurn {
 			int x = getUserInput(0, 5);
 			System.out.println("Give the y coordinate of the tile you would like to move to");
 			int y = getUserInput(0, 5);
-			if (!board.isTile(new Coordinate(x,y)) || board.getTile(new Coordinate(x,y)).getSinkStatus()) {
+			if (!board.isTile(new Coordinate(x,y)) || Board.getTile(new Coordinate(x,y)).getSinkStatus()) {
 				System.out.println("Can not move to tile");
 				pawn.getHand().add(checkCard);
 				return;
@@ -388,7 +396,6 @@ public class PlayerTurn {
 		    boolean validInput = false;
 			while (!validInput) {
 				String userString = Main.sc.nextLine();
-					
 				try {userInput = Integer.parseInt(userString);} 
 		        catch (NumberFormatException e) {continue;}
 					
@@ -400,6 +407,15 @@ public class PlayerTurn {
 				}
 			}
 			return userInput;
+			
+	    }
+	    
+	    public void specialAction() {
+	    	
+	    	Board.getTile(Board.findByName(TileNameEnum.TempleOfTheMoon)).setSinkStatus(true);
+	    	Board.getTile(Board.findByName(TileNameEnum.TempleOfTheSun)).setSinkStatus(true);;
+	    	actions--;
+	    	
 	    }
 	    
 }

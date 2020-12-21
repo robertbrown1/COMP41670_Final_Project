@@ -39,20 +39,27 @@ public class Board {
 	
 	public boolean canMove(Coordinate point, int direction) {
 		switch(direction) {
+			case 0:
+			if (isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus() ||
+					isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus() ||
+					isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus() ||
+					isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus())
+					return true;
+				break;
 			case 1:
-				if (isTile(point.north()) && Board.getTile(point.north()).getSinkStatus() == false)
+				if (isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus())
 					return true;
 				break;
 			case 2:
-				if (isTile(point.south()) && Board.getTile(point.south()).getSinkStatus() == false)
+				if (isTile(point.south()) && !Board.getTile(point.south()).getSinkStatus())
 					return true;
 				break;
 			case 3:
-				if (isTile(point.west()) && Board.getTile(point.west()).getSinkStatus() == false)
+				if (isTile(point.west()) && !Board.getTile(point.west()).getSinkStatus())
 					return true;
 				break;
 			case 4:
-				if (isTile(point.east()) && Board.getTile(point.east()).getSinkStatus() == false)
+				if (isTile(point.east()) && !Board.getTile(point.east()).getSinkStatus())
 					return true;
 				break;
 		}
@@ -69,7 +76,7 @@ public class Board {
 		}
 	}
 	
-	public Tile getTile(Coordinate point) {
+	public static Tile getTile(Coordinate point) {
 		
 		if (point.getX() >= 0 && point.getX() < 6 &&
 				point.getY() >= 0 && point.getY() < 6) {
