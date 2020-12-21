@@ -9,7 +9,7 @@ import observer.GameObserver;
 
 public abstract class Pawn {
 
-	private List<Card> hand = new ArrayList<Card>();
+	protected List<Card> hand = new ArrayList<Card>();
 	private Coordinate position;
 	
 	public Pawn(TileNameEnum startingTile) {
