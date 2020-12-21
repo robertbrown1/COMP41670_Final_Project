@@ -4,15 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import enums.TreasureEnum;
-import gamePieces.Treasure;
 
-	/**
-	 * Singleton Class for managing the list of Players in a game of Cluedo
-	 * 
-	 * @author  Conor Kennedy and Fergal Lonergan
-	 * @date    171103
-	 * @version 1.0
-	 */
+/**
+ * Singleton Class for managing the list of Players in a game
+ * 
+ * @author  Barry McNicholl & Robert Brown
+ * @since   21 12 2020
+ * @version 1.0
+ */
 
 public class PlayerList {
 
@@ -60,8 +59,8 @@ public class PlayerList {
     // Getters and Setters
     //===========================================================
     /**
-     * Get the number of Player s in the PlayerList
-     * @return integer representing number of Player s in game
+     * Get the number of Players in the PlayerList
+     * @return integer representing number of Players in game
      */
     public int getNumPlayers() {
     	
@@ -81,7 +80,7 @@ public class PlayerList {
     }
     
     /**
-     * Find the Player s position in the PlayerList
+     * Find the Players position in the PlayerList
      * @param player The player whose position you want to know
      * @return Their index, an integer number
      */
@@ -113,7 +112,7 @@ public class PlayerList {
     }
     
     /**
-     * Get all the Player s in PlayerList
+     * Get all the Players in PlayerList
      * @return a List of Player objects
      */
     public List<Pawn> getAllPlayers(){
@@ -123,7 +122,7 @@ public class PlayerList {
     }
     
     /**
-     * Get all the Player s in PlayerList
+     * Get all the Players in PlayerList
      * @return a List of Player objects
      */
     public List<TreasureEnum> getTreasuresCollected(){
@@ -132,6 +131,10 @@ public class PlayerList {
     	
     }
     
+    /**
+     * Add a treasure to the list of collected treasures
+     * @return true if the treasure is collected
+     */
     public boolean collectTreasure(TreasureEnum treasure) {
     	
     	treasuresCollected.add(treasure);
