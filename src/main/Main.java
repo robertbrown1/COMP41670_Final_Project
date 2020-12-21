@@ -14,7 +14,7 @@ public class Main {
     	Game game = Game.getInstance();
     	setup.doAllSetup();
     	game.gameLoop();
-    	
+    	sc.close();
     }
     
 }

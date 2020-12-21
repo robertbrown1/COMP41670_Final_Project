@@ -3,7 +3,7 @@ package players;
 import main.Main;
 import java.util.*;
 import enums.*;
-import observer.Observer;
+import observer.GameObserver;
 import gamePieces.*;
 import cards.*;
 
@@ -16,11 +16,10 @@ public class PlayerTurn {
 		private Board board;
 	    private int actions;
 	    private PlayerList list;
-	    private EarthTreasure earth;
-	    private WindTreasure wind;
-	    private FireTreasure fire;
-	    private OceanTreasure ocean;
-	    private boolean capturedTreasure;
+//	    private EarthTreasure earth;
+//	    private WindTreasure wind;
+//	    private FireTreasure fire;
+//	    private OceanTreasure ocean;
 	    private TreasureDeck treasure;
 	    private WaterMeter meter;
 	    private FloodDeck flood;
@@ -37,11 +36,10 @@ public class PlayerTurn {
 			this.pawn = player;
 			this.board = Board.getInstance();
 			this.list = PlayerList.getInstance();
-			this.earth = EarthTreasure.getInstance();
-			this.wind = WindTreasure.getInstance();
-			this.fire = FireTreasure.getInstance();
-			this.ocean = OceanTreasure.getInstance();
-			this.capturedTreasure = false;
+//			this.earth = EarthTreasure.getInstance();
+//			this.wind = WindTreasure.getInstance();
+//			this.fire = FireTreasure.getInstance();
+//			this.ocean = OceanTreasure.getInstance();
 			this.actions = 3;
 			this.treasure = TreasureDeck.getInstance();
 			this.meter = WaterMeter.getInstance();
@@ -59,15 +57,19 @@ public class PlayerTurn {
 	    public void doTurn() {
 	        System.out.println("It is " + pawn.getClass().getSimpleName() + "'s turn");
 	        checkHand();
-	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
-	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
-	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
-	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
-			while (actions > 0) {
+
+        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+        while (actions > 0 && !GameObserver.getInstance().isGameOver()) {
+				board.printBoard(this.pawn);
+
 				giveOptions();
 				int takeAction = getUserInput(0, 9);
 				switch (takeAction) {
 				    case 0:
+				    	GameObserver.getInstance().endGame(true);
 				    	actions = 0;
 				    	System.out.println("Player has decided to take no more actions");
 				    	break;
@@ -99,7 +101,7 @@ public class PlayerTurn {
 				    	printCapturedTreasures();
 				    	break;
 				    default:
-				    	System.out.println("CASE ERROR IN PlayerTurn.doTurn()");
+				    	System.out.println("Error");
 				}
 			}
 			drawTreasureCards();
@@ -108,6 +110,7 @@ public class PlayerTurn {
 		}
 	    
 	    private void giveOptions() {
+	    	
 	    	System.out.println("\nYou have " + actions + " actions left\nWhat action would you like to take?\nYour options are:");
 	    	System.out.println("[0] End turn");
 	    	System.out.println("[1] Move");
@@ -122,20 +125,24 @@ public class PlayerTurn {
 		}
 	    
 	    public void tryMovement() {
+	    	
 	        System.out.println("Would you like to move up [1], down [2], left [3] or right [4]?");
 			int direction = getUserInput(1, 4);
 			if (pawn.movePawn(direction))
 				actions--;
+			
 		}
 	    
 	    public void tryShoreUp() {
+	    	
 	    	int shoreUps = 0;
 	    	int tileNum;
-	    	Coordinate current = new Coordinate(pawn.getPosition().getX(), pawn.getPosition().getY());
-	    	Coordinate north = new Coordinate(pawn.getPosition().getX(), pawn.getPosition().getY()+1);
-			Coordinate south = new Coordinate(pawn.getPosition().getX(), pawn.getPosition().getY()-1);
-			Coordinate west = new Coordinate(pawn.getPosition().getX()-1, pawn.getPosition().getY());
-			Coordinate east = new Coordinate(pawn.getPosition().getX()+1, pawn.getPosition().getY());
+	    	
+	    	Coordinate current = pawn.getPosition();
+	    	Coordinate north = current.north();
+			Coordinate south = current.south();
+			Coordinate west = current.west();
+			Coordinate east = current.east();
 	    	Coordinate[] tiles = {current, north, south, west, east};
 	    	if (pawn instanceof EngineerPawn) {
 	    		System.out.println("How many tiles would you like to shore up? 1 or 2?");
@@ -144,9 +151,9 @@ public class PlayerTurn {
 	    	else
 	    		tileNum = 1;
 	    	for (int i = 0; i < tileNum; i++) {
-		    	while (Board.getTile(current).getFloodStatus() || (board.isTile(north) && Board.getTile(north).getFloodStatus()) ||
-		    			(board.isTile(south) && Board.getTile(south).getFloodStatus()) || (board.isTile(west) && Board.getTile(west).getFloodStatus()) ||
-		    			(board.isTile(east) && Board.getTile(east).getFloodStatus())) {
+		    	while (board.getTile(current).getFloodStatus() || (board.isTile(north) && board.getTile(north).getFloodStatus()) ||
+		    			(board.isTile(south) && board.getTile(south).getFloodStatus()) || (board.isTile(west) && board.getTile(west).getFloodStatus()) ||
+		    			(board.isTile(east) && board.getTile(east).getFloodStatus())) {
 		    		System.out.println("Which tile do you want to shore up? current tile [0], up [1], down [2], left [3] or right [4]?");
 		    		int direction = getUserInput(0, 4);
 		    		if (!board.isTile(tiles[direction])) {
@@ -198,18 +205,10 @@ public class PlayerTurn {
 	    }
 	    
 	    public void tryCaptureTreasure() {
-	    	if (capturedTreasure == true) {
-	    		System.out.println("Cannot capture another treasure during this turn");
-	    		return;
-	    	}
-	    	System.out.println("Which treasure would you like to capture?");
-	    	TreasureEnum[] treasures = TreasureEnum.values();
-	    	for (int i = 0; i < 4; i++) {
-	    		System.out.println(String.valueOf(i+1) + ": " + treasures[i].toString());
-	    	}
-	    	int chosenTreasure = getUserInput(1, 4);
-	    	if(pawn.captureTreasure(treasures[chosenTreasure-1])) {
-				capturedTreasure = true;
+	    	
+	    	TreasureEnum targetTreasure = board.getTile(pawn.getPosition()).getTreasure();
+	    	
+	    	if(pawn.captureTreasure(targetTreasure)) {
 				System.out.println("Treasure has been captured");
 				actions--;
 			}
@@ -229,7 +228,7 @@ public class PlayerTurn {
 			int x = getUserInput(0, 5);
 			System.out.println("Give the y coordinate of the tile you would like to move to");
 			int y = getUserInput(0, 5);
-			if (!board.isTile(new Coordinate(x,y)) || Board.getTile(new Coordinate(x,y)).getSinkStatus()) {
+			if (!board.isTile(new Coordinate(x,y)) || board.getTile(new Coordinate(x,y)).getSinkStatus()) {
 				System.out.println("Can not move to tile");
 				pawn.getHand().add(checkCard);
 				return;
@@ -344,6 +343,7 @@ public class PlayerTurn {
 	    	for (int i = 0; i < meter.getWaterLevel(); i++) {
 	    		Card drawnCard = flood.drawCard();
 	    		Coordinate point = Board.findByName((TileNameEnum)drawnCard.getName());
+
 	    		if (!Board.getTile(point).getFloodStatus()) {
 	    			Board.getTile(point).setFloodStatus(true);
 	    			System.out.println(drawnCard.getName() + " has been flooded");

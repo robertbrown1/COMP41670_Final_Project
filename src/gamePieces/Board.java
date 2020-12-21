@@ -69,7 +69,7 @@ public class Board {
 		}
 	}
 	
-	public static Tile getTile(Coordinate point) {
+	public Tile getTile(Coordinate point) {
 		
 		if (point.getX() >= 0 && point.getX() < 6 &&
 				point.getY() >= 0 && point.getY() < 6) {
@@ -85,7 +85,7 @@ public class Board {
 		return board;
 	}
 
-	public void printBoard() {
+	public void printBoard(Pawn player) {
 		int i;
 		PlayerList list = PlayerList.getInstance();
 		List<Integer> indices = new ArrayList<Integer>();
@@ -98,6 +98,12 @@ public class Board {
 					if (board[x][y] != null) {
 						switch(lines) {
 							case 0:
+								if (player != null) {
+									if (player.getPosition().getX() == x &&  player.getPosition().getY() == y) {
+										System.out.print(centerString("*** " + board[x][y].getTileName().toString() + " ***"));
+										break;
+									}
+								}
 								System.out.print(centerString(board[x][y].getTileName().toString()));
 								break;
 							case 1:
