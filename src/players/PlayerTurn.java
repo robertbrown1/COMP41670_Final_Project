@@ -59,13 +59,17 @@ public class PlayerTurn {
 	    public void doTurn() {
 	        System.out.println("It is " + pawn.getClass().getSimpleName() + "'s turn");
 	        checkHand();
-	        board.printBoard();
+	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
+	        pawn.getHand().add(new TreasureCard(TreasureEnum.EarthStone));
 			while (actions > 0) {
 				giveOptions();
-				int takeAction = getUserInput(0, 7);
+				int takeAction = getUserInput(0, 9);
 				switch (takeAction) {
 				    case 0:
 				    	actions = 0;
+				    	System.out.println("Player has decided to take no more actions");
 				    	break;
 				    case 1:
 				    	tryMovement();
@@ -88,10 +92,15 @@ public class PlayerTurn {
 				    case 7:
 				    	printHand();
 				    	break;
+				    case 8:
+				    	board.printBoard();
+				    	break;
+				    case 9:
+				    	printCapturedTreasures();
+				    	break;
 				    default:
 				    	System.out.println("CASE ERROR IN PlayerTurn.doTurn()");
 				}
-				board.printBoard();
 			}
 			drawTreasureCards();
 			drawFloodCards();
@@ -108,6 +117,8 @@ public class PlayerTurn {
 	    	System.out.println("[5] Use Helicopter Lift");
 	    	System.out.println("[6] Use Sandbag");
 	    	System.out.println("[7] Show Hand");
+	    	System.out.println("[8] Print Board");
+	    	System.out.println("[9] Show Captured Treasures");
 		}
 	    
 	    public void tryMovement() {
@@ -161,6 +172,10 @@ public class PlayerTurn {
 	    public void tryGiveCard() {
 	    	int playerNum = list.getPlayerIndex(pawn);
 	    	int cardNum;
+	    	if (pawn.getHand().size() == 0) {
+	    		System.out.println("No cards in hand to give away");
+	    		return;
+	    	}
 	    	while (playerNum == list.getPlayerIndex(pawn)) {
 	    		System.out.println("Which player would you like to give a card to?");
 		    	for (int i = 1; i <= list.getNumPlayers(); i++) {
@@ -208,7 +223,6 @@ public class PlayerTurn {
 	    	Card checkCard = pawn.getCard(TreasureEnum.HelicopterLift);
 	    	if (checkCard == null) {
 	    		System.out.println("No Helicopter Lift card in hand");
-	    		pawn.getHand().add(checkCard);
 	    		return;
 	    	}
 	    	System.out.println("Give the x coordinate of the tile you would like to move to");
@@ -225,7 +239,7 @@ public class PlayerTurn {
 			List<Pawn> players = new ArrayList<Pawn>();
 			for (int i = 1; i <= numPlayers; i++) {
 				System.out.println("Choose a player");
-				for (int j = 1; i < list.getNumPlayers(); j++) {
+				for (int j = 1; j <= list.getNumPlayers(); j++) {
 		    		if (!players.contains(list.getPlayer(j))) {
 		    			System.out.println(j + ": " + list.getPlayer(j).getClass().getSimpleName());
 		    		}
@@ -244,7 +258,6 @@ public class PlayerTurn {
 	    	Card checkCard = pawn.getCard(TreasureEnum.SandBag);
 	    	if (checkCard == null) {
 	    		System.out.println("No Sandbag card in hand");
-	    		pawn.getHand().add(checkCard);
 	    		return;
 	    	}
 	    	System.out.println("Give the x coordinate of the tile you would like to shore up");
@@ -267,8 +280,9 @@ public class PlayerTurn {
 	    }
 	    
 	    public void drawTreasureCards() {
-	    	int playerNum = list.getPlayerIndex(pawn);
+	    	boolean playersOnTile = false;
 	    	for (int i = 0; i < 2; i++) {
+	    		boolean cardGiven = false;
 	    		Card drawnCard = treasure.drawCard();
 	    		System.out.println("A " + drawnCard.getName() + "Card has been drawn");
 	    		if (drawnCard instanceof WaterRiseCard) {
@@ -277,35 +291,51 @@ public class PlayerTurn {
 	    			System.out.println("Water level is now " + meter.getWaterLevel());
 	    			continue;
 	    		}
-	    		System.out.println("Do you want to keep it [1] or give it away [2]?");
-	    		int choice = getUserInput(1, 2);
-	    		if (choice == 1) {
+	    		for (int num = 1; num <= list.getNumPlayers(); num++) {
+	    			if (num != list.getPlayerIndex(pawn)) {
+	    				playersOnTile = pawn.getPosition().equals(list.getPlayer(num).getPosition());
+	    				if (playersOnTile)
+	    					break;
+	    			}
+	    		}
+	    		if (!playersOnTile && !(pawn instanceof MessengerPawn)) {
+	    			System.out.println("No other pawns on tile so card will be kept");
 	    			pawn.getHand().add(drawnCard);
 	    			checkHand();
 	    		}
 	    		else {
-	    			System.out.println("Who would you like to give the card to?");
-	    			for (int j = 1; j <= list.getNumPlayers(); j++) {
-	    	    		if (j != playerNum) {
-	    	    			System.out.println(j + ": " + list.getPlayer(j).getClass().getSimpleName());
-	    	    		}
-	    	    	}
-	    	    	while (playerNum == list.getPlayerIndex(pawn)) {
-	    	    		playerNum = getUserInput(1, list.getNumPlayers());
-	    	    	}
-	    	    	if (pawn instanceof MessengerPawn) {
-	    	    		list.getPlayer(playerNum).getHand().add(drawnCard);
-	    	    		System.out.println("Card has been given");
-	    	    	}
-	    	    	else if (pawn.getPosition().equals(list.getPlayer(playerNum).getPosition())) {
-	    	    		list.getPlayer(playerNum).getHand().add(drawnCard);
-	    	    		System.out.println("Card has been given");
-	    	    	}
-	    	    	else {
-	    	    		System.out.println("Pawns are on different tiles so card will be kept instead");
-	    	    		pawn.getHand().add(drawnCard);
+		    		System.out.println("Do you want to keep it [1] or give it away [2]?");
+		    		int choice = getUserInput(1, 2);
+		    		if (choice == 1) {
+		    			pawn.getHand().add(drawnCard);
 		    			checkHand();
-	    	    	}
+		    		}
+		    		else {
+		    			while (!cardGiven) {
+		    				int playerNum = list.getPlayerIndex(pawn);
+			    			System.out.println("Who would you like to give the card to?");
+			    			for (int j = 1; j <= list.getNumPlayers(); j++) {
+			    	    		if (j != playerNum) {
+			    	    			System.out.println(j + ": " + list.getPlayer(j).getClass().getSimpleName());
+			    	    		}
+			    	    	}
+			    	    	while (playerNum == list.getPlayerIndex(pawn)) {
+			    	    		playerNum = getUserInput(1, list.getNumPlayers());
+			    	    	}
+			    	    	if (pawn instanceof MessengerPawn) {
+			    	    		list.getPlayer(playerNum).getHand().add(drawnCard);
+			    	    		System.out.println("Card has been given");
+			    	    		cardGiven = true;
+			    	    	}
+			    	    	else if (pawn.getPosition().equals(list.getPlayer(playerNum).getPosition())) {
+			    	    		list.getPlayer(playerNum).getHand().add(drawnCard);
+			    	    		System.out.println("Card has been given");
+			    	    		cardGiven = true;
+			    	    	}
+			    	    	else 
+			    	    		System.out.println("Please choose a pawn that is on the same tile");
+		    			}
+		    		}
 	    		}
 	    	}
 	    }
@@ -314,13 +344,16 @@ public class PlayerTurn {
 	    	for (int i = 0; i < meter.getWaterLevel(); i++) {
 	    		Card drawnCard = flood.drawCard();
 	    		Coordinate point = Board.findByName((TileNameEnum)drawnCard.getName());
-	    		if(!Board.getTile(point).getFloodStatus()) {
+	    		if (!Board.getTile(point).getFloodStatus()) {
 	    			Board.getTile(point).setFloodStatus(true);
 	    			System.out.println(drawnCard.getName() + " has been flooded");
 	    		}
-	    		else {
+	    		else if (!Board.getTile(point).getSinkStatus()) {
 	    			Board.getTile(point).setSinkStatus(true);
 	    			System.out.println(drawnCard.getName() + " has sunk");
+	    		}
+	    		else {
+	    			System.out.println(drawnCard.getName() + " has already been sunk");
 	    		}
 	    		flood.addToDiscardPile(drawnCard);
 	    	}
@@ -341,6 +374,13 @@ public class PlayerTurn {
 	    	for (int i = 0; i < pawn.getHand().size(); i++) {
 	    		System.out.println(String.valueOf(i+1) + ": " + pawn.getHand().get(i).getName());
 	    	}
+	    }
+	    
+	    public void printCapturedTreasures() {
+	    	if (list.getTreasuresCollected().size() == 0)
+	    		System.out.println("No treasures have been collected");
+	    	else
+	    		System.out.println(list.getTreasuresCollected().toString());
 	    }
 	    
 	    public int getUserInput(int minVal, int maxVal) {
