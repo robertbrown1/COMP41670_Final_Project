@@ -5,6 +5,7 @@ import java.util.*;
 import cards.*;
 import enums.*;
 import gamePieces.*;
+import observer.GameObserver;
 
 /**
  * Abstract Class for the Player pawns
@@ -43,7 +44,7 @@ public abstract class Pawn {
 	 * @return true or false if the tile has been shored up
 	 */
 	public boolean shoreUp(Coordinate point) {
-		Tile floodedTile = Board.getTile(point); // Get tile at coordinate
+		Tile floodedTile = Board.getInstance().getTile(point); // Get tile at coordinate
 		if (floodedTile == null || floodedTile.getSinkStatus() == true || floodedTile.getFloodStatus() == false) {
 			return false; // Tile is invalid or is not flooded or has sank
 		}
@@ -80,7 +81,8 @@ public abstract class Pawn {
 	public boolean captureTreasure(TreasureEnum treasure) {
 		PlayerList playerList = PlayerList.getInstance(); // Get list of players
 		Stack<Card> checkCards = new Stack<Card>();
-		if (Board.getTile(position).getTreasure() != treasure) {
+		
+		if (Board.getInstance().getTile(position).getTreasure() != treasure || treasure == TreasureEnum.None) {
 			return false; // Treasure can't be collected from this tile
 		}
 		for (int i = 0 ; i <= 3 ; i++) { // Need 4 matching cards
@@ -99,8 +101,10 @@ public abstract class Pawn {
 		while(!checkCards.isEmpty()) { // Treasure can be captured so discard cards
 			TreasureDeck.getInstance().addToDiscardPile(checkCards.pop());
 		}
+		
     	playerList.collectTreasure(treasure); // Capture treasure
-    	Board.getTile(position).setTreasure(TreasureEnum.None); // Remove treasure from tile
+    	Board.getInstance().getTile(position).setTreasure(TreasureEnum.None); // Remove treasure from tile
+    	GameObserver.getInstance().updateTreasuresCollected(playerList.getTreasuresCollected());
     	return true;
 
 	}
@@ -128,6 +132,7 @@ public abstract class Pawn {
 					break;
 			}
 			System.out.println("Pawn move successful");
+			GameObserver.getInstance().updatePlayerLocations(PlayerList.getInstance().getAllPlayers());
 			return true;
 		}
 		else {

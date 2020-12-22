@@ -79,19 +79,19 @@ public class Board {
 	public boolean canMove(Coordinate point, int direction) {
 		switch(direction) {
 			case 1: // Move north
-				if (isTile(point.north()) && Board.getTile(point.north()).getSinkStatus() == false)
+				if (isTile(point.north()) && getTile(point.north()).getSinkStatus() == false)
 					return true; // There is a tile north and it has not been sunk
 				break;
 			case 2: // Move south
-				if (isTile(point.south()) && Board.getTile(point.south()).getSinkStatus() == false)
+				if (isTile(point.south()) && getTile(point.south()).getSinkStatus() == false)
 					return true; // There is a tile south and it has not been sunk
 				break;
 			case 3: // Move west
-				if (isTile(point.west()) && Board.getTile(point.west()).getSinkStatus() == false)
+				if (isTile(point.west()) && getTile(point.west()).getSinkStatus() == false)
 					return true; // There is a tile west and it has not been sunk
 				break;
 			case 4: // Move east
-				if (isTile(point.east()) && Board.getTile(point.east()).getSinkStatus() == false)
+				if (isTile(point.east()) && getTile(point.east()).getSinkStatus() == false)
 					return true; // There is a tile east and it has not been sunk
 				break;
 		}
@@ -122,7 +122,7 @@ public class Board {
      * @param point the coordinate of the tile
      * @return tile at given coordinate
      */
-	public static Tile getTile(Coordinate point) {
+	public Tile getTile(Coordinate point) {
 		
 		if (point.getX() >= 0 && point.getX() < 6 &&
 				point.getY() >= 0 && point.getY() < 6) { // x and y values are valid
@@ -147,7 +147,8 @@ public class Board {
 	/**
      * Method for printing the board and important info about players and tiles
      */
-	public void printBoard() {
+
+	public void printBoard(Pawn player) {
 		int i;
 		PlayerList list = PlayerList.getInstance(); // Get list of players
 		List<Integer> indices = new ArrayList<Integer>();
@@ -160,7 +161,12 @@ public class Board {
 					if (board[x][y] != null) { // Skip invalid tiles
 						switch(lines) {
 							case 0: // Print name of tile
-								System.out.print(centerString(board[x][y].getTileName().toString()));
+								if (player != null) {
+									if (player.getPosition().getX() == x &&  player.getPosition().getY() == y) { // Player position
+										System.out.print(centerString("*** " + board[x][y].getTileName().toString() + " ***"));
+										break;
+									}
+								}
 								break;
 							case 1: // Print sink status of tile
 								System.out.print("Sunk: " + leftAlignString(String.valueOf(board[x][y].getSinkStatus()), 24));

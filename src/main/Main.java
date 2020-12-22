@@ -27,7 +27,7 @@ public class Main {
     	Game game = Game.getInstance(); // Initiate game
     	setup.doAllSetup();
     	game.gameLoop();
-    	
+    	sc.close();
     }
     
 }

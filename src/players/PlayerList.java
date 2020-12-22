@@ -5,6 +5,7 @@ import java.util.List;
 
 import enums.TreasureEnum;
 
+
 /**
  * Singleton Class for managing the list of Players in a game
  * 
@@ -137,8 +138,12 @@ public class PlayerList {
      */
     public boolean collectTreasure(TreasureEnum treasure) {
     	
-    	treasuresCollected.add(treasure);
-    	return true;
+    	if (!this.treasuresCollected.contains(treasure) && treasure != TreasureEnum.None) {
+    		treasuresCollected.add(treasure);
+        	return true;
+    	}
+    	else 
+    		return false;
     	
     }
     

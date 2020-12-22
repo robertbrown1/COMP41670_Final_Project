@@ -4,7 +4,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 import main.Main;
-
+import observer.GameObserver;
 import enums.RoleEnum;
 import players.*;
 
@@ -97,6 +97,8 @@ public class PlayerSetup {
 		}
 
 		System.out.println("\nThe following roles have been assigned");
+		
+		GameObserver.getInstance().updatePlayerLocations(PlayerList.getInstance().getAllPlayers());
 		
 		for(int i = 1; i <= playerList.getNumPlayers(); i++) { // Print all players
 			
