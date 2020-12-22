@@ -44,7 +44,9 @@ public abstract class Pawn {
 	 * @return true or false if the tile has been shored up
 	 */
 	public boolean shoreUp(Coordinate point) {
-		Tile floodedTile = Board.getInstance().getTile(point); // Get tile at coordinate
+		
+		Tile floodedTile = Board.getTile(point); // Get tile at coordinate
+
 		if (floodedTile == null || floodedTile.getSinkStatus() == true || floodedTile.getFloodStatus() == false) {
 			return false; // Tile is invalid or is not flooded or has sank
 		}
@@ -82,7 +84,7 @@ public abstract class Pawn {
 		PlayerList playerList = PlayerList.getInstance(); // Get list of players
 		Stack<Card> checkCards = new Stack<Card>();
 		
-		if (Board.getInstance().getTile(position).getTreasure() != treasure || treasure == TreasureEnum.None) {
+		if (Board.getTile(position).getTreasure() != treasure || treasure == TreasureEnum.None) {
 			return false; // Treasure can't be collected from this tile
 		}
 		for (int i = 0 ; i <= 3 ; i++) { // Need 4 matching cards
@@ -102,8 +104,10 @@ public abstract class Pawn {
 			TreasureDeck.getInstance().addToDiscardPile(checkCards.pop());
 		}
 		
+    	playerList.collectTreasure(treasure);
+    	Board.getTile(position).setTreasure(TreasureEnum.None);
     	playerList.collectTreasure(treasure); // Capture treasure
-    	Board.getInstance().getTile(position).setTreasure(TreasureEnum.None); // Remove treasure from tile
+		Board.getTile(position).setTreasure(TreasureEnum.None); // Remove treasure from tile
     	GameObserver.getInstance().updateTreasuresCollected(playerList.getTreasuresCollected());
     	return true;
 
@@ -136,7 +140,6 @@ public abstract class Pawn {
 			return true;
 		}
 		else {
-			System.out.println("Pawn can not move in this direction");
 			return false;
 		}
 	}
@@ -178,5 +181,7 @@ public abstract class Pawn {
 	public void setPosition(Coordinate point) {
 		this.position = point;
 	}
+	
+	
 	
 }

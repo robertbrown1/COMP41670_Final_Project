@@ -1,7 +1,9 @@
 package setup;
 
 import gamePieces.WaterMeter;
+import main.Game;
 import main.Main;
+import players.PlayerTurn;
 
 /**
  * Class to handle all aspects of setting up the water meter
@@ -37,7 +39,9 @@ public class WaterSetup {
 		int difficulty = 0;
 		while (difficulty < 1 || difficulty > 4) { // Must be between 1 and 4
 			System.out.print("What difficulty would you like? Choose a number between 1 and 4: ");
-			difficulty = Main.sc.nextInt(); // Get value from user
+			difficulty = Game.getUserInput(1, 4);  // Get value from user
+			//difficulty = Main.sc.nextInt();
+
 		}
 		setupWater.setWaterLevel(difficulty); // Set water level as user input
 	}
