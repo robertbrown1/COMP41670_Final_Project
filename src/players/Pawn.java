@@ -115,16 +115,16 @@ public abstract class Pawn {
 	}
 	
 	/**
-	 * movePawn moves the player in a given direction if possible
-	 * @param direction the direction to move in
+	 * movePawn asks the player which direction it wants to move and tries to move there
 	 * @return true or false if the pawn has moved
 	 */
 	public boolean movePawn() {
 		
-		//if (gameBoard.canMoveSimple(this.position, 0)) {
 		if (this.canMove()) {
 			
 			for (;;) {
+					
+					// ask player for input
 				System.out.println("Would you like to move up [1], down [2], left [3] or right [4]?");
 			
 				int direction = Game.getUserInput(1, 4); // Get user to pick an option
@@ -144,9 +144,12 @@ public abstract class Pawn {
 							this.setPosition(this.position.east());
 							break;
 					}
-					System.out.println("Pawn move successful");
+					
+						// if you move the pawn then update the observer with the locations
 					GameObserver.getInstance().updatePlayerLocations(PlayerList.getInstance().getAllPlayers());
+					System.out.println("Pawn move successful");
 					return true;
+					
 				}
 				else {
 					System.out.println("Can't Move in this direction, please try again");
@@ -154,14 +157,18 @@ public abstract class Pawn {
 			}
 		}
 		
-		System.out.println("Error! Game should be over");
+			// condition for game continuing when it should be over
+		System.out.println("Error! The Game is over");
 		return false;
 		
 	}
 	
-	
+	/**
+	 * canMove checks if a pawn can move at all
+	 */
 	public boolean canMove() {
 		
+			// for a simple pawn this is just Board.canMoveSimple()
 		return Board.getInstance().canMoveSimple(this.position, 0);
 		
 	}

@@ -54,7 +54,6 @@ public class DiverPawn extends Pawn {
 	 */
 	public boolean movePawn() {
 		
-		//if (gameBoard.canMoveSimple(this.position, 0)) {
 		if (Board.getInstance().canMoveSimple(this.position, 0)) {
 			
 			for (;;) {
@@ -96,17 +95,17 @@ public class DiverPawn extends Pawn {
 			Coordinate point = this.getPosition();
 			int myX = point.getX();
 			int myY = point.getY();
-			int manhattanDistance = 2;
-			List<TileNameEnum> nearestTiles = new ArrayList<TileNameEnum>();
+			int manhattanDistance = 2;	// the manhattan distance between the tiles
+			List<TileNameEnum> nearestTiles = new ArrayList<TileNameEnum>();	// list of the nearest tiles
 			
-			do {
-				for (int x = 0; x < 6; x++) {
+			do {		// loop compiles a list of the closest available tiles by manhattan distance
+				for (int x = 0; x < 6; x++) {	// loop through every tile
 					for (int y = 0; y < 6; y++) {
 						if (Math.abs(x - myX) + Math.abs(y - myY) == manhattanDistance) {
 							Tile tile = Board.getTile(new Coordinate(x, y)); 
 							if (tile != null) {
 								if (!tile.getSinkStatus()) {
-									
+										// if there's a tile at this distance add it to the list
 									nearestTiles.add(tile.getTileName());
 									
 								}
@@ -114,13 +113,18 @@ public class DiverPawn extends Pawn {
 						}
 					}
 				}
+					// if no tile is found, increment the distance and go again
 				manhattanDistance++;
 			} while (nearestTiles.isEmpty());
 			
-	    	for (int i = 0; i < nearestTiles.size(); i++) { // For all cards in hand
+	    	for (int i = 0; i < nearestTiles.size(); i++) {
+	    		
+	    			// printing out the options
 	    		System.out.println("[" + String.valueOf(i+1) + "]: " + nearestTiles.get(i));
+	    		
 	    	}
 	    	
+	    		// taking in the input and moving
 	    	int tileSelected = Game.getUserInput(1, nearestTiles.size())-1;
 			this.setPosition(Board.findByName(nearestTiles.get(tileSelected)));
 			System.out.println("Pawn move successful");
@@ -133,24 +137,30 @@ public class DiverPawn extends Pawn {
 		
 	}
 	
+	/**
+	 * canMove checks if the Diver pawn can move at all
+	 */
 	public boolean canMove() {
 		
 		Coordinate point = this.getPosition();
 		
-		for (int x = 0; x < 6; x++) {
+		for (int x = 0; x < 6; x++) {	// looping through all the tiles
 			for (int y = 0; y < 6; y++) {
 				
 				Tile tile = Board.getTile(new Coordinate(x, y)); 
+				
 				if (tile != null) {
+					
 					if (!tile.getSinkStatus() && new Coordinate(x, y) != point) {
-						
+							
+							// if there's a single tile not sunk then the diver can move
 						return true;
 						
 					}
 				}
 			}
 		}
-		
+			// if there are no eligible tiles then the pawn can't move
 		return false;
 		
 	}

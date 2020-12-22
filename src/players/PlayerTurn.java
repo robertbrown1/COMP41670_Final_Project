@@ -36,6 +36,7 @@ public class PlayerTurn {
 	     * @param player The player whose turn it is.
 	     */
 	    public PlayerTurn(Pawn player) {
+	    	
 			this.pawn = player;
 			this.board = Board.getInstance();
 			this.list = PlayerList.getInstance();
@@ -43,6 +44,7 @@ public class PlayerTurn {
 			this.treasure = TreasureDeck.getInstance();
 			this.meter = WaterMeter.getInstance();
 			this.flood = FloodDeck.getInstance();
+			
 		}
 
 		
@@ -60,12 +62,11 @@ public class PlayerTurn {
 
 	        checkHand(); // Ensure that there are not move than 5 cards in hand
 			while (actions > 0 && !GameObserver.getInstance().isGameOver()) { // While user can still take actions
-				board.printBoard(this.pawn);
+				//board.printBoard(this.pawn);
 				giveOptions(); // Print player options 
 				int takeAction = Game.getUserInput(0, 10); // Get user to pick an option
 				switch (takeAction) {
 				    case 0: // End turn
-				    	//GameObserver.getInstance().endGame(true);
 				    	actions = 0;
 				    	System.out.println("Player has decided to take no more actions");
 				    	break;
@@ -96,7 +97,7 @@ public class PlayerTurn {
 				    case 9: // Show the treasures that have been captured
 				    	printCapturedTreasures();
 				    	break;
-				    case 10: // Show the treasures that have been captured
+				    case 10: // Special action to create various situations for testing, should be removed for deployment
 				    	specialAction();
 				    	break;
 				    default:
@@ -104,8 +105,10 @@ public class PlayerTurn {
 				}
 			}
 			if (!GameObserver.getInstance().isGameOver()) {
+				
 				drawTreasureCards(); // Draw cards from treasure deck
 				drawFloodCards(); // Draw cards from flood deck
+				
 				System.out.println("Your turn has ended.\n");
 			}
 	    }
@@ -247,6 +250,7 @@ public class PlayerTurn {
 	    	
 	    	if (GameObserver.getInstance().inPositionToWin()) {
 	    		
+	    		// if you use a helicopter lift card and the team is in the position to win then you've won the game
 	    		GameObserver.getInstance().winGame();
 	    		
 	    	}
@@ -433,31 +437,7 @@ public class PlayerTurn {
 	    		System.out.println(list.getTreasuresCollected().toString()); // Print list
 	    }
 	    
-	    /**
-		 * getUserInput allows the user to enter values
-		 * @param minVal the smallest number in range of options
-		 * @param maxVal the largest number in range of options
-		 * @return the option that the user has selected
-		 */
-//	    public static int getUserInput(int minVal, int maxVal) {
-//	    	int userInput = 0;
-//		    boolean validInput = false;
-//			while (!validInput) { // Until number in range is selected
-//				String userString = Main.sc.nextLine(); // Scanner for user string
-//				try {userInput = Integer.parseInt(userString);} //Try to convert string to integer
-//		        catch (NumberFormatException e) {continue;}
-//					
-//				if ((userInput >= minVal) && (userInput <= maxVal)) { // Input is within range
-//					validInput = true;
-//				}
-//				if (!validInput) {
-//					System.out.println("Please enter a valid input");
-//				}
-//			}
-//			return userInput;
-//			
-//	    }
-	    
+	 // Special action to create various situations for testing, should be removed for deployment  
 	    public void specialAction() {
 	    	
 	    	Board.getTile(Board.findByName(TileNameEnum.TempleOfTheMoon)).setSinkStatus(true);

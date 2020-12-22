@@ -50,8 +50,7 @@ public class PilotPawn extends Pawn {
 	 * @return true or false if the pawn has moved
 	 */
 	public boolean movePawn() {
-		
-		//if (gameBoard.canMoveSimple(this.position, 0)) {
+
 		if (Board.getInstance().canMoveSimple(this.position, 0)) {
 			
 			for (;;) {
@@ -92,14 +91,16 @@ public class PilotPawn extends Pawn {
 			
 			for (;;) {
 				
+					// user input
 				System.out.println("Give the x coordinate of the tile you would like to move to");
 				int x = Game.getUserInput(0, 5); // Get user to pick option
 				System.out.println("Give the y coordinate of the tile you would like to move to");
-
 				int y = Game.getUserInput(0, 5); // Get user to pick option
+				
 				if (Board.getInstance().isTile(new Coordinate(x,y)) && !Board.getTile(new Coordinate(x,y)).getSinkStatus()) {
 					
 					this.setPosition(new Coordinate(x, y));
+					GameObserver.getInstance().updatePlayerLocations(PlayerList.getInstance().getAllPlayers());
 					System.out.println("Moved Successfully");
 					return true;
 					
@@ -115,25 +116,30 @@ public class PilotPawn extends Pawn {
 		
 	}
 	
-	
+	/**
+	 * canMove checks if the Pilot pawn can move at all
+	 */
 	public boolean canMove() {
 		
 		Coordinate point = this.getPosition();
 		
-		for (int x = 0; x < 6; x++) {
+		for (int x = 0; x < 6; x++) {	// looping through all the tiles
 			for (int y = 0; y < 6; y++) {
 				
 				Tile tile = Board.getTile(new Coordinate(x, y)); 
+				
 				if (tile != null) {
+					
 					if (!tile.getSinkStatus() && new Coordinate(x, y) != point) {
-						
+							
+							// if there's a single tile not sunk then the pilot can move
 						return true;
 						
 					}
 				}
 			}
 		}
-		
+			// if there are no eligible tiles then the pawn can't move
 		return false;
 		
 	}
