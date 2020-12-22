@@ -85,19 +85,25 @@ public class GameObserver {
 	public boolean isGameLost() {
 		
 		// condition for FoolsLanding Sunk
-		if (Board.getTile(Board.findByName(TileNameEnum.FoolsLanding)).getSinkStatus())
+		if (Board.getTile(Board.findByName(TileNameEnum.FoolsLanding)).getSinkStatus()) {
+			System.out.println("You're a Fool");
 			return true;
-		
+		}
 		// condition for water level reaching 5
-		if (this.waterLevel > 4)
+		if (this.waterLevel > 4) {
+			System.out.println("Water Level");
 			return true;
-		
+		}
 		// condition for lost treasures
-		if (this.checkTreasureLost())
+		if (this.checkTreasureLost()) {
+			System.out.println("TreasureLost");
 			return true;
+		}
+			
 		
 		// condition for player trapped
 		if (this.checkPlayerTrapped()) {
+			System.out.println("PlayerTrapped");
 			return true;
 		}
 		
@@ -150,9 +156,6 @@ public class GameObserver {
 			// list of the treasures availible
 		List<TreasureEnum> treasuresAvailible = new ArrayList<TreasureEnum>();
 		
-//		List<TreasureEnum> fullTreasureList = Arrays.asList(TreasureEnum.values());
-//		Iterator<TreasureEnum> itr = fullTreasureList.iterator();
-		
 		for (int x = 0; x < 6; x++) {		// looping through the whole board
 			for (int y = 0; y < 6; y++) {
 				
@@ -176,18 +179,6 @@ public class GameObserver {
 			treasuresAvailible.addAll(this.treasuresCollected);
 			
 		}
-		
-//		System.out.println(treasuresAvailible);
-//		
-//		System.out.println("TreasureLost: " + !(treasuresAvailible.contains(TreasureEnum.EarthStone) ||
-//				treasuresAvailible.contains(TreasureEnum.FireCrystal) ||
-//				treasuresAvailible.contains(TreasureEnum.OceanChalice) ||
-//				treasuresAvailible.contains(TreasureEnum.WindStatue)));
-//
-//		System.out.println(treasuresAvailible.contains(TreasureEnum.EarthStone));
-//		System.out.println(treasuresAvailible.contains(TreasureEnum.FireCrystal));
-//		System.out.println(treasuresAvailible.contains(TreasureEnum.OceanChalice));
-//		System.out.println(treasuresAvailible.contains(TreasureEnum.WindStatue));
 		
 			// return true if any of the treasures aren't available
 		return !(treasuresAvailible.contains(TreasureEnum.EarthStone) &&
