@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import enums.TreasureEnum;
+import observer.GameObserver;
 
 
 /**
@@ -139,8 +140,11 @@ public class PlayerList {
     public boolean collectTreasure(TreasureEnum treasure) {
     	
     	if (!this.treasuresCollected.contains(treasure) && treasure != TreasureEnum.None) {
+    		
     		treasuresCollected.add(treasure);
+    		GameObserver.getInstance().updateTreasuresCollected(treasuresCollected);
         	return true;
+        	
     	}
     	else 
     		return false;

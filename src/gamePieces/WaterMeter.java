@@ -1,5 +1,7 @@
 package gamePieces;
 
+import observer.GameObserver;
+
 /**
  * WaterMeter singleton class.
  * A single water meter object is created and that object is called using the getInstance method.
@@ -62,7 +64,9 @@ public class WaterMeter {
      * increaseWaterLevekl increments the water level
      */
 	public void increaseWaterLevel() {
+		
 		waterLevel++;
+		GameObserver.getInstance().updateWaterLevel(waterLevel);
 		
 	}
 	

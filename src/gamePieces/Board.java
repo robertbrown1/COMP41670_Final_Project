@@ -131,6 +131,7 @@ public class Board {
 						isTile(point.southEast()) && !Board.getTile(point.southEast()).getSinkStatus() ||
 						isTile(point.southWest()) && !Board.getTile(point.southWest()).getSinkStatus())
 					return true;
+				System.out.println("She doesn't think you can move diagonally man");
 				break;
 			case 1:
 					// checking north east
