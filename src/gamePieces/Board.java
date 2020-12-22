@@ -6,15 +6,32 @@ import players.*;
 
 public class Board {
 	
+    //===========================================================
+    // Variable Setup
+    //===========================================================
 	private static Tile[][] board = new Tile[6][6];
 	private static Board instance = null;
 	
+	//===========================================================
+    // Get Instance of Singleton
+    //===========================================================
+    /**
+     * getInstance method returns single instance of board.
+     * @return instance singleton Board object.
+     */
 	public static Board getInstance() {
 		if (instance == null)
 			instance = new Board();
 		return instance;
 	}
 	
+	//===========================================================
+    // Constructor
+    //===========================================================
+    /**
+     * Board constructor. 
+     * Sets up the board as array of tiles.
+     */
 	public Board() {
 		for (int x = 0; x < 6; x++) {         // For each row in Board
             for (int y = 0; y < 6; y++) {     // For each column in row
@@ -137,7 +154,7 @@ public class Board {
 						}
 					}
 					else {
-						System.out.print(centerString(" "));
+						System.out.print(centerString(" ")); // Leave invalid tiles blank
 					}
 				}
 				System.out.print("\n");
@@ -145,6 +162,11 @@ public class Board {
 		}
 	}
 	
+	/**
+     * centerString aligns string to the center
+     * @param s string to align
+     * @return aligned string
+     */
 	public String centerString(String s) {
 		int width = 30;
 		int padSize = width - s.length();

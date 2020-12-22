@@ -1,5 +1,12 @@
 package enums;
 
+/**
+ * Class holding the enumerated types for tiles in Forbidden Island.
+ * 
+ * @author  Barry McNicholl & Robert Brown
+ * @since   21 12 2020
+ * @version 1.0
+ */
 public enum TileNameEnum {
 	
 	TwilightHollow,

@@ -1,6 +1,14 @@
 package setup;
 
 
+//=======
+/**
+ * Singleton Facade to handle all required setup for the game
+ * 
+ * @author  Barry McNicholl & Robert Brown
+ * @since   21 12 2020
+ * @version 1.0
+ */
 
 public class Setup {
 	
@@ -9,7 +17,6 @@ public class Setup {
     //===========================================================
 	// Self singleton
     private static Setup theSetup;
-    
     // Setup Controllers
     private PlayerSetup playerHandler;
     private FloodSetup floodHandler;
@@ -47,14 +54,20 @@ public class Setup {
         this.waterHandler = new WaterSetup();
     }
 
+    //===========================================================
+    // Methods
+    //===========================================================
+    /**
+     * Method that sets up everything
+     */
     public void doAllSetup() {
     	
-        boardHandler.assignTiles(); 
-        floodHandler.startSinking();
-        playerHandler.findPlayers();
-        playerHandler.assignRoles();
-        treasureHandler.dealTreasureCards();
-        waterHandler.findDifficulty();
+        boardHandler.assignTiles(); // Randomly assign tile
+        floodHandler.startSinking(); // Start sinking tiles
+        playerHandler.findPlayers(); // Input players
+        playerHandler.assignRoles(); // Randomly assign roles
+        treasureHandler.dealTreasureCards(); // Give treasure cards to players
+        waterHandler.findDifficulty(); // Get user to input difficulty
         
     }
     

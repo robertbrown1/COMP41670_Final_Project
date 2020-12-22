@@ -78,6 +78,7 @@ public class GameObserver {
 		// condition for water level reaching 5
 		if (this.waterLevel > 4)
 			return true;
+
 		
 		
 		
