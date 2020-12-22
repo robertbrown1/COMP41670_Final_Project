@@ -2,8 +2,6 @@ package setup;
 
 import gamePieces.WaterMeter;
 import main.Game;
-import main.Main;
-import players.PlayerTurn;
 
 /**
  * Class to handle all aspects of setting up the water meter

@@ -14,6 +14,7 @@ public class GameObserver {
 	
 	private boolean gameWon;
 	private static GameObserver instance = null;
+	private List<Pawn> playerList;
 	private List<Coordinate> playerLocations;
     private List<TreasureEnum> treasuresCollected;
     private int waterLevel;
@@ -39,21 +40,7 @@ public class GameObserver {
 	
 	public boolean isGameOver() {
 		
-		return this.gameWon || this.isGameLost();
-		
-	}
-	
-	public boolean isGameWon() {
-		
-		if (Board.getTile(this.playerLocations.get(0)).getTileName() == TileNameEnum.FoolsLanding) {
-			
-			//this.gameWon = true;
-			
-		}
-		
-		// System.out.println("Checked: " + this.gameWon);
-		
-		return this.gameWon;
+		return this.isGameWon() || this.isGameLost();
 		
 	}
 	
@@ -63,25 +50,33 @@ public class GameObserver {
 		if (Board.getTile(Board.findByName(TileNameEnum.FoolsLanding)).getSinkStatus())
 			return true;
 		
+		// condition for water level reaching 5
+		if (this.waterLevel > 4)
+			return true;
+		
 		// condition for lost treasures
 		if (this.checkTreasureLost())
 			return true;
 		
-		// condition for water level reaching 5
-		if (this.waterLevel > 4)
+		// condition for player trapped
+		if (this.checkPlayerTrapped()) {
 			return true;
-
-		
-		
+		}
 		
 		return false;
+		
+	}
+	
+	public boolean isGameWon() {
+		
+		return this.gameWon;
 		
 	}
 	
 	public void updatePlayerLocations(List<Pawn> newPlayerList) {
 		
 		List<Coordinate> temp = new ArrayList<Coordinate>();
-		//this.playerList = newPlayerList;
+		this.playerList = newPlayerList;
 		for (int i = 0; i < newPlayerList.size(); i++) {
 			temp.add(newPlayerList.get(i).getPosition());
 		}
@@ -162,6 +157,19 @@ public class GameObserver {
 		}
 		
 		return true;
+		
+	}
+	
+	public boolean checkPlayerTrapped() {
+		
+		for (int i = 0; i < this.playerList.size(); i++) {
+			
+			if (!this.playerList.get(i).canMove()) {
+				return true;
+			}
+		}
+		
+		return false;
 		
 	}
 	
