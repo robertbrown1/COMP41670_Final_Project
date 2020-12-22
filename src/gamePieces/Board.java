@@ -167,6 +167,7 @@ public class Board {
 										break;
 									}
 								}
+								System.out.print(centerString(board[x][y].getTileName().toString()));
 								break;
 							case 1: // Print sink status of tile
 								System.out.print("Sunk: " + leftAlignString(String.valueOf(board[x][y].getSinkStatus()), 24));

@@ -67,7 +67,7 @@ public class GameObserver {
 	public boolean isGameLost() {
 		
 		// condition for FoolsLanding Sunk
-		if (!Board.getInstance().getTile(Board.findByName(TileNameEnum.FoolsLanding)).getSinkStatus()){
+		if (Board.getInstance().getTile(Board.findByName(TileNameEnum.FoolsLanding)).getSinkStatus()){
 			return true;
 		}
 		
