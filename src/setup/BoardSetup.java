@@ -25,13 +25,16 @@ public class BoardSetup {
 	/**
 	 * Constructor for the BoardSetup Class
 	 */
-	public BoardSetup() {
+	BoardSetup() {
+		
 		this.setupBoard = Board.getInstance();
+		
 	}
 	
 	//===========================================================
 	// Methods
 	//===========================================================
+	
 	/**
 	 * Randomly assign tiles to board
 	 */

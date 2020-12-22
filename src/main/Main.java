@@ -23,11 +23,11 @@ public class Main {
 	 */
     public static void main(String[] args) {
     	
-    	Setup setup = Setup.getInstance(); // Setup game
-    	Game game = Game.getInstance(); // Initiate game
-    	setup.doAllSetup();
-    	game.gameLoop();
+    	Setup.getInstance().doAllSetup();; // Setup game
+    	Game.getInstance().gameLoop(); // Run game
+
     	sc.close();
+    	
     }
     
 }

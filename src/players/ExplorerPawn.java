@@ -28,9 +28,12 @@ public class ExplorerPawn extends Pawn {
 	 * @return the single ExplorerPawn object.
 	 */
 	public static ExplorerPawn getInstance() {
+		
 		if (instance == null)
 			instance = new ExplorerPawn();
+		
 		return instance;
+		
 	}
 	
 	//===========================================================
@@ -40,17 +43,18 @@ public class ExplorerPawn extends Pawn {
 	 * Calls the super constructor to create a pawn specific to the explorer
 	 */
 	public ExplorerPawn() {
+		
 		super(TileNameEnum.CopperGate);
+		
 	}
 	
 	/**
-	 * movePawn moves the player in a given direction if possible
-	 * @param direction the direction to move in
+	 * movePawn asks the player which direction it wants to move and tries to move there
+	 * accounts for the Explorer's movement exception
 	 * @return true or false if the pawn has moved
 	 */
 	public boolean movePawn() {
 		
-		//if (gameBoard.canMoveSimple(this.position, 0)) {
 		if (Board.getInstance().canMoveSimple(this.position, 0)) {
 			
 			for (;;) {
@@ -75,17 +79,19 @@ public class ExplorerPawn extends Pawn {
 							break;
 					}
 					
-					System.out.println("Pawn move successful");
+						// if you move the pawn then update the observer with the locations
 					GameObserver.getInstance().updatePlayerLocations(PlayerList.getInstance().getAllPlayers());
+					System.out.println("Pawn move successful");
 					return true;
-					
+				
 				}
 				else {
+						// otherwise repeat the loop
 					System.out.println("Can't Move in this direction, please try again");
 				}
 			}
 		}
-		else if (this.canMove()) {
+		else if (this.canMove()) {	// condition for requiring the movement exception
 			
 			System.out.println("You're trapped! But the Explorer can swim diagonally to safety");
 			
@@ -95,7 +101,8 @@ public class ExplorerPawn extends Pawn {
 			
 				int direction = Game.getUserInput(1, 4); // Get user to pick an option
 				
-				if (Board.getInstance().canMoveSimple(this.position, direction)) { // Check if pawn can move in direction
+				if (Board.getInstance().canMoveDiagonal(this.position, direction)) { // Check if pawn can move in direction
+					
 					switch (direction) {
 						case 1: // Move north east
 							 this.setPosition(this.position.northEast());
@@ -109,14 +116,17 @@ public class ExplorerPawn extends Pawn {
 						case 4: // Move south west
 							this.setPosition(this.position.southWest());
 							break;
+							
 					}
 					
-					System.out.println("Pawn move successful");
+						// if you move the pawn then update the observer with the locations
 					GameObserver.getInstance().updatePlayerLocations(PlayerList.getInstance().getAllPlayers());
+					System.out.println("Pawn move successful");
 					return true;
 					
 				}
 				else {
+						// otherwise repeat the loop
 					System.out.println("Can't Move in this direction, please try again");
 				}
 			}
@@ -127,16 +137,15 @@ public class ExplorerPawn extends Pawn {
 		
 	}
 	
-	
+	/**
+	 * canMove checks if the Explorer pawn can move at all
+	 */
 	public boolean canMove() {
 		
 		Coordinate point = this.getPosition();
 		
 		return Board.getInstance().canMoveSimple(point, 0) ||
-				(Board.getInstance().isTile(point.northEast()) && !Board.getTile(point.northEast()).getSinkStatus() ||
-				Board.getInstance().isTile(point.northWest()) && !Board.getTile(point.northWest()).getSinkStatus() ||
-				Board.getInstance().isTile(point.southEast()) && !Board.getTile(point.southEast()).getSinkStatus() ||
-				Board.getInstance().isTile(point.southWest()) && !Board.getTile(point.southWest()).getSinkStatus());
+				Board.getInstance().canMoveDiagonal(point, 0);
 		
 	}
 	
