@@ -34,7 +34,8 @@ public class PlayerSetup {
 		// Select number of players
 		while (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) {
 			System.out.print("How many players will play? Choose a number between 2 and 4: ");
-			numOfPlayers = Main.sc.nextInt();
+			numOfPlayers = PlayerTurn.getUserInput(2, 4);
+			//numOfPlayers = Main.sc.nextInt();
 		}
 		
 		System.out.println("Number of players chosen: " + numOfPlayers);

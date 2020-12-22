@@ -391,7 +391,8 @@ public class PlayerTurn {
 	    		System.out.println(list.getTreasuresCollected().toString());
 	    }
 	    
-	    public int getUserInput(int minVal, int maxVal) {
+	    public static int getUserInput(int minVal, int maxVal) {
+ 	
 	    	int userInput = 0;
 		    boolean validInput = false;
 			while (!validInput) {
@@ -413,7 +414,7 @@ public class PlayerTurn {
 	    public void specialAction() {
 	    	
 	    	Board.getTile(Board.findByName(TileNameEnum.TempleOfTheMoon)).setSinkStatus(true);
-	    	Board.getTile(Board.findByName(TileNameEnum.TempleOfTheSun)).setSinkStatus(true);;
+	    	Board.getTile(Board.findByName(TileNameEnum.TempleOfTheSun)).setSinkStatus(true);
 	    	actions--;
 	    	
 	    }
