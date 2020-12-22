@@ -8,6 +8,13 @@ import main.Main;
 import enums.RoleEnum;
 import players.*;
 
+/**
+ * Class to handle all aspects of setting up the players
+ * 
+ * @author  Barry McNicholl & Robert Brown
+ * @since   21 12 2020
+ * @version 1.0
+ */
 public class PlayerSetup {
 	
 	// ===========================================================
@@ -29,61 +36,69 @@ public class PlayerSetup {
 		this.numOfPlayers = 0;
 	}
 	
+	//===========================================================
+	// Methods
+	//===========================================================
+	/**
+	 * Get user to input number of players
+	 */
 	public void findPlayers() {
-		
 		// Select number of players
-		while (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) {
+		while (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) { // Until input is valid
 			System.out.print("How many players will play? Choose a number between 2 and 4: ");
-			numOfPlayers = Main.sc.nextInt();
+			numOfPlayers = Main.sc.nextInt(); // Get input from user
 		}
 		
 		System.out.println("Number of players chosen: " + numOfPlayers);
 	}
 	
+	/**
+	 * Randomly assign roles to players
+	 */
 	public void assignRoles() {
-		Set<RoleEnum> chosenRoles = new HashSet<>();
-		RoleEnum[] roles = RoleEnum.values();
+		Set<RoleEnum> chosenRoles = new HashSet<>(); // Initialize list of chosen roles
+		RoleEnum[] roles = RoleEnum.values(); // List of roles
 		Random rand = new Random();
 		int choice;
 
-		while (playerList.getNumPlayers() < this.numOfPlayers) {
+		while (playerList.getNumPlayers() < this.numOfPlayers) { // Until all players are chosen
 			// Randomize role selection
 			
 			do {
 				
-				choice = rand.nextInt(roles.length);
+				choice = rand.nextInt(roles.length); // Randomly select role
 				
-			} while (chosenRoles.contains(roles[choice]));
+			} while (chosenRoles.contains(roles[choice])); // Ensure role has not been selected already
 
 			switch(roles[choice])
 		    {
-			    case Engineer:
+			    case Engineer: // Create Engineer pawn and add to list
 			    	playerList.addPlayer(new EngineerPawn());
 			    	break;
-			    case Diver:
+			    case Diver: // Create Diver pawn and add to list
 			    	playerList.addPlayer(new DiverPawn());
 			    	break;
-			    case Explorer:
+			    case Explorer: // Create Explorer pawn and add to list
 			    	playerList.addPlayer(new ExplorerPawn());
 			    	break;
-			    case Pilot:
+			    case Pilot: // Create Pilot pawn and add to list
 			    	playerList.addPlayer(new PilotPawn());
 			    	break;
-			    case Messenger:
+			    case Messenger: // Create Messenger pawn and add to list
 			    	playerList.addPlayer(new MessengerPawn());
 			    	break;
-			    case Navigator:
+			    case Navigator: // Create Navigator pawn and add to list
 			    	playerList.addPlayer(new NavigatorPawn());
 			    	break;
 		    }
 			
-			chosenRoles.add(roles[choice]);
+			chosenRoles.add(roles[choice]); // Add role to list of chosen roles
 			
 		}
 
 		System.out.println("\nThe following roles have been assigned");
 		
-		for(int i = 1; i <= playerList.getNumPlayers(); i++) {
+		for(int i = 1; i <= playerList.getNumPlayers(); i++) { // Print all players
 			
 			System.out.println("Player " + (i) + ": " + playerList.getPlayer(i).getClass().getSimpleName());
 			
