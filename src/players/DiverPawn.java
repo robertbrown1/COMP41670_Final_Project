@@ -39,4 +39,6 @@ public class DiverPawn extends Pawn {
 		super(TileNameEnum.IronGate);
 	}
 	
+	//public boolean movePawn()
+	
 }

@@ -4,14 +4,6 @@ import enums.TileNameEnum;
 import java.util.*;
 import players.*;
 
-/**
- * Board singleton class.
- * A single board object is created and that object is called using the getInstance method.
- * 
- * @author  Barry McNicholl & Robert Brown
- * @since   21 12 2020
- * @version 1.0
- */
 public class Board {
 	
     //===========================================================
@@ -41,91 +33,70 @@ public class Board {
      * Sets up the board as array of tiles.
      */
 	public Board() {
-		for (int x = 0; x < 6; x++) { // For all x coordinates
-            for (int y = 0; y < 6; y++) { // For all y coordinates
-            	board[x][y] = null; // Initialize as null
+		for (int x = 0; x < 6; x++) {         // For each row in Board
+            for (int y = 0; y < 6; y++) {     // For each column in row
+            	board[x][y] = null;
             }
 		}
 	}
 	
-	//===========================================================
-    // Methods
-    //===========================================================
-	/**
-     * findByName returns the coordinates of a particular tile
-     * @param name the name of the tile
-     * @return the coordinate of the tile
-     */
 	public static Coordinate findByName(TileNameEnum name) {
-		for (int x = 0; x < 6; x++) { // For all x coordinates
-			for (int y = 0; y < 6; y++) { // For all y coordinates
-				if (board[x][y] != null) { // Ignore certain tiles near the corners of the board
-					if (board[x][y].getTileName() == name){ // Tile is found
+		for (int x = 0; x < 6; x++) {
+			for (int y = 0; y < 6; y++) {
+				if (board[x][y] != null) {
+					if (board[x][y].getTileName() == name){
 						return new Coordinate(x, y);
 					}
 				}
 			}
 		}
 		System.out.println(name);
-		return new Coordinate(-1, -1); // Return this if tile cannot be found
+		return new Coordinate(-1, -1);
 	}
 	
-	/**
-     * canMove checks if a pawn can move in a given direction
-     * @param point the coordinates of the tile that the pawn is on
-     * @param direction the direction the pawn wants to move
-     * @return true or false if the pawn can move
-     */
 	public boolean canMove(Coordinate point, int direction) {
 		switch(direction) {
-			case 1: // Move north
-				if (isTile(point.north()) && getTile(point.north()).getSinkStatus() == false)
-					return true; // There is a tile north and it has not been sunk
+			case 0:
+			if (isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus() ||
+					isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus() ||
+					isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus() ||
+					isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus())
+					return true;
 				break;
-			case 2: // Move south
-				if (isTile(point.south()) && getTile(point.south()).getSinkStatus() == false)
-					return true; // There is a tile south and it has not been sunk
+			case 1:
+				if (isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus())
+					return true;
 				break;
-			case 3: // Move west
-				if (isTile(point.west()) && getTile(point.west()).getSinkStatus() == false)
-					return true; // There is a tile west and it has not been sunk
+			case 2:
+				if (isTile(point.south()) && !Board.getTile(point.south()).getSinkStatus())
+					return true;
 				break;
-			case 4: // Move east
-				if (isTile(point.east()) && getTile(point.east()).getSinkStatus() == false)
-					return true; // There is a tile east and it has not been sunk
+			case 3:
+				if (isTile(point.west()) && !Board.getTile(point.west()).getSinkStatus())
+					return true;
+				break;
+			case 4:
+				if (isTile(point.east()) && !Board.getTile(point.east()).getSinkStatus())
+					return true;
 				break;
 		}
-		return false; // Can not move in the specified direction
+		return false;
 	}
 	
-	/**
-     * isTile checks if a coordinate is a tile
-     * @param point the coordinate to check
-     * @return true or false if the coordinate is a tile
-     */
 	public boolean isTile(Coordinate point) {
 		
-		if (getTile(point) != null) { // If tile is null then it is not a valid tile
+		if (getTile(point) != null) {
 			return true;
 		}
 		else {
 			return false;		
 		}
-		
 	}
 	
-	//===========================================================
-    // Getters
-    //===========================================================
-	/**
-     * getTile tries to return the tile at a coordinate
-     * @param point the coordinate of the tile
-     * @return tile at given coordinate
-     */
-	public Tile getTile(Coordinate point) {
+	public static Tile getTile(Coordinate point) {
 		
 		if (point.getX() >= 0 && point.getX() < 6 &&
-				point.getY() >= 0 && point.getY() < 6) { // x and y values are valid
+				point.getY() >= 0 && point.getY() < 6) {
 			return board[point.getX()][point.getY()];
 		}
 		else {
@@ -134,62 +105,50 @@ public class Board {
 		
 	}
 	
-	/**
-     * getBoard returns the board object
-     */
 	public Tile[][] getBoard() {
 		return board;
 	}
-	
-	//===========================================================
-    // Printing the Board
-    //===========================================================
-	/**
-     * Method for printing the board and important info about players and tiles
-     */
 
 	public void printBoard(Pawn player) {
 		int i;
-		PlayerList list = PlayerList.getInstance(); // Get list of players
+		PlayerList list = PlayerList.getInstance();
 		List<Integer> indices = new ArrayList<Integer>();
 		for (i = 0; i < list.getNumPlayers(); i++) {
-			indices.add(i+1); // Keeps track of what players have been printed already
+			indices.add(i+1);
 		}
-		for (int y = 5; y >= 0; y--) { // For each y coordinate
-			for (int lines = 0; lines < 8; lines++) { // 7 lines per tile needed for all info
-				for (int x = 0; x < 6; x++) { // For each x coordinate
-					if (board[x][y] != null) { // Skip invalid tiles
+		for (int y = 5; y >= 0; y--) {         // For each row in Board
+			for (int lines = 0; lines < 8; lines++) {
+				for (int x = 0; x < 6; x++) {
+					if (board[x][y] != null) {
 						switch(lines) {
-							case 0: // Print name of tile
+							case 0:
 								if (player != null) {
-									if (player.getPosition().getX() == x &&  player.getPosition().getY() == y) { // Player position
+									if (player.getPosition().getX() == x &&  player.getPosition().getY() == y) {
 										System.out.print(centerString("*** " + board[x][y].getTileName().toString() + " ***"));
 										break;
 									}
 								}
+								System.out.print(centerString(board[x][y].getTileName().toString()));
 								break;
-							case 1: // Print sink status of tile
+							case 1:
 								System.out.print("Sunk: " + leftAlignString(String.valueOf(board[x][y].getSinkStatus()), 24));
 								break;
-							case 2: // Print flood status of tile
+							case 2:
 								System.out.print("Flooded: " + leftAlignString(String.valueOf(board[x][y].getFloodStatus()), 21));
 								break;
-							case 3: // Print treasure associated with tile
+							case 3:
 								System.out.print("Treasure: " + leftAlignString(board[x][y].getTreasure().toString(), 20));
 								break;
-							default: // Print players on tile
+							default:
 								for (i = 0; i<indices.size();i++) {
-									// Players position is the same as tile and hasn't been printed
-									if (list.getPlayer(indices.get(i)).getPosition().equals(new Coordinate(x,y))
-											&& indices.contains(indices.get(i))) {
+									if (list.getPlayer(indices.get(i)).getPosition().getX() == x && list.getPlayer(indices.get(i)).getPosition().getY() == y && indices.contains(indices.get(i))) {
 										System.out.print("Player " + indices.get(i) + ": " + leftAlignString(list.getPlayer(indices.get(i)).getClass().getSimpleName(), 20));
-										// Remove player index from list
 										indices.remove(Integer.valueOf(indices.get(i)));
 										i = -1;
 										break;
 									}
 								}
-								if (i == indices.size()) // No more players so print line of dots
+								if (i == indices.size())
 									System.out.print("..............................");
 								break;
 						}
@@ -209,24 +168,17 @@ public class Board {
      * @return aligned string
      */
 	public String centerString(String s) {
-		int width = 30; // Total size of string
-		int padSize = width - s.length(); // Spaces to be padded
-		int padStart = s.length() + padSize/2; // Place to start padding
-		// Pad left and right of string
+		int width = 30;
+		int padSize = width - s.length();
+		int padStart = s.length() + padSize/2;
 		s = String.format("%" + padStart + "s", s);
 		s = String.format("%-" + width + "s", s);
 		return s;
 	}
 	
-	/**
-     * leftAlignString aligns string to the left
-     * @param s string to align
-     * @param n number of dots to place after string
-     * @return aligned string
-     */
 	public String leftAlignString(String s, int n) {
-		int width = n; // Total size of padding
-		s = String.format("%-" + width + "s", s).replace(" ", "."); // Pad end of string with dots
+		int width = n;
+		s = String.format("%-" + width + "s", s).replace(" ", ".");
 		return s;
 	}
 	

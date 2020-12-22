@@ -12,13 +12,11 @@ import players.Pawn;
 
 public class GameObserver {
 	
-	private boolean gameOver;
 	private boolean gameWon;
 	private static GameObserver instance = null;
-	private Board board;
-	private List<Pawn> playerList;
 	private List<Coordinate> playerLocations;
     private List<TreasureEnum> treasuresCollected;
+    private int waterLevel;
 	
 	
 	public static GameObserver getInstance() {
@@ -29,36 +27,31 @@ public class GameObserver {
 	
 	public GameObserver() {
 
-		this.gameOver = false;
 		this.gameWon = false;
-		board = Board.getInstance();
 		
 	}
 	
-	public void endGame(boolean won) {
+	public void winGame() {
 		
-		this.gameOver = true;
-		this.gameWon = won;
+		this.gameWon = true;
 		
 	}
 	
 	public boolean isGameOver() {
 		
-		this.board = Board.getInstance();
-		
-		return this.isGameWon() || this.isGameLost();
+		return this.gameWon || this.isGameLost();
 		
 	}
 	
 	public boolean isGameWon() {
 		
-		if (Board.getInstance().getTile(this.playerLocations.get(0)).getTileName() == TileNameEnum.FoolsLanding) {
+		if (Board.getTile(this.playerLocations.get(0)).getTileName() == TileNameEnum.FoolsLanding) {
 			
-			this.gameWon = true;
+			//this.gameWon = true;
 			
 		}
 		
-		System.out.println("Checked: " + this.gameWon);
+		// System.out.println("Checked: " + this.gameWon);
 		
 		return this.gameWon;
 		
@@ -67,11 +60,17 @@ public class GameObserver {
 	public boolean isGameLost() {
 		
 		// condition for FoolsLanding Sunk
-		if (!Board.getInstance().getTile(Board.findByName(TileNameEnum.FoolsLanding)).getSinkStatus()){
+		if (Board.getTile(Board.findByName(TileNameEnum.FoolsLanding)).getSinkStatus())
 			return true;
-		}
 		
-		//if ()
+		// condition for lost treasures
+		if (this.checkTreasureLost())
+			return true;
+		
+		// condition for water level reaching 5
+		if (this.waterLevel > 4)
+			return true;
+
 		
 		
 		
@@ -82,39 +81,87 @@ public class GameObserver {
 	public void updatePlayerLocations(List<Pawn> newPlayerList) {
 		
 		List<Coordinate> temp = new ArrayList<Coordinate>();
-		this.playerList = newPlayerList;
+		//this.playerList = newPlayerList;
 		for (int i = 0; i < newPlayerList.size(); i++) {
 			temp.add(newPlayerList.get(i).getPosition());
 		}
 		this.playerLocations = temp;
-		System.out.println("Updated");
+		//System.out.println("Updated");
 	}
 	
-	public List<TreasureEnum> checkTreasuresAvailible() {
+	public void updateWaterLevel(int newWaterLevel) {
 		
-		List<TreasureEnum> temp = new ArrayList<TreasureEnum>();
+		this.waterLevel = newWaterLevel;
+		
+	}
+	
+	public boolean checkTreasureLost() {
+		
+		List<TreasureEnum> treasuresAvailible = new ArrayList<TreasureEnum>();
+//		List<TreasureEnum> fullTreasureList = Arrays.asList(TreasureEnum.values());
+//		Iterator<TreasureEnum> itr = fullTreasureList.iterator();
 		
 		for (int x = 0; x < 6; x++) {
 			for (int y = 0; y < 6; y++) {
 				
-				Tile tile = this.board.getTile(new Coordinate(x, y)); 
-				
-				if (!tile.getFloodStatus() && tile.getTreasure() != TreasureEnum.None && !temp.contains(tile.getTreasure())) {
-					
-					temp.add(tile.getTreasure());
-					
+				Tile tile = Board.getTile(new Coordinate(x, y)); 
+				if (tile != null) {
+					if (!tile.getSinkStatus() && tile.getTreasure() != TreasureEnum.None && !treasuresAvailible.contains(tile.getTreasure())) {
+						
+						treasuresAvailible.add(tile.getTreasure());
+						
+					}
 				}
 			}
 		}
 		
-		temp.addAll(this.treasuresCollected);
-		return temp;
+		if (this.treasuresCollected != null) {
+			treasuresAvailible.addAll(this.treasuresCollected);
+		}
+		
+//		System.out.println(treasuresAvailible);
+//		
+//		System.out.println("TreasureLost: " + !(treasuresAvailible.contains(TreasureEnum.EarthStone) ||
+//				treasuresAvailible.contains(TreasureEnum.FireCrystal) ||
+//				treasuresAvailible.contains(TreasureEnum.OceanChalice) ||
+//				treasuresAvailible.contains(TreasureEnum.WindStatue)));
+//
+//		System.out.println(treasuresAvailible.contains(TreasureEnum.EarthStone));
+//		System.out.println(treasuresAvailible.contains(TreasureEnum.FireCrystal));
+//		System.out.println(treasuresAvailible.contains(TreasureEnum.OceanChalice));
+//		System.out.println(treasuresAvailible.contains(TreasureEnum.WindStatue));
+		
+		return !(treasuresAvailible.contains(TreasureEnum.EarthStone) &&
+				treasuresAvailible.contains(TreasureEnum.FireCrystal) &&
+				treasuresAvailible.contains(TreasureEnum.OceanChalice) &&
+				treasuresAvailible.contains(TreasureEnum.WindStatue));
 		
 	}
 	
 	public void updateTreasuresCollected(List<TreasureEnum> newTreasureList) {
 		
-		this.treasuresCollected = newTreasureList;
+		this.treasuresCollected = newTreasureList;		
+		
+	}
+	
+	public boolean inPositionToWin() {
+		
+		// condition for not having all the treasures collected
+		if (!(this.treasuresCollected.contains(TreasureEnum.EarthStone) &&
+				this.treasuresCollected.contains(TreasureEnum.FireCrystal) &&
+				this.treasuresCollected.contains(TreasureEnum.OceanChalice) &&
+				this.treasuresCollected.contains(TreasureEnum.WindStatue))) {
+			return false;
+		}
+		
+		// condition for not everyone on FoolsLanding
+		for (int i = 0; i < this.playerLocations.size(); i++) {
+			if (Board.getTile(this.playerLocations.get(i)).getTileName() != TileNameEnum.FoolsLanding) {
+				return false;
+			}
+		}
+		
+		return true;
 		
 	}
 	

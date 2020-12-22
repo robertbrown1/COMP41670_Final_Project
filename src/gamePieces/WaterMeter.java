@@ -48,6 +48,7 @@ public class WaterMeter {
      */
 	public void setWaterLevel(int difficulty) {
 		waterLevel = difficulty;
+		
 	}
 	
 	/**
@@ -62,6 +63,7 @@ public class WaterMeter {
      */
 	public void increaseWaterLevel() {
 		waterLevel++;
+		
 	}
 	
 }

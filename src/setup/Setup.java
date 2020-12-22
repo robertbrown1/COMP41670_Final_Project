@@ -1,5 +1,7 @@
 package setup;
 
+
+//=======
 /**
  * Singleton Facade to handle all required setup for the game
  * 
@@ -7,6 +9,7 @@ package setup;
  * @since   21 12 2020
  * @version 1.0
  */
+
 public class Setup {
 	
 	//===========================================================

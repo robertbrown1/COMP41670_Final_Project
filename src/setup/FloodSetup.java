@@ -36,11 +36,11 @@ public class FloodSetup {
 	 */
 	public void startSinking() {
 		Card cardDrawn;
-		for (int i = 0 ; i < 6 ; i++) {
+		for (int i = 0 ; i < 6 ; i++) {                              
 			cardDrawn = setupFlood.drawCard(); // Draw card from flood deck
 			Coordinate Tile = Board.findByName((TileNameEnum)cardDrawn.getName()); // Corresponding tile
-			if (Board.getInstance().getTile(Tile) != null) { // Valid tile
-				Board.getInstance().getTile(Tile).setFloodStatus(true); // Flood tile
+			if (Board.getTile(Tile) != null) { // Valid tile
+				Board.getTile(Tile).setFloodStatus(true); // Flood tile
 			}
 			setupFlood.addToDiscardPile(cardDrawn); // Put card in discard pile
 		}
