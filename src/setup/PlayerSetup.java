@@ -5,7 +5,6 @@ import java.util.Random;
 import java.util.Set;
 
 import main.Game;
-import main.Main;
 import observer.GameObserver;
 import enums.RoleEnum;
 import players.*;

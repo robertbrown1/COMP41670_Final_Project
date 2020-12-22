@@ -1,7 +1,6 @@
 package players;
 
 import main.Game;
-import main.Main;
 import java.util.*;
 import enums.*;
 import observer.GameObserver;
@@ -63,7 +62,7 @@ public class PlayerTurn {
 			while (actions > 0 && !GameObserver.getInstance().isGameOver()) { // While user can still take actions
 				board.printBoard(this.pawn);
 				giveOptions(); // Print player options 
-				int takeAction = Game.getUserInput(0, 9); // Get user to pick an option
+				int takeAction = Game.getUserInput(0, 10); // Get user to pick an option
 				switch (takeAction) {
 				    case 0: // End turn
 				    	//GameObserver.getInstance().endGame(true);
@@ -97,14 +96,19 @@ public class PlayerTurn {
 				    case 9: // Show the treasures that have been captured
 				    	printCapturedTreasures();
 				    	break;
+				    case 10: // Show the treasures that have been captured
+				    	specialAction();
+				    	break;
 				    default:
 				    	System.out.println("Error");
 				}
 			}
-			drawTreasureCards(); // Draw cards from treasure deck
-			drawFloodCards(); // Draw cards from flood deck
-			System.out.println("Your turn has ended.\n");
-		}
+			if (!GameObserver.getInstance().isGameOver()) {
+				drawTreasureCards(); // Draw cards from treasure deck
+				drawFloodCards(); // Draw cards from flood deck
+				System.out.println("Your turn has ended.\n");
+			}
+	    }
 	    
 	    /**
 		 * Print options for player
@@ -130,9 +134,7 @@ public class PlayerTurn {
 		 */
 	    public void tryMovement() {
 	    	
-	        System.out.println("Would you like to move up [1], down [2], left [3] or right [4]?");
-			int direction = Game.getUserInput(1, 4); // Get user to pick an option
-			if (pawn.movePawn(direction)) // Check if the user can move
+			if (pawn.movePawn()) // Check if the user can move
 				actions--;
 			
 		}
