@@ -66,7 +66,7 @@ public class PlayerTurn {
 				int takeAction = Game.getUserInput(0, 9); // Get user to pick an option
 				switch (takeAction) {
 				    case 0: // End turn
-				    	GameObserver.getInstance().endGame(true);
+				    	//GameObserver.getInstance().endGame(true);
 				    	actions = 0;
 				    	System.out.println("Player has decided to take no more actions");
 				    	break;
