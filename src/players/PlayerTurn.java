@@ -1,5 +1,6 @@
 package players;
 
+import main.Game;
 import main.Main;
 import java.util.*;
 import enums.*;
@@ -62,7 +63,7 @@ public class PlayerTurn {
 			while (actions > 0 && !GameObserver.getInstance().isGameOver()) { // While user can still take actions
 				board.printBoard(this.pawn);
 				giveOptions(); // Print player options 
-				int takeAction = getUserInput(0, 9); // Get user to pick an option
+				int takeAction = Game.getUserInput(0, 9); // Get user to pick an option
 				switch (takeAction) {
 				    case 0: // End turn
 				    	GameObserver.getInstance().endGame(true);
@@ -130,7 +131,7 @@ public class PlayerTurn {
 	    public void tryMovement() {
 	    	
 	        System.out.println("Would you like to move up [1], down [2], left [3] or right [4]?");
-			int direction = getUserInput(1, 4); // Get user to pick an option
+			int direction = Game.getUserInput(1, 4); // Get user to pick an option
 			if (pawn.movePawn(direction)) // Check if the user can move
 				actions--;
 			
@@ -152,7 +153,7 @@ public class PlayerTurn {
 	    	Coordinate[] tiles = {current, north, south, west, east};
 	    	if (pawn instanceof EngineerPawn) { // Engineer can shore up 1 or 2 tiles for 1 action
 	    		System.out.println("How many tiles would you like to shore up? 1 or 2?");
-	    		tileNum = getUserInput(1, 2); // Get user to pick option
+	    		tileNum = Game.getUserInput(1, 2); // Get user to pick option
 	    	}
 	    	else
 	    		tileNum = 1; // Other pawns can only shore up 1 tile per action
@@ -162,7 +163,7 @@ public class PlayerTurn {
 		    			(board.isTile(east) && Board.getTile(east).getFloodStatus())) {
 		    		// Can only shore up if surrounding tiles are valid and are flooded
 		    		System.out.println("Which tile do you want to shore up? current tile [0], up [1], down [2], left [3] or right [4]?");
-		    		int direction = getUserInput(0, 4); // Get user to pick option
+		    		int direction = Game.getUserInput(0, 4); // Get user to pick option
 		    		if (!board.isTile(tiles[direction])) { // Check there is a tile in this direction
 		    			System.out.println("There is no tile in this direction");
 		    		}
@@ -200,11 +201,11 @@ public class PlayerTurn {
 		    			System.out.println(i + ": " + list.getPlayer(i).getClass().getSimpleName());
 		    		}
 		    	}
-	    		playerNum = getUserInput(1, list.getNumPlayers()); // Get user to pick option
+	    		playerNum = Game.getUserInput(1, list.getNumPlayers()); // Get user to pick option
 	    	}
 	        System.out.println("Which card would you like to give?");
 	    	printHand(); // Show cards in hand
-	    	cardNum = getUserInput(1, pawn.getHand().size()); // Get user to pick option
+	    	cardNum = Game.getUserInput(1, pawn.getHand().size()); // Get user to pick option
 	    	if (pawn.giveTreasureCard(pawn.getHand().get(cardNum-1), list.getPlayer(playerNum))) {
 	    		// Card can be given to player
 	    		System.out.println("Card has been given");
@@ -241,11 +242,18 @@ public class PlayerTurn {
 	    		System.out.println("No Helicopter Lift card in hand");
 	    		return;
 	    	}
+	    	
+	    	if (GameObserver.getInstance().inPositionToWin()) {
+	    		
+	    		GameObserver.getInstance().winGame();
+	    		
+	    	}
+	    	
 	    	System.out.println("Give the x coordinate of the tile you would like to move to");
-			int x = getUserInput(0, 5); // Get user to pick option
+			int x = Game.getUserInput(0, 5); // Get user to pick option
 			System.out.println("Give the y coordinate of the tile you would like to move to");
 
-			int y = getUserInput(0, 5); // Get user to pick option
+			int y = Game.getUserInput(0, 5); // Get user to pick option
 			if (!board.isTile(new Coordinate(x,y)) || Board.getTile(new Coordinate(x,y)).getSinkStatus()) {
 				// Coordinate is not a tile or the tile is sunk
 				System.out.println("Can not move to tile");
@@ -253,7 +261,7 @@ public class PlayerTurn {
 				return;
 			}
 			System.out.println("How many players would you like to move? (including yourself)");
-			int numPlayers = getUserInput(1, list.getNumPlayers()); // Get user to pick option
+			int numPlayers = Game.getUserInput(1, list.getNumPlayers()); // Get user to pick option
 			List<Pawn> players = new ArrayList<Pawn>();
 			for (int i = 1; i <= numPlayers; i++) { // Until all players have been chosen
 				System.out.println("Choose a player");
@@ -263,7 +271,7 @@ public class PlayerTurn {
 		    		}
 		    	}
 				do {
-					playerNum = getUserInput(1, list.getNumPlayers()); // Get user to pick option
+					playerNum = Game.getUserInput(1, list.getNumPlayers()); // Get user to pick option
 					if (players.contains(list.getPlayer(playerNum)))
 						System.out.println("Pawn has already been selected");
 				} while (players.contains(list.getPlayer(playerNum)));
@@ -284,9 +292,9 @@ public class PlayerTurn {
 	    		return;
 	    	}
 	    	System.out.println("Give the x coordinate of the tile you would like to shore up");
-			int x = getUserInput(0, 5); // Get user to pick option
+			int x = Game.getUserInput(0, 5); // Get user to pick option
 			System.out.println("Give the y coordinate of the tile you would like to shore up");
-			int y = getUserInput(0, 5); // Get user to pick option
+			int y = Game.getUserInput(0, 5); // Get user to pick option
 			Coordinate tile = new Coordinate(x, y); // Create coordinate from x and y values
     		if (!board.isTile(tile)) { // Coordinate is not a valid tile
     			System.out.println("Tile does not exist");
@@ -331,7 +339,7 @@ public class PlayerTurn {
 	    		}
 	    		else {
 		    		System.out.println("Do you want to keep it [1] or give it away [2]?");
-		    		int choice = getUserInput(1, 2); // Get user to pick option
+		    		int choice = Game.getUserInput(1, 2); // Get user to pick option
 		    		if (choice == 1) { // Keep card
 		    			pawn.getHand().add(drawnCard); // Add card to hand
 		    			checkHand(); // Make sure at most 5 cards are in hand
@@ -346,7 +354,7 @@ public class PlayerTurn {
 			    	    		}
 			    	    	}
 			    	    	while (playerNum == list.getPlayerIndex(pawn)) { // Pick another player
-			    	    		playerNum = getUserInput(1, list.getNumPlayers()); // Get user input
+			    	    		playerNum = Game.getUserInput(1, list.getNumPlayers()); // Get user input
 			    	    	}
 			    	    	if (pawn instanceof MessengerPawn) { // Messenger can be on another tile
 			    	    		list.getPlayer(playerNum).getHand().add(drawnCard); // Give to player
@@ -397,7 +405,7 @@ public class PlayerTurn {
 	    	while (pawn.getHand().size() > 5) { // More than 5 cards are in hand
 	    		System.out.println(pawn.getHand().size() + " cards in hand, must have at most 5. Please select card to remove");
 	    		printHand(); // Show hand
-	    		int cardNum = getUserInput(1, pawn.getHand().size()); // Get user to pick option
+	    		int cardNum = Game.getUserInput(1, pawn.getHand().size()); // Get user to pick option
 	    		Card chosenCard = pawn.getHand().get(cardNum-1); // Get chosen card
 	    		pawn.getHand().remove(cardNum-1); // Remove card from hand
 	    		treasure.addToDiscardPile(chosenCard); // Add card to discard pile
@@ -429,24 +437,24 @@ public class PlayerTurn {
 		 * @param maxVal the largest number in range of options
 		 * @return the option that the user has selected
 		 */
-	    public static int getUserInput(int minVal, int maxVal) {
-	    	int userInput = 0;
-		    boolean validInput = false;
-			while (!validInput) { // Until number in range is selected
-				String userString = Main.sc.nextLine(); // Scanner for user string
-				try {userInput = Integer.parseInt(userString);} //Try to convert string to integer
-		        catch (NumberFormatException e) {continue;}
-					
-				if ((userInput >= minVal) && (userInput <= maxVal)) { // Input is within range
-					validInput = true;
-				}
-				if (!validInput) {
-					System.out.println("Please enter a valid input");
-				}
-			}
-			return userInput;
-			
-	    }
+//	    public static int getUserInput(int minVal, int maxVal) {
+//	    	int userInput = 0;
+//		    boolean validInput = false;
+//			while (!validInput) { // Until number in range is selected
+//				String userString = Main.sc.nextLine(); // Scanner for user string
+//				try {userInput = Integer.parseInt(userString);} //Try to convert string to integer
+//		        catch (NumberFormatException e) {continue;}
+//					
+//				if ((userInput >= minVal) && (userInput <= maxVal)) { // Input is within range
+//					validInput = true;
+//				}
+//				if (!validInput) {
+//					System.out.println("Please enter a valid input");
+//				}
+//			}
+//			return userInput;
+//			
+//	    }
 	    
 	    public void specialAction() {
 	    	

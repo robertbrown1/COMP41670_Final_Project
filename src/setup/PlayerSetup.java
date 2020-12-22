@@ -3,6 +3,8 @@ package setup;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+
+import main.Game;
 import main.Main;
 import observer.GameObserver;
 import enums.RoleEnum;
@@ -46,7 +48,7 @@ public class PlayerSetup {
 		// Select number of players
 		while (numOfPlayers < MIN_PLAYERS || numOfPlayers > MAX_PLAYERS) { // Until input is valid
 			System.out.print("How many players will play? Choose a number between 2 and 4: ");
-			numOfPlayers = PlayerTurn.getUserInput(2, 4); // Get input from user
+			numOfPlayers = Game.getUserInput(2, 4); // Get input from user
 			//numOfPlayers = Main.sc.nextInt();
 		}
 		

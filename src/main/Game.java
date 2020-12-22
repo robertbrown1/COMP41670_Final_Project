@@ -36,4 +36,23 @@ public class Game {
 		
 	}
 	
+    public static int getUserInput(int minVal, int maxVal) {
+    	int userInput = 0;
+	    boolean validInput = false;
+		while (!validInput) { // Until number in range is selected
+			String userString = Main.sc.nextLine(); // Scanner for user string
+			try {userInput = Integer.parseInt(userString);} //Try to convert string to integer
+	        catch (NumberFormatException e) {continue;}
+				
+			if ((userInput >= minVal) && (userInput <= maxVal)) { // Input is within range
+				validInput = true;
+			}
+			if (!validInput) {
+				System.out.println("Please enter a valid input");
+			}
+		}
+		return userInput;
+		
+    }
+	
 }

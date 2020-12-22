@@ -12,11 +12,8 @@ import players.Pawn;
 
 public class GameObserver {
 	
-	private boolean gameOver;
 	private boolean gameWon;
 	private static GameObserver instance = null;
-	private Board board;
-	private List<Pawn> playerList;
 	private List<Coordinate> playerLocations;
     private List<TreasureEnum> treasuresCollected;
     private int waterLevel;
@@ -30,24 +27,19 @@ public class GameObserver {
 	
 	public GameObserver() {
 
-		this.gameOver = false;
 		this.gameWon = false;
-		board = Board.getInstance();
 		
 	}
 	
-	public void endGame(boolean won) {
+	public void winGame() {
 		
-		this.gameOver = true;
-		this.gameWon = won;
+		this.gameWon = true;
 		
 	}
 	
 	public boolean isGameOver() {
 		
-		this.board = Board.getInstance();
-		
-		return this.isGameWon() || this.isGameLost();
+		return this.gameWon || this.isGameLost();
 		
 	}
 	
@@ -89,7 +81,7 @@ public class GameObserver {
 	public void updatePlayerLocations(List<Pawn> newPlayerList) {
 		
 		List<Coordinate> temp = new ArrayList<Coordinate>();
-		this.playerList = newPlayerList;
+		//this.playerList = newPlayerList;
 		for (int i = 0; i < newPlayerList.size(); i++) {
 			temp.add(newPlayerList.get(i).getPosition());
 		}
@@ -149,6 +141,27 @@ public class GameObserver {
 	public void updateTreasuresCollected(List<TreasureEnum> newTreasureList) {
 		
 		this.treasuresCollected = newTreasureList;		
+		
+	}
+	
+	public boolean inPositionToWin() {
+		
+		// condition for not having all the treasures collected
+		if (!(this.treasuresCollected.contains(TreasureEnum.EarthStone) &&
+				this.treasuresCollected.contains(TreasureEnum.FireCrystal) &&
+				this.treasuresCollected.contains(TreasureEnum.OceanChalice) &&
+				this.treasuresCollected.contains(TreasureEnum.WindStatue))) {
+			return false;
+		}
+		
+		// condition for not everyone on FoolsLanding
+		for (int i = 0; i < this.playerLocations.size(); i++) {
+			if (Board.getTile(this.playerLocations.get(i)).getTileName() != TileNameEnum.FoolsLanding) {
+				return false;
+			}
+		}
+		
+		return true;
 		
 	}
 	
