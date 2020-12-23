@@ -27,12 +27,9 @@ import java.util.*;
 public class PawnTest {
 	
 	private BoardSetup boardSetup;
-	private Board testBoard;
 	private FloodSetup floodSetup;
-	private FloodDeck testFlood;
 	private PlayerList list;
 	private TreasureSetup treasureSetup;
-	private TreasureDeck testTreasure;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -45,9 +42,6 @@ public class PawnTest {
         list.addPlayer(new NavigatorPawn());
         treasureSetup = new TreasureSetup();
         treasureSetup.dealTreasureCards();
-        testBoard = Board.getInstance();
-        testFlood = FloodDeck.getInstance();
-        testTreasure = TreasureDeck.getInstance();
 	}
 	
 	@After
@@ -56,9 +50,6 @@ public class PawnTest {
         floodSetup = null;
         list = null;
         treasureSetup = null;
-        testBoard = null;
-        testFlood = null;
-        testTreasure = null;
     }
 	
 	@Test

@@ -13,6 +13,14 @@ import players.*;
 import setup.*;
 import observer.GameObserver;
 
+/**
+ * JUnit test cases for the GameObserver class
+ * 
+ * @author  Barry McNicholl & Robert Brown
+ * @since   21 12 2020
+ * @version 1.0
+ */
+
 public class GameObserverTest {
 
 	private BoardSetup boardSetup;
