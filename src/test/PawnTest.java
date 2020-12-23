@@ -80,9 +80,15 @@ public class PawnTest {
 	@Test
 	public void testGiveTreasureCard() {
 		Card giveCard = list.getPlayer(1).getHand().get(0); // Get card from hand
-		int size = list.getPlayer(2).getHand().size(); // Size of other players hand
-		list.getPlayer(1).giveTreasureCard(giveCard, list.getPlayer(2)); // Try to give card
-		assertEquals("Other player should have card", giveCard, list.getPlayer(2).getHand().get(size));
+		int playerOneSize = list.getPlayer(1).getHand().size(); // Size of 1st players hand
+		int playerTwoSize = list.getPlayer(2).getHand().size(); // Size of 2nd players hand
+		// Messenger can give card in all circumstances
+		list.getPlayer(1).giveTreasureCard(giveCard, list.getPlayer(2));
+		assertEquals("Should be one less card", playerOneSize-1, list.getPlayer(1).getHand().size());
+		assertEquals("Should be one more card", playerTwoSize+1, list.getPlayer(2).getHand().size());
+		assertEquals("Player 2 should have card", giveCard, list.getPlayer(2).getHand().get(playerTwoSize));
+		// Other pawns can only give card when the two pawns are on the same tile
+		assertFalse("Can't give card", list.getPlayer(2).giveTreasureCard(giveCard, list.getPlayer(1)));
 	}
 	
 	@Test
@@ -115,6 +121,11 @@ public class PawnTest {
 		else if (cards.containsKey(TreasureEnum.WindStatue) && cards.get(TreasureEnum.WindStatue) == 4
 				&& Board.getTile(list.getPlayer(1).getPosition()).getTreasure() == TreasureEnum.WindStatue)
 			assertEquals("Should have treasure", true, list.getPlayer(1).captureTreasure(TreasureEnum.WindStatue));
+		else // Can't capture any treasure
+			assertEquals("Should not be able to capture", false, list.getPlayer(1).captureTreasure(TreasureEnum.EarthStone));
+			assertEquals("Should not be able to capture", false, list.getPlayer(1).captureTreasure(TreasureEnum.FireCrystal));
+			assertEquals("Should not be able to capture", false, list.getPlayer(1).captureTreasure(TreasureEnum.OceanChalice));
+			assertEquals("Should not be able to capture", false, list.getPlayer(1).captureTreasure(TreasureEnum.WindStatue));
 	}
 
 }

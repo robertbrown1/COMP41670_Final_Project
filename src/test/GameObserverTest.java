@@ -6,8 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import cards.FloodDeck;
-import cards.TreasureDeck;
 import enums.TileNameEnum;
 import enums.TreasureEnum;
 import gamePieces.*;
@@ -20,10 +18,7 @@ public class GameObserverTest {
 	private BoardSetup boardSetup;
 	private Board testBoard;
 	private FloodSetup floodSetup;
-	private FloodDeck testFlood;
 	private PlayerList list;
-	private TreasureSetup treasureSetup;
-	private TreasureDeck testTreasure;
 	private WaterMeter testWater;
 	private GameObserver testObserver;
 	
@@ -38,13 +33,9 @@ public class GameObserverTest {
         list.addPlayer(new DiverPawn());
         list.addPlayer(new ExplorerPawn());
         list.addPlayer(new PilotPawn());
-        //treasureSetup = new TreasureSetup();
-        //treasureSetup.dealTreasureCards();
         testWater = WaterMeter.getInstance();
         testWater.setWaterLevel(1);
         testBoard = Board.getInstance();
-        //testFlood = FloodDeck.getInstance();
-        //testTreasure = TreasureDeck.getInstance();
         testObserver = GameObserver.getInstance();
 	}
 	
@@ -53,10 +44,7 @@ public class GameObserverTest {
         boardSetup = null;
         floodSetup = null;
         list = null;
-        treasureSetup = null;
         testBoard = null;
-        testFlood = null;
-        testTreasure = null;
         testWater = null;
         testObserver = null;
     }

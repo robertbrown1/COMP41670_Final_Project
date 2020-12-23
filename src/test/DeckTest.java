@@ -81,13 +81,11 @@ public class DeckTest {
 	public void testAddToDiscardPile() {
 		int deckNum = testFlood.getCardsInDeck().size(); // Number of cards in deck
 		int discardNum = testFlood.getDiscardPile().size(); // Number in discard pile
-		if (deckNum == 0) { // No cards in deck
-			deckNum = 24; // Set to 24 as deck will be shuffled
-			discardNum = 0; // Set to 0 as deck will be shuffled
-		}
 		Card drawnCard = testFlood.drawCard(); // Get card from deck
 		testFlood.addToDiscardPile(drawnCard); // Add to discard pile
 		assertEquals("Should be 1 more card", discardNum+1, testFlood.getDiscardPile().size());
+		assertEquals("Should be the same card", drawnCard, testFlood.getDiscardPile().peek());
+		assertEquals("Should be 1 less card", deckNum-1, testFlood.getCardsInDeck().size());
 	}
 	
 }
