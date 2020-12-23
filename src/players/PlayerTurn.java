@@ -161,9 +161,11 @@ public class PlayerTurn {
     	else
     		tileNum = 1; // Other pawns can only shore up 1 tile per action
     	for (int i = 0; i < tileNum; i++) { // For each shore up attempt
-	    	while (Board.getTile(current).getFloodStatus() || (board.isTile(north) && Board.getTile(north).getFloodStatus()) ||
-	    			(board.isTile(south) && Board.getTile(south).getFloodStatus()) || (board.isTile(west) && Board.getTile(west).getFloodStatus()) ||
-	    			(board.isTile(east) && Board.getTile(east).getFloodStatus())) {
+	    	while ((Board.getTile(current).getFloodStatus() && !Board.getTile(current).getSinkStatus())
+	    			|| (board.isTile(north) && Board.getTile(north).getFloodStatus() && !Board.getTile(north).getSinkStatus())
+	    			|| (board.isTile(south) && Board.getTile(south).getFloodStatus() && !Board.getTile(south).getSinkStatus())
+	    			|| (board.isTile(west) && Board.getTile(west).getFloodStatus() && !Board.getTile(west).getSinkStatus())
+	    			|| (board.isTile(east) && Board.getTile(east).getFloodStatus() && !Board.getTile(east).getSinkStatus())) {
 	    		// Can only shore up if surrounding tiles are valid and are flooded
 	    		System.out.println("Which tile do you want to shore up? current tile [0], up [1], down [2], left [3] or right [4]?");
 	    		int direction = Game.getUserInput(0, 4); // Get user to pick option
@@ -246,6 +248,9 @@ public class PlayerTurn {
     		return;
     	}
     	
+    	// Update players locations and treasures collected
+    	GameObserver.getInstance().updatePlayerLocations(list.getAllPlayers());
+    	GameObserver.getInstance().updateTreasuresCollected(list.getTreasuresCollected());
     	if (GameObserver.getInstance().inPositionToWin()) {
     		
     		// if you use a helicopter lift card and the team is in the position to win then you've won the game
