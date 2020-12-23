@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_9wM8kEVlEeuviqwJeZuY8A" name="Pawn">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_9zVJEEVlEeuviqwJeZuY8A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_KqwugEVmEeuviqwJeZuY8A" name="Pawn"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_NYYLUEVmEeuviqwJeZuY8A" name="Messenger">
+    <generalization xmi:type="uml:Generalization" xmi:id="_aQ1rgEVmEeuviqwJeZuY8A" general="_KqwugEVmEeuviqwJeZuY8A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_OQopAEVmEeuviqwJeZuY8A" name="Pilot">
+    <generalization xmi:type="uml:Generalization" xmi:id="_qIAYgEVmEeuviqwJeZuY8A" general="_KqwugEVmEeuviqwJeZuY8A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_Pe5y8EVmEeuviqwJeZuY8A" name="Explorer">
+    <generalization xmi:type="uml:Generalization" xmi:id="_oT1sMEVmEeuviqwJeZuY8A" general="_KqwugEVmEeuviqwJeZuY8A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_Q3G8AEVmEeuviqwJeZuY8A" name="Engineer">
+    <generalization xmi:type="uml:Generalization" xmi:id="_k6a5UEVmEeuviqwJeZuY8A" general="_KqwugEVmEeuviqwJeZuY8A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_SaXegEVmEeuviqwJeZuY8A" name="Navigator">
+    <generalization xmi:type="uml:Generalization" xmi:id="_bs5Z0EVmEeuviqwJeZuY8A" general="_KqwugEVmEeuviqwJeZuY8A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_Tzz9sEVmEeuviqwJeZuY8A" name="Diver">
+    <generalization xmi:type="uml:Generalization" xmi:id="_dfdjoEVmEeuviqwJeZuY8A" general="_KqwugEVmEeuviqwJeZuY8A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_MH_sEEVnEeuviqwJeZuY8A" name="Give card regardless of position"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_SD-iUEVnEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_0uI0QEVnEeuviqwJeZuY8A" name="Go to nearest tile if on sunken tile"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_5eWa8EVnEeuviqwJeZuY8A" name="Move diagonally if on sunken tile"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_Azy-gEVoEeuviqwJeZuY8A" name="Go anywhere if on sunken tile"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_GhLYEEVoEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_IT5S4EVoEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_LANvMEVoEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_W46bgEVoEeuviqwJeZuY8A" name="Shore up tile"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_c69dgEVoEeuviqwJeZuY8A" name="Shore up twice for 1 action"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_gD49UEVoEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_iN4IoEVoEeuviqwJeZuY8A" name="Move"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_jqrd0EVoEeuviqwJeZuY8A" name="Check if can move"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_ShhIAEVpEeuviqwJeZuY8A" name="Give treasure Card"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_UG6_kEVpEeuviqwJeZuY8A" name="Capture Treasure"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_eAvkYEVpEeuviqwJeZuY8A" name="Get card from hand"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_l2y6oEVpEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_nLVrsEVpEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_oI78YEVpEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_pne-AEVpEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_xDKscEVpEeuviqwJeZuY8A" client="_ShhIAEVpEeuviqwJeZuY8A" supplier="_eAvkYEVpEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_ySY4oEVpEeuviqwJeZuY8A" client="_iN4IoEVoEeuviqwJeZuY8A" supplier="_jqrd0EVoEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_0Pjv8EVpEeuviqwJeZuY8A" name="Board"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_5UWfgEVpEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_7w1JAEVpEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_9nAngEVpEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_ERDdoEVqEeuviqwJeZuY8A" name="Other Pawn"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_HnP9YEVqEeuviqwJeZuY8A"/>
+</uml:Model>

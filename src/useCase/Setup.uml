@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Gu48kEVrEeuviqwJeZuY8A" name="Setup">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_G6ehgEVrEeuviqwJeZuY8A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_K0SEoEVrEeuviqwJeZuY8A" name="Setup"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_Oo0GMEVrEeuviqwJeZuY8A" name="Randomly assign tiles"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_TewhcEVrEeuviqwJeZuY8A" name="Initially flood 6 tiles"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_XLR2gEVrEeuviqwJeZuY8A" name="Randomly assign player roles"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_aPtQ0EVrEeuviqwJeZuY8A" name="Give 2 treasure cards per player"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_hFxwwEVrEeuviqwJeZuY8A" name="Set water level"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_mASi8EVrEeuviqwJeZuY8A" name="Board setup"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_rRD5AEVrEeuviqwJeZuY8A" name="Flood setup"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_ttI54EVrEeuviqwJeZuY8A" name="Player setup"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_vvaToEVrEeuviqwJeZuY8A" name="Treasure setup"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_xzY9kEVrEeuviqwJeZuY8A" name="Water setup"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_2Qxu4EVrEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_3x7YkEVrEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_56uREEVrEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_7KMU4EVrEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_8kxcgEVrEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_-lrkUEVrEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_AGAuoEVsEeuviqwJeZuY8A" client="_TewhcEVrEeuviqwJeZuY8A" supplier="_Oo0GMEVrEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_BHtcMEVsEeuviqwJeZuY8A" client="_XLR2gEVrEeuviqwJeZuY8A" supplier="_TewhcEVrEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_CI-r8EVsEeuviqwJeZuY8A" client="_aPtQ0EVrEeuviqwJeZuY8A" supplier="_XLR2gEVrEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_DjjMgEVsEeuviqwJeZuY8A" client="_hFxwwEVrEeuviqwJeZuY8A" supplier="_aPtQ0EVrEeuviqwJeZuY8A"/>
+</uml:Model>

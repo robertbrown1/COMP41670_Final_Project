@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_QphkQEVsEeuviqwJeZuY8A" name="GameObserver">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_Qr0DQEVsEeuviqwJeZuY8A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_clF-YEVsEeuviqwJeZuY8A" name="Pawn"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_ll7FsEVsEeuviqwJeZuY8A" name="Check if trapped"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_nlcGYEVsEeuviqwJeZuY8A" name="Water level is 5"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_uL3n0EVsEeuviqwJeZuY8A" name="Treasure has been lost"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_xOg5cEVsEeuviqwJeZuY8A" name="Fools landing is sunk"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_7ekM8EVsEeuviqwJeZuY8A" name="Game is Lost"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_-KXE0EVsEeuviqwJeZuY8A" name="Check if in position to win"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_BEEc4EVtEeuviqwJeZuY8A" name="Game is won"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_DQ_ncEVtEeuviqwJeZuY8A" client="_BEEc4EVtEeuviqwJeZuY8A" supplier="_-KXE0EVsEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_E8YyQEVtEeuviqwJeZuY8A" client="_7ekM8EVsEeuviqwJeZuY8A" supplier="_nlcGYEVsEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_He39IEVtEeuviqwJeZuY8A" client="_7ekM8EVsEeuviqwJeZuY8A" supplier="_uL3n0EVsEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_JgTpYEVtEeuviqwJeZuY8A" client="_7ekM8EVsEeuviqwJeZuY8A" supplier="_xOg5cEVsEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_Mz0okEVtEeuviqwJeZuY8A" client="_7ekM8EVsEeuviqwJeZuY8A" supplier="_ll7FsEVsEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_OFPNIEVtEeuviqwJeZuY8A" name="Board"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_RXH0oEVtEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_U0Hf8EVtEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_WVYeYEVtEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_X92RAEVtEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Zh1MQEVtEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_bYt1YEVtEeuviqwJeZuY8A" name="Water meter"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_d5PRYEVtEeuviqwJeZuY8A"/>
+</uml:Model>
