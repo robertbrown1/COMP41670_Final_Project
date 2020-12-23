@@ -65,7 +65,7 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void testCanMove() {
+	public void testCanMoveSimple() {
 		for (int x = 0; x < 6; x++) { // For each x coordinate
 			for (int y = 0; y < 6; y++) { // For each y coordinate
 				for (int z = 0; z < 5; z++) { // For all directions
@@ -114,6 +114,64 @@ public class BoardTest {
 									assertTrue("Can move east", movePossible);
 								else
 									assertFalse("Can't move east", movePossible);
+								break;
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	@Test
+	public void testCanMoveDiagonal() {
+		for (int x = 0; x < 6; x++) { // For each x coordinate
+			for (int y = 0; y < 6; y++) { // For each y coordinate
+				for (int z = 0; z < 5; z++) { // For all directions
+					// Current position
+					Coordinate point = new Coordinate(x, y);
+					// Position north east of current
+					boolean northEast = testBoard.isTile(point.northEast()) && !Board.getTile(point.northEast()).getSinkStatus();
+					// Position north west of current
+					boolean northWest = testBoard.isTile(point.northWest()) && !Board.getTile(point.northWest()).getSinkStatus();
+					// Position south east of current
+					boolean southEast = testBoard.isTile(point.southEast()) && !Board.getTile(point.southEast()).getSinkStatus();
+					// Position south west of current
+					boolean southWest = testBoard.isTile(point.southWest()) && !Board.getTile(point.southWest()).getSinkStatus();
+					// Check if move possible in direction
+					boolean movePossible = testBoard.canMoveDiagonal(point, z);
+					if (!testBoard.isTile(point)) // Not a valid tile so pawn shouldn't be here
+						assertFalse("Tile is null so can't move", movePossible);
+					else {
+						switch(z) {
+							case 0: // Any direction
+								if (northEast || northWest || southEast || southWest)
+									assertTrue("Can move in at least one direction", movePossible);
+								else
+									assertFalse("No move possible", movePossible);
+								break;
+							case 1: // North east
+								if (northEast)
+									assertTrue("Can move north east", movePossible);
+								else
+									assertFalse("Can't move north east", movePossible);
+								break;
+							case 2: // North west
+								if (northWest)
+									assertTrue("Can move north west", movePossible);
+								else
+									assertFalse("Can't move north west", movePossible);
+								break;
+							case 3: // South east
+								if (southEast)
+									assertTrue("Can move south east", movePossible);
+								else
+									assertFalse("Can't move south east", movePossible);
+								break;
+							case 4: // South west
+								if (southWest)
+									assertTrue("Can move south west", movePossible);
+								else
+									assertFalse("Can't move south west", movePossible);
 								break;
 						}
 					}

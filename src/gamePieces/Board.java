@@ -80,6 +80,10 @@ public class Board {
 	 */
 	public boolean canMoveSimple(Coordinate point, int direction) {
 		
+		if(!isTile(point)) { // Shouldn't be on invalid tile
+			return false;
+		}
+		
 		switch(direction) {
 			case 0:
 					// checks all 4 directions to see if it can move at all
@@ -115,13 +119,17 @@ public class Board {
 	}
 	
 	/**
-	 * canMoveSimple checks if a pawn at a given location can move in the 4
+	 * canMoveDiagonal checks if a pawn at a given location can move in the 4
 	 * diagonal directions. 
 	 * @param point is the location of the pawn
 	 * @param direction is the direction of travel being checked 0 checks all directions
 	 * @return whether a pawn can move in that direction
 	 */
 	public boolean canMoveDiagonal(Coordinate point, int direction) {
+		
+		if(!isTile(point)) { // Shouldn't be on invalid tile
+			return false;
+		}
 		
 		switch(direction) {
 			case 0:
