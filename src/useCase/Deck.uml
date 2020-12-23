@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_PnShoEVgEeuviqwJeZuY8A" name="Deck">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_PqK2gEVgEeuviqwJeZuY8A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_69fWoEVgEeuviqwJeZuY8A" name="Deck"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_7_Y4gEVgEeuviqwJeZuY8A" name="Flood Deck">
+    <generalization xmi:type="uml:Generalization" xmi:id="_G802cEVhEeuviqwJeZuY8A" general="_69fWoEVgEeuviqwJeZuY8A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_9RuDEEVgEeuviqwJeZuY8A" name="Treasure Deck">
+    <generalization xmi:type="uml:Generalization" xmi:id="_IzoAAEVhEeuviqwJeZuY8A" general="_69fWoEVgEeuviqwJeZuY8A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_WFQOIEVhEeuviqwJeZuY8A" name="Discard Pile"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_YysEwEVhEeuviqwJeZuY8A" name="Deck cards"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_b0nksEVhEeuviqwJeZuY8A" name="Pawn"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_hJjCAEVhEeuviqwJeZuY8A" name="Draw card"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_irnRsEVhEeuviqwJeZuY8A" name="Add to discard pile"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_ll7twEVhEeuviqwJeZuY8A" name="Replace card"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_n_e_EEVhEeuviqwJeZuY8A" name="Shuffle"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_qtonYEVhEeuviqwJeZuY8A" client="_WFQOIEVhEeuviqwJeZuY8A" supplier="_YysEwEVhEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_sYPvEEVhEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_xfZ2IEVhEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_zRb0cEVhEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_0nC8gEVhEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_2PN0MEVhEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_4ZR4AEVhEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_5m0pMEVhEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_9s8KAEVhEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_AdqlMEViEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_CXOu4EViEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_EWpB4EViEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_HCfkIEViEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_MJQCkEViEeuviqwJeZuY8A" client="_hJjCAEVhEeuviqwJeZuY8A" supplier="_WFQOIEVhEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_N3wy0EViEeuviqwJeZuY8A" client="_n_e_EEVhEeuviqwJeZuY8A" supplier="_WFQOIEVhEeuviqwJeZuY8A"/>
+</uml:Model>

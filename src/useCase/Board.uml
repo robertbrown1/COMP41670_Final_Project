@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_XBoE4EVjEeuviqwJeZuY8A" name="Board">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_XDYYYEVjEeuviqwJeZuY8A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_p_NwQEVjEeuviqwJeZuY8A" name="Pawn"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_uDuHgEVjEeuviqwJeZuY8A" name="Find Coordinate from name"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_1_FbkEVjEeuviqwJeZuY8A" name="Can pawn move"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_6Mda8EVjEeuviqwJeZuY8A" name="Is tile at coordainate"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_FB1CAEVkEeuviqwJeZuY8A" name="Get Tile"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_Wl7x8EVkEeuviqwJeZuY8A" name="Tile"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_Xi6-oEVkEeuviqwJeZuY8A" name="Coordinate"/>
+  <packagedElement xmi:type="uml:Dependency" xmi:id="_agN2MEVkEeuviqwJeZuY8A" client="_p_NwQEVjEeuviqwJeZuY8A" supplier="_1_FbkEVjEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_dnkosEVkEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_iY3NcEVkEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_l7_9AEVkEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_peDugEVkEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_sNd7EEVkEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_tndM0EVkEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_vAJeEEVkEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_ybT9YEVkEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_0LVJgEVkEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_4sGmAEVkEeuviqwJeZuY8A"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_8LoA4EVkEeuviqwJeZuY8A"/>
+</uml:Model>
