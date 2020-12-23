@@ -78,4 +78,16 @@ public abstract class Deck {
 		Collections.shuffle(this.cardsInDeck); // Shuffle deck
 	}
 	
+	//===========================================================
+	// Getters
+	//===========================================================
+	
+	public Stack<Card> getCardsInDeck() {
+		return cardsInDeck;
+	}
+	
+	public Stack<Card> getDiscardPile() {
+		return discardPile;
+	}
+	
 }

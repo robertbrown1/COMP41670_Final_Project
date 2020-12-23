@@ -55,12 +55,15 @@ public class Board {
 	}
 	
 	public boolean canMove(Coordinate point, int direction) {
+		if (!isTile(point)) {
+			return false;
+		}
 		switch(direction) {
 			case 0:
 			if (isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus() ||
-					isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus() ||
-					isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus() ||
-					isTile(point.north()) && !Board.getTile(point.north()).getSinkStatus())
+					isTile(point.south()) && !Board.getTile(point.south()).getSinkStatus() ||
+					isTile(point.west()) && !Board.getTile(point.west()).getSinkStatus() ||
+					isTile(point.east()) && !Board.getTile(point.east()).getSinkStatus())
 					return true;
 				break;
 			case 1:
