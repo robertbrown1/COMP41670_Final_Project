@@ -128,6 +128,7 @@ public class DiverPawn extends Pawn {
 	    	int tileSelected = Game.getUserInput(1, nearestTiles.size())-1;
 			this.setPosition(Board.findByName(nearestTiles.get(tileSelected)));
 			System.out.println("Pawn move successful");
+			GameObserver.getInstance().updatePlayerLocations(PlayerList.getInstance().getAllPlayers());
 			return true;
 	    	
 		}
