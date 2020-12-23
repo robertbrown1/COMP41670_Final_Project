@@ -283,6 +283,7 @@ public class PlayerTurn {
 			players.add(list.getPlayer(playerNum)); // Add to list of selected players
 			players.get(i-1).setPosition(new Coordinate(x, y)); // Move pawn to tile
 		}
+		GameObserver.getInstance().updatePlayerLocations(PlayerList.getInstance().getAllPlayers());
 		System.out.println("Pawns have been moved");
 		treasure.addToDiscardPile(checkCard); // Put card in discard pile
     }
