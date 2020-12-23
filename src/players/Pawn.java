@@ -5,6 +5,7 @@ import java.util.*;
 import cards.*;
 import enums.*;
 import gamePieces.*;
+import main.Game;
 import observer.GameObserver;
 
 /**
@@ -22,7 +23,7 @@ public abstract class Pawn {
 	// Variable Setup
 	//===========================================================
 	protected List<Card> hand = new ArrayList<Card>();
-	private Coordinate position;
+	protected Coordinate position;
 	
 	//===========================================================
 	// Constructor
@@ -114,34 +115,62 @@ public abstract class Pawn {
 	}
 	
 	/**
-	 * movePawn moves the player in a given direction if possible
-	 * @param direction the direction to move in
+	 * movePawn asks the player which direction it wants to move and tries to move there
 	 * @return true or false if the pawn has moved
 	 */
-	public boolean movePawn(int direction) {
-		Board gameBoard = Board.getInstance(); // Get board
-		if (gameBoard.canMove(position, direction)) { // Check if pawn can move in direction
-			switch (direction) {
-				case 1: // Move north
-					position.setY(position.getY()+1);
-					break;
-				case 2: // Move South
-					position.setY(position.getY()-1);
-					break;
-				case 3: // Move West
-					position.setX(position.getX()-1);
-					break;
-				case 4: // Move East
-					position.setX(position.getX()+1);
-					break;
+	public boolean movePawn() {
+		
+		if (this.canMove()) {
+			
+			for (;;) {
+					
+					// ask player for input
+				System.out.println("Would you like to move up [1], down [2], left [3] or right [4]?");
+			
+				int direction = Game.getUserInput(1, 4); // Get user to pick an option
+				
+				if (Board.getInstance().canMoveSimple(position, direction)) { // Check if pawn can move in direction
+					switch (direction) {
+						case 1: // Move north
+							this.setPosition(this.position.north());
+							break;
+						case 2: // Move South
+							this.setPosition(this.position.south());
+							break;
+						case 3: // Move West
+							this.setPosition(this.position.west());
+							break;
+						case 4: // Move East
+							this.setPosition(this.position.east());
+							break;
+					}
+					
+						// if you move the pawn then update the observer with the locations
+					GameObserver.getInstance().updatePlayerLocations(PlayerList.getInstance().getAllPlayers());
+					System.out.println("Pawn move successful");
+					return true;
+					
+				}
+				else {
+					System.out.println("Can't Move in this direction, please try again");
+				}
 			}
-			System.out.println("Pawn move successful");
-			GameObserver.getInstance().updatePlayerLocations(PlayerList.getInstance().getAllPlayers());
-			return true;
 		}
-		else {
-			return false;
-		}
+		
+			// condition for game continuing when it should be over
+		System.out.println("Error! The Game is over");
+		return false;
+		
+	}
+	
+	/**
+	 * canMove checks if a pawn can move at all
+	 */
+	public boolean canMove() {
+		
+			// for a simple pawn this is just Board.canMoveSimple()
+		return Board.getInstance().canMoveSimple(this.position, 0);
+		
 	}
 	
 	//===========================================================
@@ -153,9 +182,13 @@ public abstract class Pawn {
 	 * @return card if it is found
 	 */
 	public Card getCard(TreasureEnum card) {
+		
 		for (int i = 0 ; i < hand.size() ; i++) { // Look through hand
+			
 			if (hand.get(i).getName() == card) { // Found card
+				
 				return hand.remove(i); // Remove card from hand
+				
 			}
 		}
 		return null; // Return null if card can't be found
@@ -165,21 +198,28 @@ public abstract class Pawn {
 	 * getHand returns the hand
 	 */
 	public List<Card> getHand(){
+		
 		return this.hand;
+		
 	}
 	
 	/**
 	 * getPosition returns the pawns coordinate
 	 */
 	public Coordinate getPosition() {
+		
 		return this.position;
+		
 	}
+	
 	/**
 	 * setPosition changes the pawns position
 	 * @param point new coordinate of pawn
 	 */
 	public void setPosition(Coordinate point) {
+		
 		this.position = point;
+		
 	}
 	
 	

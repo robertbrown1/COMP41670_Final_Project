@@ -80,7 +80,7 @@ public class BoardTest {
 					// Position east of current
 					boolean east = testBoard.isTile(point.east()) && !Board.getTile(point.east()).getSinkStatus();
 					// Check if move possible in direction
-					boolean movePossible = testBoard.canMove(point, z);
+					boolean movePossible = testBoard.canMoveSimple(point, z);
 					if (!testBoard.isTile(point)) // Not a valid tile so pawn shouldn't be here
 						assertFalse("Tile is null so can't move", movePossible);
 					else {
