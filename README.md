@@ -1,4 +1,8 @@
 # COMP41670_Final_Project
+Team 10:
+  Robert Brown: 16388326
+  Barry McNicholl: 16438444
+
 Java implementation of the Forbidden Island board game for the final project for COMP41670.
 
 You'll find attached the project specification with the game rules.
